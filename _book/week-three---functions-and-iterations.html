@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Week Three - Functions and Iterations | Environmental Data Science Bookdown Portfolio</title>
+  <meta name="description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Week Three - Functions and Iterations | Environmental Data Science Bookdown Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Week Three - Functions and Iterations | Environmental Data Science Bookdown Portfolio" />
+  
+  <meta name="twitter:description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  
+
+<meta name="author" content="Mary Dixon" />
+
+
+<meta name="date" content="2022-03-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-wrangling-and-key-programming-concepts.html"/>
+<link rel="next" href="week-four---geospatial-data-analysis.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="libs/moment-2.8.4/moment.js"></script>
+<script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.0/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Environmental Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i><b>1.1</b> Structure</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#weekly-topics"><i class="fa fa-check"></i><b>1.2</b> Weekly Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="discharge-data-example.html"><a href="discharge-data-example.html"><i class="fa fa-check"></i><b>2</b> Discharge Data Example</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="discharge-data-example.html"><a href="discharge-data-example.html#instructor-created-content"><i class="fa fa-check"></i><b>2.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#sitedescription"><i class="fa fa-check"></i>SiteDescription</a></li>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#data-acquisition-and-plotting-tests"><i class="fa fa-check"></i>Data Acquisition and Plotting tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="discharge-data-example.html"><a href="discharge-data-example.html#assignment-1-discharge-data-example-github-website"><i class="fa fa-check"></i><b>2.2</b> Assignment 1: Discharge Data Example, GitHub Website</a>
+<ul>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#fork-the-example-repository-into-your-personal-github"><i class="fa fa-check"></i>1) Fork the example repository into your personal GitHub</a></li>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#create-an-rstudio-project-from-your-personal-clone-of-the-repo."><i class="fa fa-check"></i>2) Create an RStudio project from your Personal clone of the Repo.</a></li>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#create-a-table-of-contents-that-is-floating-but-displays-three-levels-of-headers-instead-of-two"><i class="fa fa-check"></i>3) Create a table of contents that is floating, but displays three levels of headers instead of two</a></li>
+<li><a href="discharge-data-example.html#make-a-version-of-the-dygraph-with-points-and-lines-by-using-rstudios-dygraph-guide">4) Make a version of the <code>dygraph</code> with points and lines by using rstudio’s dygraph <span>guide</span></a></li>
+<li><a href="discharge-data-example.html#writing-a-paragraph-on-the-poudre-river-with-at-least-three-hyperlinks-two-bolded-sections-and-one-italicized-phrase.-the-content-of-this-paragraph-is-not-vital-but-try-to-at-least-make-it-true-and-interesting-and-of-course-dont-plagiarize.">5) Writing a paragraph on the Poudre river with at least three hyperlinks, <strong>two bolded sections</strong>, and one <em>italicized phrase</em>. The content of this paragraph is not vital, but try to at least make it true and interesting, and, of course, don’t plagiarize.</a></li>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#knit-that-document-and-then-git-commit-and-push-to-your-personal-github."><i class="fa fa-check"></i>6) Knit that document, and then git commit and push to your personal GitHub.</a></li>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#use-the-github---settings---pages-tab-to-create-a-website-of-your-report."><i class="fa fa-check"></i>7) Use the GitHub -&gt; Settings -&gt; Pages tab to create a website of your report.</a></li>
+<li class="chapter" data-level="" data-path="discharge-data-example.html"><a href="discharge-data-example.html#bonus-make-the-timestamp-in-the-header-dynamic.-as-in-it-only-adds-todays-date-not-just-a-static-date-you-enter."><i class="fa fa-check"></i>8) Bonus, make the timestamp in the header dynamic. As in it only adds today’s date, not just a static date you enter.</a></li>
+<li><a href="discharge-data-example.html#bonus-create-an-index_talk.rmd-version-of-your-document-using-the-revealjs-package.-add-link-to-your-original-report-style-document.">9) Bonus, create an “index_talk.Rmd” version of your document using the <code>revealjs</code> package. Add link to your original report-style document.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Data Wrangling and Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#instructor-created-content-1"><i class="fa fa-check"></i><b>3.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#now-that-we-have-learned-how-to-munge-manipulate-data-and-plot-it-we-will-work-on-using-these-skills-in-new-ways"><i class="fa fa-check"></i>Now that we have learned how to munge (manipulate) data and plot it, we will work on using these skills in new ways</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#reading-files"><i class="fa fa-check"></i>Reading Files</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#assignment-2-hayman-fire-recovery"><i class="fa fa-check"></i><b>3.2</b> Assignment 2: Hayman Fire Recovery</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#bonus-question-1"><i class="fa fa-check"></i>Bonus Question 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html"><i class="fa fa-check"></i><b>4</b> Week Three - Functions and Iterations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#instructor-created-content-2"><i class="fa fa-check"></i><b>4.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#simple-web-scraping"><i class="fa fa-check"></i>Simple web scraping</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#reading-an-html"><i class="fa fa-check"></i>Reading an html</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#data-download-1"><i class="fa fa-check"></i>Data Download</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#data-read-in"><i class="fa fa-check"></i>Data read-in</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#snow-data-assignment"><i class="fa fa-check"></i><b>4.2</b> Snow Data Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-4-1"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-5-1"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#bonus-question-1-1"><i class="fa fa-check"></i>Bonus Question 1</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#bonus-question-2"><i class="fa fa-check"></i>Bonus Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Week Four - Geospatial Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#part-1---lagos-spatial-analysis"><i class="fa fa-check"></i><b>5.1</b> Part 1 - LAGOS Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#instructor-created-content-3"><i class="fa fa-check"></i><b>5.1.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lagos-analysis"><i class="fa fa-check"></i>LAGOS Analysis</a></li>
+<li class="chapter" data-level="5.1.2" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lagos-spatial-analysis-assignment"><i class="fa fa-check"></i><b>5.1.2</b> LAGOS Spatial Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#part-2---lake-water-quality-analysis"><i class="fa fa-check"></i><b>5.2</b> Part 2 - Lake Water Quality Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#instructor-created-content-4"><i class="fa fa-check"></i><b>5.2.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lagos-analysis-1"><i class="fa fa-check"></i>LAGOS Analysis</a></li>
+<li class="chapter" data-level="5.2.2" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lake-water-quality-analysis-assignment"><i class="fa fa-check"></i><b>5.2.2</b> Lake Water Quality Analysis Assignment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-models.html"><a href="linear-models.html#instructor-created-content-5"><i class="fa fa-check"></i><b>6.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#weather-data-analysis"><i class="fa fa-check"></i>Weather Data Analysis</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#load-the-prism-daily-maximum-temperatures"><i class="fa fa-check"></i>Load the PRISM daily maximum temperatures</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#temperature-trends"><i class="fa fa-check"></i>Temperature trends</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="linear-models.html"><a href="linear-models.html#weather-and-corn-yield-regressions-assignment"><i class="fa fa-check"></i><b>6.2</b> Weather and Corn Yield Regressions Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1a"><i class="fa fa-check"></i>Question 1A</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1b-1"><i class="fa fa-check"></i>Question 1B</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-2"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html"><i class="fa fa-check"></i><b>7</b> Week 8 - Machine Learning</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#instructor-created-content-6"><i class="fa fa-check"></i><b>7.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#intro"><i class="fa fa-check"></i>Intro</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#data-read"><i class="fa fa-check"></i>Data read</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#model-development"><i class="fa fa-check"></i>Model development</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#chl-a-model"><i class="fa fa-check"></i>Chl-a model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#loire-river-graduate-student-descent-assignment"><i class="fa fa-check"></i><b>7.2</b> Loire River Graduate Student Descent Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#tss-model"><i class="fa fa-check"></i>TSS model</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#tss-evaluation"><i class="fa fa-check"></i>TSS Evaluation</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Environmental Data Science Bookdown Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-three---functions-and-iterations" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Week Three - Functions and Iterations</h1>
+<div id="instructor-created-content-2" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Instructor-Created Content</h2>
+<div id="simple-web-scraping" class="section level3 unnumbered">
+<h3>Simple web scraping</h3>
+<p>R can read html using either rvest, xml, or xml2 packages. Here we are going to navigate to the Center for Snow and Avalance Studies <a href="https://snowstudies.org/archived-data/">Website</a> and read a table in. This table contains links to data we want to programatically download for three sites. We don’t know much about these sites, but they contain incredibly rich snow, temperature, and precip data.</p>
+</div>
+<div id="reading-an-html" class="section level3 unnumbered">
+<h3>Reading an html</h3>
+<p>Extract CSV links from webpage</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="week-three---functions-and-iterations.html#cb24-1" aria-hidden="true" tabindex="-1"></a>site_url <span class="ot">&lt;-</span> <span class="st">&#39;https://snowstudies.org/archived-data/&#39;</span></span>
+<span id="cb24-2"><a href="week-three---functions-and-iterations.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="week-three---functions-and-iterations.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Read the web url</span></span>
+<span id="cb24-4"><a href="week-three---functions-and-iterations.html#cb24-4" aria-hidden="true" tabindex="-1"></a>webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(site_url)</span>
+<span id="cb24-5"><a href="week-three---functions-and-iterations.html#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="week-three---functions-and-iterations.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#See if we can extract tables and get the data that way</span></span>
+<span id="cb24-7"><a href="week-three---functions-and-iterations.html#cb24-7" aria-hidden="true" tabindex="-1"></a>tables <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
+<span id="cb24-8"><a href="week-three---functions-and-iterations.html#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-9"><a href="week-three---functions-and-iterations.html#cb24-9" aria-hidden="true" tabindex="-1"></a>  magrittr<span class="sc">::</span><span class="fu">extract2</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-10"><a href="week-three---functions-and-iterations.html#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-11"><a href="week-three---functions-and-iterations.html#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="week-three---functions-and-iterations.html#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#That didn&#39;t work, so let&#39;s try a different approach</span></span>
+<span id="cb24-13"><a href="week-three---functions-and-iterations.html#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="week-three---functions-and-iterations.html#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract only weblinks and then the URLs!</span></span>
+<span id="cb24-15"><a href="week-three---functions-and-iterations.html#cb24-15" aria-hidden="true" tabindex="-1"></a>links <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
+<span id="cb24-16"><a href="week-three---functions-and-iterations.html#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">&#39;a&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-17"><a href="week-three---functions-and-iterations.html#cb24-17" aria-hidden="true" tabindex="-1"></a>  .[<span class="fu">grepl</span>(<span class="st">&#39;24hr&#39;</span>,.)] <span class="sc">%&gt;%</span></span>
+<span id="cb24-18"><a href="week-three---functions-and-iterations.html#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">&#39;href&#39;</span>)</span></code></pre></div>
+</div>
+<div id="data-download-1" class="section level3 unnumbered">
+<h3>Data Download</h3>
+<div id="download-data-in-a-for-loop" class="section level4 unnumbered">
+<h4>Download data in a for loop</h4>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="week-three---functions-and-iterations.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Grab only the name of the file by splitting out on forward slashes</span></span>
+<span id="cb25-2"><a href="week-three---functions-and-iterations.html#cb25-2" aria-hidden="true" tabindex="-1"></a>splits <span class="ot">&lt;-</span> <span class="fu">str_split_fixed</span>(links,<span class="st">&#39;/&#39;</span>,<span class="dv">8</span>)</span>
+<span id="cb25-3"><a href="week-three---functions-and-iterations.html#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="week-three---functions-and-iterations.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Keep only the 8th column</span></span>
+<span id="cb25-5"><a href="week-three---functions-and-iterations.html#cb25-5" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> splits[,<span class="dv">8</span>] </span>
+<span id="cb25-6"><a href="week-three---functions-and-iterations.html#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="week-three---functions-and-iterations.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#generate a file list for where the data goes</span></span>
+<span id="cb25-8"><a href="week-three---functions-and-iterations.html#cb25-8" aria-hidden="true" tabindex="-1"></a>file_names <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&#39;data/&#39;</span>,dataset)</span>
+<span id="cb25-9"><a href="week-three---functions-and-iterations.html#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="week-three---functions-and-iterations.html#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb25-11"><a href="week-three---functions-and-iterations.html#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(links[i],<span class="at">destfile=</span>file_names[i])</span>
+<span id="cb25-12"><a href="week-three---functions-and-iterations.html#cb25-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-13"><a href="week-three---functions-and-iterations.html#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="week-three---functions-and-iterations.html#cb25-14" aria-hidden="true" tabindex="-1"></a>downloaded <span class="ot">&lt;-</span> <span class="fu">file.exists</span>(file_names)</span>
+<span id="cb25-15"><a href="week-three---functions-and-iterations.html#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="week-three---functions-and-iterations.html#cb25-16" aria-hidden="true" tabindex="-1"></a>evaluate <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">all</span>(downloaded)</span></code></pre></div>
+</div>
+<div id="download-data-in-a-map" class="section level4 unnumbered">
+<h4>Download data in a map</h4>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="week-three---functions-and-iterations.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(evaluate <span class="sc">==</span> T){</span>
+<span id="cb26-2"><a href="week-three---functions-and-iterations.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map2</span>(links[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],file_names[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],download.file)</span>
+<span id="cb26-3"><a href="week-three---functions-and-iterations.html#cb26-3" aria-hidden="true" tabindex="-1"></a>}<span class="cf">else</span>{<span class="fu">print</span>(<span class="st">&#39;data already downloaded&#39;</span>)}</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 0
+## 
+## [[2]]
+## [1] 0
+## 
+## [[3]]
+## [1] 0</code></pre>
+</div>
+</div>
+<div id="data-read-in" class="section level3 unnumbered">
+<h3>Data read-in</h3>
+<div id="read-in-just-the-snow-data-as-a-loop" class="section level4 unnumbered">
+<h4>Read in just the snow data as a loop</h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="week-three---functions-and-iterations.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pattern matching to only keep certain files</span></span>
+<span id="cb28-2"><a href="week-three---functions-and-iterations.html#cb28-2" aria-hidden="true" tabindex="-1"></a>snow_files <span class="ot">&lt;-</span> file_names <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="week-three---functions-and-iterations.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  .[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&#39;SG_24&#39;</span>,.)] <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="week-three---functions-and-iterations.html#cb28-4" aria-hidden="true" tabindex="-1"></a>  .[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&#39;PTSP&#39;</span>,.)]</span></code></pre></div>
+</div>
+<div id="read-in-the-data-as-a-map-function" class="section level4 unnumbered">
+<h4>Read in the data as a map function</h4>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="week-three---functions-and-iterations.html#cb29-1" aria-hidden="true" tabindex="-1"></a>our_snow_reader <span class="ot">&lt;-</span> <span class="cf">function</span>(file){</span>
+<span id="cb29-2"><a href="week-three---functions-and-iterations.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">=</span> <span class="fu">str_split_fixed</span>(file,<span class="st">&#39;/&#39;</span>,<span class="dv">2</span>)[,<span class="dv">2</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="week-three---functions-and-iterations.html#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gsub</span>(<span class="st">&#39;_24hr.csv&#39;</span>,<span class="st">&#39;&#39;</span>,.)</span>
+<span id="cb29-4"><a href="week-three---functions-and-iterations.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(file) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="week-three---functions-and-iterations.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Year,DOY,Sno_Height_M) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="week-three---functions-and-iterations.html#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">site =</span> name)</span>
+<span id="cb29-7"><a href="week-three---functions-and-iterations.html#cb29-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-8"><a href="week-three---functions-and-iterations.html#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="week-three---functions-and-iterations.html#cb29-9" aria-hidden="true" tabindex="-1"></a>snow_data_full <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(snow_files,our_snow_reader)</span>
+<span id="cb29-10"><a href="week-three---functions-and-iterations.html#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="week-three---functions-and-iterations.html#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(snow_data_full)</span></code></pre></div>
+<pre><code>##       Year           DOY         Sno_Height_M        site          
+##  Min.   :2003   Min.   :  1.0   Min.   :-3.523   Length:12786      
+##  1st Qu.:2008   1st Qu.: 92.0   1st Qu.: 0.350   Class :character  
+##  Median :2012   Median :183.0   Median : 0.978   Mode  :character  
+##  Mean   :2012   Mean   :183.1   Mean   : 0.981                     
+##  3rd Qu.:2016   3rd Qu.:274.0   3rd Qu.: 1.520                     
+##  Max.   :2021   Max.   :366.0   Max.   : 2.905                     
+##                                 NA&#39;s   :4554</code></pre>
+</div>
+<div id="plot-snow-data" class="section level4 unnumbered">
+<h4>Plot snow data</h4>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="week-three---functions-and-iterations.html#cb31-1" aria-hidden="true" tabindex="-1"></a>snow_yearly <span class="ot">&lt;-</span> snow_data_full <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="week-three---functions-and-iterations.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year,site) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="week-three---functions-and-iterations.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(Sno_Height_M,<span class="at">na.rm=</span>T))</span>
+<span id="cb31-4"><a href="week-three---functions-and-iterations.html#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="week-three---functions-and-iterations.html#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(snow_yearly,<span class="fu">aes</span>(<span class="at">x=</span>Year,<span class="at">y=</span>mean_height,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb31-6"><a href="week-three---functions-and-iterations.html#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-7"><a href="week-three---functions-and-iterations.html#cb31-7" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb31-8"><a href="week-three---functions-and-iterations.html#cb31-8" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="snow-data-assignment" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Snow Data Assignment</h2>
+<div id="question-1-1" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>Extract the meteorological data URLs. Here we want you to use the <code>rvest</code> package to get the URLs for the <code>SASP forcing</code> and <code>SBSP_forcing</code> meteorological datasets.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="week-three---functions-and-iterations.html#cb32-1" aria-hidden="true" tabindex="-1"></a>site_url <span class="ot">&lt;-</span> <span class="st">&#39;https://snowstudies.org/archived-data/&#39;</span></span>
+<span id="cb32-2"><a href="week-three---functions-and-iterations.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="week-three---functions-and-iterations.html#cb32-3" aria-hidden="true" tabindex="-1"></a>webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(site_url)</span>
+<span id="cb32-4"><a href="week-three---functions-and-iterations.html#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="week-three---functions-and-iterations.html#cb32-5" aria-hidden="true" tabindex="-1"></a>forcing_links <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
+<span id="cb32-6"><a href="week-three---functions-and-iterations.html#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">&#39;a&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-7"><a href="week-three---functions-and-iterations.html#cb32-7" aria-hidden="true" tabindex="-1"></a>  .[<span class="fu">grepl</span>(<span class="st">&#39;forcing&#39;</span>,.)] <span class="sc">%&gt;%</span></span>
+<span id="cb32-8"><a href="week-three---functions-and-iterations.html#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">&#39;href&#39;</span>)</span></code></pre></div>
+</div>
+<div id="question-2-1" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>Download the meteorological data. Use the <code>download_file</code> and <code>str_split_fixed</code> commands to download the data and save it in your data folder. You can use a for loop or a map function.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="week-three---functions-and-iterations.html#cb33-1" aria-hidden="true" tabindex="-1"></a>forcing_splits <span class="ot">&lt;-</span> <span class="fu">str_split_fixed</span>(forcing_links,<span class="st">&#39;/&#39;</span>,<span class="dv">8</span>)</span>
+<span id="cb33-2"><a href="week-three---functions-and-iterations.html#cb33-2" aria-hidden="true" tabindex="-1"></a>forcing_dataset <span class="ot">&lt;-</span> forcing_splits[,<span class="dv">8</span>] </span>
+<span id="cb33-3"><a href="week-three---functions-and-iterations.html#cb33-3" aria-hidden="true" tabindex="-1"></a>forcing_file_names <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&#39;data/&#39;</span>,forcing_dataset)</span>
+<span id="cb33-4"><a href="week-three---functions-and-iterations.html#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="week-three---functions-and-iterations.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>){</span>
+<span id="cb33-6"><a href="week-three---functions-and-iterations.html#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(forcing_links[i],<span class="at">destfile=</span>forcing_file_names[i])</span>
+<span id="cb33-7"><a href="week-three---functions-and-iterations.html#cb33-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-8"><a href="week-three---functions-and-iterations.html#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="week-three---functions-and-iterations.html#cb33-9" aria-hidden="true" tabindex="-1"></a>forcing_downloaded <span class="ot">&lt;-</span> <span class="fu">file.exists</span>(forcing_file_names)</span>
+<span id="cb33-10"><a href="week-three---functions-and-iterations.html#cb33-10" aria-hidden="true" tabindex="-1"></a>evaluate <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">all</span>(forcing_downloaded)</span></code></pre></div>
+</div>
+<div id="question-3-1" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>Write a custom function to read in the data and append a site column to the data.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="week-three---functions-and-iterations.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdftools)</span>
+<span id="cb34-2"><a href="week-three---functions-and-iterations.html#cb34-2" aria-hidden="true" tabindex="-1"></a>headers <span class="ot">&lt;-</span> <span class="fu">pdf_text</span>(<span class="st">&#39;https://snowstudies.org/wp-content/uploads/2022/02/Serially-Complete-Metadata-text08.pdf&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="week-three---functions-and-iterations.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_lines</span>(.) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="week-three---functions-and-iterations.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">trimws</span>(.) <span class="sc">%&gt;%</span></span>
+<span id="cb34-5"><a href="week-three---functions-and-iterations.html#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split_fixed</span>(.,<span class="st">&#39;</span><span class="sc">\\</span><span class="st">.&#39;</span>,<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-6"><a href="week-three---functions-and-iterations.html#cb34-6" aria-hidden="true" tabindex="-1"></a>  .[,<span class="dv">2</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb34-7"><a href="week-three---functions-and-iterations.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  .[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb34-8"><a href="week-three---functions-and-iterations.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_trim</span>(<span class="at">side =</span> <span class="st">&quot;left&quot;</span>)</span>
+<span id="cb34-9"><a href="week-three---functions-and-iterations.html#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="week-three---functions-and-iterations.html#cb34-10" aria-hidden="true" tabindex="-1"></a>SBB_reader <span class="ot">&lt;-</span> <span class="cf">function</span>(file){</span>
+<span id="cb34-11"><a href="week-three---functions-and-iterations.html#cb34-11" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">=</span> <span class="fu">str_split_fixed</span>(file,<span class="st">&#39;_&#39;</span>,<span class="dv">3</span>)[,<span class="dv">2</span>]</span>
+<span id="cb34-12"><a href="week-three---functions-and-iterations.html#cb34-12" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(file,<span class="at">header =</span> <span class="cn">FALSE</span>,<span class="at">skip =</span> <span class="dv">4</span>,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-13"><a href="week-three---functions-and-iterations.html#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(headers) <span class="sc">%&gt;%</span></span>
+<span id="cb34-14"><a href="week-three---functions-and-iterations.html#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> name) </span>
+<span id="cb34-15"><a href="week-three---functions-and-iterations.html#cb34-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb34-16"><a href="week-three---functions-and-iterations.html#cb34-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-17"><a href="week-three---functions-and-iterations.html#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="week-three---functions-and-iterations.html#cb34-18" aria-hidden="true" tabindex="-1"></a>SBB_data_full <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(forcing_file_names,SBB_reader)</span>
+<span id="cb34-19"><a href="week-three---functions-and-iterations.html#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-20"><a href="week-three---functions-and-iterations.html#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(SBB_data_full)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    138336 obs. of  21 variables:
+##  $ year                                                       : int  2003 2003 2003 2003 2003 2003 2003 2003 2003 2003 ...
+##  $ month                                                      : int  11 11 11 11 11 11 11 11 11 11 ...
+##  $ day                                                        : int  10 10 10 10 10 10 10 10 10 10 ...
+##  $ hour                                                       : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ minute                                                     : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ second                                                     : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ precip [kg m-2 s-1]                                        : num  0 0.000278 0.000278 0.000278 0.000833 ...
+##  $ sw down [W m-2]                                            : num  -9999 -9999 -9999 -9999 -9999 ...
+##  $ lw down [W m-2]                                            : num  -9999 -9999 -9999 -9999 -9999 ...
+##  $ air temp [K]                                               : num  270 270 270 270 269 ...
+##  $ windspeed [m s-1]                                          : num  -9999 -9999 -9999 -9999 -9999 ...
+##  $ relative humidity [%]                                      : num  91.9 93 93.2 93.4 93.5 93.5 93.5 93.7 93.8 94.3 ...
+##  $ pressure [Pa]                                              : num  66863 66863 66863 66863 66863 ...
+##  $ specific humidity [g g-1]                                  : num  0.00419 0.00417 0.00411 0.00407 0.00405 ...
+##  $ calculated dewpoint temperature [K]                        : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ precip, WMO-corrected [kg m-2 s-1]                         : int  2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
+##  $ air temp, corrected with Kent et al. (1993) [K]            : int  3000 3000 3000 3000 3000 3000 3000 3000 3000 3000 ...
+##  $ air temp, corrected with Anderson and Baumgartner (1998)[K]: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ air temp, corrected with Nakamura and Mahrt (2005) [K]     : int  4009 4009 4009 4009 4009 4009 4009 4009 4009 4009 ...
+##  $ air temp, corrected with Huwald et al. (2009) [K]          : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ site                                                       : chr  &quot;SASP&quot; &quot;SASP&quot; &quot;SASP&quot; &quot;SASP&quot; ...</code></pre>
+</div>
+<div id="question-4-1" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>Use the <code>map</code> function to read in both meteorological files. Display a summary of your tibble.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="week-three---functions-and-iterations.html#cb36-1" aria-hidden="true" tabindex="-1"></a>SBB_data_full_map <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(forcing_file_names,SBB_reader)</span>
+<span id="cb36-2"><a href="week-three---functions-and-iterations.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="week-three---functions-and-iterations.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(SBB_data_full_map)</span></code></pre></div>
+<pre><code>##       year          month             day             hour           minute 
+##  Min.   :2003   Min.   : 1.000   Min.   : 1.00   Min.   : 0.00   Min.   :0  
+##  1st Qu.:2005   1st Qu.: 3.000   1st Qu.: 8.00   1st Qu.: 5.75   1st Qu.:0  
+##  Median :2007   Median : 6.000   Median :16.00   Median :11.50   Median :0  
+##  Mean   :2007   Mean   : 6.472   Mean   :15.76   Mean   :11.50   Mean   :0  
+##  3rd Qu.:2009   3rd Qu.: 9.000   3rd Qu.:23.00   3rd Qu.:17.25   3rd Qu.:0  
+##  Max.   :2011   Max.   :12.000   Max.   :31.00   Max.   :23.00   Max.   :0  
+##                                                                             
+##      second  precip [kg m-2 s-1] sw down [W m-2]     lw down [W m-2]  
+##  Min.   :0   Min.   :0.000e+00   Min.   :-9999.000   Min.   :-9999.0  
+##  1st Qu.:0   1st Qu.:0.000e+00   1st Qu.:   -3.510   1st Qu.:  173.4  
+##  Median :0   Median :0.000e+00   Median :   -0.344   Median :  231.4  
+##  Mean   :0   Mean   :3.838e-05   Mean   :-1351.008   Mean   :-1325.7  
+##  3rd Qu.:0   3rd Qu.:0.000e+00   3rd Qu.:  294.900   3rd Qu.:  272.2  
+##  Max.   :0   Max.   :6.111e-03   Max.   : 1341.000   Max.   :  365.8  
+##                                                                       
+##   air temp [K]   windspeed [m s-1]   relative humidity [%] pressure [Pa]  
+##  Min.   :242.1   Min.   :-9999.000   Min.   :  0.011       Min.   :63931  
+##  1st Qu.:265.8   1st Qu.:    0.852   1st Qu.: 37.580       1st Qu.:63931  
+##  Median :272.6   Median :    1.548   Median : 59.910       Median :65397  
+##  Mean   :272.6   Mean   : -790.054   Mean   : 58.891       Mean   :65397  
+##  3rd Qu.:279.7   3rd Qu.:    3.087   3rd Qu.: 81.600       3rd Qu.:66863  
+##  Max.   :295.8   Max.   :  317.300   Max.   :324.800       Max.   :66863  
+##                                                                           
+##  specific humidity [g g-1] calculated dewpoint temperature [K]
+##  Min.   :0.000000          Min.   :   0.0                     
+##  1st Qu.:0.001744          1st Qu.:   0.0                     
+##  Median :0.002838          Median :   0.0                     
+##  Mean   :0.003372          Mean   :  74.9                     
+##  3rd Qu.:0.004508          3rd Qu.:   0.0                     
+##  Max.   :0.014780          Max.   :2002.0                     
+##                                                               
+##  precip, WMO-corrected [kg m-2 s-1]
+##  Min.   :   0.0                    
+##  1st Qu.:   0.0                    
+##  Median :   0.0                    
+##  Mean   : 424.7                    
+##  3rd Qu.:   0.0                    
+##  Max.   :3002.0                    
+##                                    
+##  air temp, corrected with Kent et al. (1993) [K]
+##  Min.   :   0                                   
+##  1st Qu.:   0                                   
+##  Median :   0                                   
+##  Mean   : 438                                   
+##  3rd Qu.:   0                                   
+##  Max.   :5002                                   
+##                                                 
+##  air temp, corrected with Anderson and Baumgartner (1998)[K]
+##  Min.   :   0.0                                             
+##  1st Qu.:   0.0                                             
+##  Median :   0.0                                             
+##  Mean   : 173.9                                             
+##  3rd Qu.:   0.0                                             
+##  Max.   :5002.0                                             
+##                                                             
+##  air temp, corrected with Nakamura and Mahrt (2005) [K]
+##  Min.   :   0.0                                        
+##  1st Qu.:   0.0                                        
+##  Median :   0.0                                        
+##  Mean   : 605.9                                        
+##  3rd Qu.:   0.0                                        
+##  Max.   :6002.0                                        
+##                                                        
+##  air temp, corrected with Huwald et al. (2009) [K]     site          
+##  Min.   :   0.00                                   Length:138336     
+##  1st Qu.:   0.00                                   Class :character  
+##  Median :   0.00                                   Mode  :character  
+##  Mean   :  56.49                                                     
+##  3rd Qu.:   0.00                                                     
+##  Max.   :6009.00                                                     
+##  NA&#39;s   :5214</code></pre>
+</div>
+<div id="question-5-1" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p>Make a line plot of mean temp by year by site (using the <code>air temp [K]</code> variable). Is there anything suspicious in the plot? Adjust your filtering if needed.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="week-three---functions-and-iterations.html#cb38-1" aria-hidden="true" tabindex="-1"></a>SBB_yearly <span class="ot">&lt;-</span> SBB_data_full <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="week-three---functions-and-iterations.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">temp =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="week-three---functions-and-iterations.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year,site) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="week-three---functions-and-iterations.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_temp =</span> <span class="fu">mean</span>(temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb38-5"><a href="week-three---functions-and-iterations.html#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="week-three---functions-and-iterations.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(SBB_yearly,<span class="fu">aes</span>(<span class="at">x=</span>year,<span class="at">y=</span>mean_temp,<span class="at">color=</span>site)) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="week-three---functions-and-iterations.html#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb38-8"><a href="week-three---functions-and-iterations.html#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Year&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Mean Temperature&#39;</span>) <span class="sc">+</span></span>
+<span id="cb38-9"><a href="week-three---functions-and-iterations.html#cb38-9" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_few</span>() <span class="sc">+</span></span>
+<span id="cb38-10"><a href="week-three---functions-and-iterations.html#cb38-10" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="question-6" class="section level3 unnumbered">
+<h3>Question 6</h3>
+<p>Write a function that makes line plots of monthly average temperature at each site for a given year. Use a for loop to make these plots for 2005 to 2010. Are monthly average temperatures at the Senator Beck Study Plot ever warmer than the Snow Angel Study Plot?
+Hint: <a href="https://ggplot2.tidyverse.org/reference/print.ggplot.html" class="uri">https://ggplot2.tidyverse.org/reference/print.ggplot.html</a></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="week-three---functions-and-iterations.html#cb39-1" aria-hidden="true" tabindex="-1"></a>temp_month <span class="ot">&lt;-</span> SBB_data_full <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="week-three---functions-and-iterations.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="dv">2005</span><span class="sc">:</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="week-three---functions-and-iterations.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month,site,year) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="week-three---functions-and-iterations.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_temp =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">air temp [K]</span><span class="st">`</span>, <span class="at">na.rm =</span> T))</span>
+<span id="cb39-5"><a href="week-three---functions-and-iterations.html#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="week-three---functions-and-iterations.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp_month,<span class="fu">aes</span>(<span class="at">x =</span> month,<span class="at">y =</span> mean_temp, <span class="at">color =</span> site)) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="week-three---functions-and-iterations.html#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb39-8"><a href="week-three---functions-and-iterations.html#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year) <span class="sc">+</span></span>
+<span id="cb39-9"><a href="week-three---functions-and-iterations.html#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Month&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Average Air Temperature&#39;</span>) <span class="sc">+</span></span>
+<span id="cb39-10"><a href="week-three---functions-and-iterations.html#cb39-10" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_few</span>() <span class="sc">+</span></span>
+<span id="cb39-11"><a href="week-three---functions-and-iterations.html#cb39-11" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="week-three---functions-and-iterations.html#cb40-1" aria-hidden="true" tabindex="-1"></a>lineplotter <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb40-2"><a href="week-three---functions-and-iterations.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  monthdata <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="week-three---functions-and-iterations.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(theyear<span class="sc">==</span>year)<span class="sc">%&gt;%</span></span>
+<span id="cb40-4"><a href="week-three---functions-and-iterations.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="dv">2005</span><span class="sc">:</span><span class="dv">2010</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="week-three---functions-and-iterations.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month,site,year) <span class="sc">%&gt;%</span></span>
+<span id="cb40-6"><a href="week-three---functions-and-iterations.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_temp =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">air temp [K]</span><span class="st">`</span>, <span class="at">na.rm =</span> T))</span>
+<span id="cb40-7"><a href="week-three---functions-and-iterations.html#cb40-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-8"><a href="week-three---functions-and-iterations.html#cb40-8" aria-hidden="true" tabindex="-1"></a>  monthgraph <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(monthdata,<span class="fu">aes</span>(<span class="at">x =</span> month,<span class="at">y =</span> mean_temp, <span class="at">color =</span> site)) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="week-three---functions-and-iterations.html#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb40-10"><a href="week-three---functions-and-iterations.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(theyear) <span class="sc">+</span></span>
+<span id="cb40-11"><a href="week-three---functions-and-iterations.html#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Month&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Average Temperature&#39;</span>) <span class="sc">+</span></span>
+<span id="cb40-12"><a href="week-three---functions-and-iterations.html#cb40-12" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb40-13"><a href="week-three---functions-and-iterations.html#cb40-13" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>()</span>
+<span id="cb40-14"><a href="week-three---functions-and-iterations.html#cb40-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-15"><a href="week-three---functions-and-iterations.html#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(monthgraph)</span>
+<span id="cb40-16"><a href="week-three---functions-and-iterations.html#cb40-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-17"><a href="week-three---functions-and-iterations.html#cb40-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-18"><a href="week-three---functions-and-iterations.html#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-19"><a href="week-three---functions-and-iterations.html#cb40-19" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2005</span>,<span class="dv">2006</span>,<span class="dv">2007</span>,<span class="dv">2008</span>,<span class="dv">2009</span>,<span class="dv">2010</span>)</span>
+<span id="cb40-20"><a href="week-three---functions-and-iterations.html#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="week-three---functions-and-iterations.html#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (theyear <span class="cf">in</span> years){</span>
+<span id="cb40-22"><a href="week-three---functions-and-iterations.html#cb40-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lineplotter</span>(SBB_data_full)</span>
+<span id="cb40-23"><a href="week-three---functions-and-iterations.html#cb40-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-21-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-21-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-21-5.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-21-6.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-21-7.png" width="672" /></p>
+<p><strong>The average monthly temperature of the Snow Angel Study Plot is warmer than the Senator Beck Study Plot every year from 2005-2010.</strong></p>
+</div>
+<div id="bonus-question-1-1" class="section level3 unnumbered">
+<h3>Bonus Question 1</h3>
+<p>Make a plot of average daily precipitation by day of year (averaged across all available years). Color each site.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="week-three---functions-and-iterations.html#cb41-1" aria-hidden="true" tabindex="-1"></a>full_date <span class="ot">&lt;-</span> SBB_data_full <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="week-three---functions-and-iterations.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(year, month, day))</span>
+<span id="cb41-3"><a href="week-three---functions-and-iterations.html#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="week-three---functions-and-iterations.html#cb41-4" aria-hidden="true" tabindex="-1"></a>day_precip <span class="ot">&lt;-</span> full_date <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="week-three---functions-and-iterations.html#cb41-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">group_by</span>(date, site) <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="week-three---functions-and-iterations.html#cb41-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">summarize</span>(<span class="at">mean_precip =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">precip [kg m-2 s-1]</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-7"><a href="week-three---functions-and-iterations.html#cb41-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">dayyr =</span> lubridate<span class="sc">::</span><span class="fu">yday</span>(date))</span>
+<span id="cb41-8"><a href="week-three---functions-and-iterations.html#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="week-three---functions-and-iterations.html#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(day_precip, <span class="fu">aes</span>(<span class="at">x =</span> dayyr,<span class="at">y =</span> mean_precip,<span class="at">color=</span>site)) <span class="sc">+</span></span>
+<span id="cb41-10"><a href="week-three---functions-and-iterations.html#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb41-11"><a href="week-three---functions-and-iterations.html#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Day of Year&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Mean Precipitation&#39;</span>) <span class="sc">+</span></span>
+<span id="cb41-12"><a href="week-three---functions-and-iterations.html#cb41-12" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_few</span>() </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="bonus-question-2" class="section level3 unnumbered">
+<h3>Bonus Question 2</h3>
+<p>Use a function and for loop to create yearly plots of precipitation by day of year. Color each site.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="week-three---functions-and-iterations.html#cb42-1" aria-hidden="true" tabindex="-1"></a>day_year_precip <span class="ot">&lt;-</span> full_date <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="week-three---functions-and-iterations.html#cb42-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">group_by</span>(date, site, year) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="week-three---functions-and-iterations.html#cb42-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">summarize</span>(<span class="at">mean_precip =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">precip [kg m-2 s-1]</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="week-three---functions-and-iterations.html#cb42-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">dayyr =</span> lubridate<span class="sc">::</span><span class="fu">yday</span>(date))</span>
+<span id="cb42-5"><a href="week-three---functions-and-iterations.html#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="week-three---functions-and-iterations.html#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(day_year_precip, <span class="fu">aes</span>(<span class="at">x =</span> dayyr,<span class="at">y =</span> mean_precip,<span class="at">color=</span>site)) <span class="sc">+</span></span>
+<span id="cb42-7"><a href="week-three---functions-and-iterations.html#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb42-8"><a href="week-three---functions-and-iterations.html#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year) <span class="sc">+</span></span>
+<span id="cb42-9"><a href="week-three---functions-and-iterations.html#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Day of Year&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Mean Precipitation&#39;</span>) <span class="sc">+</span></span>
+<span id="cb42-10"><a href="week-three---functions-and-iterations.html#cb42-10" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_few</span>() <span class="sc">+</span></span>
+<span id="cb42-11"><a href="week-three---functions-and-iterations.html#cb42-11" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="week-three---functions-and-iterations.html#cb43-1" aria-hidden="true" tabindex="-1"></a>precip_plotter <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb43-2"><a href="week-three---functions-and-iterations.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  daydata <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb43-3"><a href="week-three---functions-and-iterations.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(theyear<span class="sc">==</span>year)<span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="week-three---functions-and-iterations.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date, site, year) <span class="sc">%&gt;%</span></span>
+<span id="cb43-5"><a href="week-three---functions-and-iterations.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_precip =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">precip [kg m-2 s-1]</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="week-three---functions-and-iterations.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dayyr =</span> lubridate<span class="sc">::</span><span class="fu">yday</span>(date))</span>
+<span id="cb43-7"><a href="week-three---functions-and-iterations.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb43-8"><a href="week-three---functions-and-iterations.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  daygraph <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(daydata,<span class="fu">aes</span>(<span class="at">x =</span> dayyr,<span class="at">y =</span> mean_precip,<span class="at">color=</span>site)) <span class="sc">+</span></span>
+<span id="cb43-9"><a href="week-three---functions-and-iterations.html#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb43-10"><a href="week-three---functions-and-iterations.html#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(theyear) <span class="sc">+</span></span>
+<span id="cb43-11"><a href="week-three---functions-and-iterations.html#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;Day of Year&#39;</span>, <span class="at">y =</span> <span class="st">&#39;Average Precipitation&#39;</span>) <span class="sc">+</span></span>
+<span id="cb43-12"><a href="week-three---functions-and-iterations.html#cb43-12" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb43-13"><a href="week-three---functions-and-iterations.html#cb43-13" aria-hidden="true" tabindex="-1"></a>  ggthemes<span class="sc">::</span><span class="fu">scale_color_few</span>()</span>
+<span id="cb43-14"><a href="week-three---functions-and-iterations.html#cb43-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb43-15"><a href="week-three---functions-and-iterations.html#cb43-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(daygraph)</span>
+<span id="cb43-16"><a href="week-three---functions-and-iterations.html#cb43-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb43-17"><a href="week-three---functions-and-iterations.html#cb43-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-18"><a href="week-three---functions-and-iterations.html#cb43-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-19"><a href="week-three---functions-and-iterations.html#cb43-19" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2005</span>,<span class="dv">2006</span>,<span class="dv">2007</span>,<span class="dv">2008</span>,<span class="dv">2009</span>,<span class="dv">2010</span>)</span>
+<span id="cb43-20"><a href="week-three---functions-and-iterations.html#cb43-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-21"><a href="week-three---functions-and-iterations.html#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (theyear <span class="cf">in</span> years){</span>
+<span id="cb43-22"><a href="week-three---functions-and-iterations.html#cb43-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">precip_plotter</span>(full_date)</span>
+<span id="cb43-23"><a href="week-three---functions-and-iterations.html#cb43-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-23-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-23-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-23-5.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-23-6.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-23-7.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-wrangling-and-key-programming-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-four---geospatial-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Functions-and-Iterations.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

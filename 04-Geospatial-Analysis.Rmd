@@ -1,0 +1,391 @@
+# Geospatial Data Analysis
+
+The fifth week of SOCR580A7 focused on the philosophy of troubleshooting. In class, we worked through debugging examples and were given a practice Rmd with errors for us to fix. The instructors posted references to resources that may help, including the chapter on troubleshooting in the book, [*R for Graduate Students*](https://bookdown.org/yih_huynh/Guide-to-R-Book/trouble.html).
+
+In the sixth week of class, we began work on geospatial analysis. In the video he posted, Matt recommended the book by Lovelace, Nowosad, and Muenchow, [*Geocomputation with R*](https://geocompr.robinlovelace.net/). We worked with data from [LAGOS](https://lagoslakes.org/), a [geospatial database of lake water quality data](https://academic.oup.com/gigascience/article/6/12/gix101/4555226). We discussed spatial data and how to convert from numeric latitude and longitude data to spatial geometry data using the function `st_as_sf`. This week, we used the `mapview` function to make interactive maps of lakes. Matt emphasized the importance of knowing the crs of this function. To find this information, we went to the [EPSG WGS 84 website](https://spatialreference.org/ref/epsg/wgs-84/). From the large lake dataset we worked with this week, we learned to subset to certain states using the `USAboundaries` package. We also covered what it means when lakes have high or low values for chlorophyll-a concentration and secchi disk depths. 
+
+The work for this is broken up in two parts, one for each assignment for this week. The first section is on general geospatial analysis and mapping using LAGOS lake data. The second section also uses LAGOS data, but focuses more on water quality data.  
+
+The instructors wrote example code for downloading data into R from the LAGOS database. The instructors made various maps showing how to subset for states or numers of observations. They introduced the `spatial_join` function for spatial data, in contrast to non-spatial join functions, such as `rbind`, `inner_join`, `full_join`, etc. 
+
+The packages used in both parts this week:  
+
+ - `tidyverse`, a collection of R packages (including `dplyr` and `ggplot2`) designed to wrangle and tidy data  
+ 
+ - `sf`, create shapefiles and encode spatial vector data
+ 
+ - `mapview`, create interactive visualizations of spatial data
+ 
+ - `LAGOSNE`, access lake water quality data through Lake Multi-scaled Geospatial and Temporal database
+ 
+ - `USAboundaries`, contains contemporary state, county, and Congressional district boundaries 
+ 
+ - `lubridate`, part of tidyverse, makes it easier to work with date-time data  
+ 
+## Part 1 - LAGOS Spatial Analysis
+
+### Instructor-Created Content
+
+
+```{r, include=FALSE}
+
+library(tidyverse) # Tidy packages
+library(sf) #Spatial package that can read and create shapefiles 
+library(mapview); mapviewOptions(fgb = F) #Interactive maps
+library(LAGOSNE) #Lots and lots of clean lake data
+library(USAboundaries) #USA states and counties
+library(lubridate) #For dealing with date and time
+```
+
+
+### LAGOS Analysis {-}  
+
+
+#### Loading in data {-}  
+
+
+First download and then specifically grab the locus (or site lat longs)
+
+```{r, warning = F, message = F}
+# #Lagos download script
+#LAGOSNE::lagosne_get(dest_folder = LAGOSNE:::lagos_path())
+
+#Load in lagos
+lagos <- lagosne_load()
+
+#Grab the lake centroid info
+lake_centers <- lagos$locus
+```
+
+
+
+Convert to spatial data
+```{r}
+#Look at the column names
+#names(lake_centers)
+
+#Look at the structure
+#str(lake_centers)
+
+#View the full dataset
+#View(lake_centers %>% slice(1:100))
+
+spatial_lakes <- st_as_sf(lake_centers,coords=c('nhd_long','nhd_lat'),
+                          crs=4326) %>%
+  st_transform(2163)
+
+#Subset for plotting
+subset_spatial <- spatial_lakes %>%
+  slice(1:100) 
+
+subset_baser <- spatial_lakes[1:100,]
+
+#Dynamic mapviewer
+mapview(subset_spatial, canvas = T)
+```
+
+
+Subset to only Minnesota
+
+```{r}
+states <- us_states()
+
+#Plot all the states to check if they loaded
+#mapview(states)
+minnesota <- states %>%
+  filter(name == 'Minnesota') %>%
+  st_transform(2163)
+
+#Subset lakes based on spatial position
+minnesota_lakes <- spatial_lakes[minnesota,] %>%
+  mutate(state = 'Minnesota')
+
+#Plotting the first 1000 lakes
+minnesota_lakes %>%
+  arrange(-lake_area_ha) %>%
+    slice(1:1000) %>%
+  mapview(.,zcol = 'lake_area_ha')
+```
+
+
+
+### Assignment 4: LAGOS Spatial Analysis 
+
+
+#### Question 1: {-}  
+
+*Show a map outline of Iowa and Illinois (similar to Minnesota map upstream)*
+
+```{r 5-1, fig.cap='Outline of Iowa'}
+iowa <- states %>%
+  filter(name == 'Iowa') %>%
+  st_transform(2163)
+
+illinois <- states %>%
+  filter(name == 'Illinois') %>%
+  st_transform(2163)
+
+
+iowa_lakes <- spatial_lakes[iowa,] %>%
+  mutate(state = 'Iowa') %>%
+  arrange(lake_area_ha)
+illinois_lakes <- spatial_lakes[illinois,] %>%
+  mutate(state = 'Illinois')%>%
+  arrange(lake_area_ha)
+
+
+mapview(iowa)
+```
+
+
+```{r}
+mapview(illinois)
+mapview(iowa_lakes, canvas = T, zcol = 'lake_area_ha', layer.name = 'Lake Area (ha)')
+mapview(illinois_lakes, canvas = T, zcol = 'lake_area_ha', layer.name = 'Lake Area (ha)')
+```
+
+
+
+#### Question 2 {-}  
+
+*Subset LAGOS data to these sites, how many sites are in Illinois and Iowa combined? How does this compare to Minnesota?*
+
+```{r}
+iowa_illinois<- rbind(iowa_lakes,illinois_lakes)
+
+nrow(iowa_illinois)
+nrow(minnesota_lakes)
+```
+
+There are `r nrow(iowa_illinois)` sites in Illinois and Iowa combined. This is `r nrow(minnesota_lakes)-nrow(iowa_illinois)` fewer sites than Minnesota which has `r nrow(minnesota_lakes)` sites. 
+
+#### Question 3 {-}  
+
+*What is the distribution of lake size in Iowa vs. Minnesota?*
+
+- *Here I want to see a histogram plot with lake size on x-axis and frequency on y axis*
+
+```{r 5-2, fig.cap='Distribution of Lake Sizes in Iowa (orange) and Minnesota (Blue)', message = F}
+iowa_minnesota <- rbind(iowa_lakes,minnesota_lakes)
+
+ggplot(iowa_minnesota, aes(lake_area_ha, fill = state)) +
+  geom_histogram(position = "dodge") +
+  scale_x_log10() +
+  theme_bw() +
+  labs(x = 'Log of Lake Size (ha)', y = 'Frequency', title = 'Distribution of Lake Sizes in Iowa and Minnesota') +
+  theme(legend.position=c(0.8,0.8)) +
+  theme(legend.title = element_blank())
+```
+
+
+#### Qestions 4{-}  
+
+*Make an interactive plot of lakes in Iowa and Illinois and color them by lake area in hectares*
+
+```{r}
+lake_area_states <- iowa_illinois %>%
+  mutate(log10_lake_area = log(lake_area_ha)) %>%
+  arrange(log10_lake_area) 
+mapview(lake_area_states, canvas = T, zcol = 'log10_lake_area', layer.name = 'Log 10 of the Lake Area (ha)')
+```
+
+
+#### Question 5 {-}  
+
+*What other data sources might we use to understand how reservoirs and natural lakes vary in size in these three states?* 
+
+We can look at Earth Engine to view a time lapse a body of water to see how it has changed over time. We can then use Climate Engine to make polygons (like we did for the Hayman fire recovery assignment) and use the remote sensing data to analyze the lakes. Images of lakes and reservoirs can be analyzed using an image analysis program, like Image J, to compare size. Canopeo is another open source image analysis software that is used to measure green area (usually used in leaf area index analysis). If images from Earth Engine were manipulated to have the lakes be colored green, then Canopeo can be used to measure the area. 
+
+
+
+## Part 2 - Lake Water Quality Analysis 
+
+
+### Instructor-Created Content
+
+
+
+
+### LAGOS Analysis {-}  
+
+
+#### Loading in data {-}  
+
+
+First download and then specifically grab the locus (or site lat longs)
+```{r, warning = F, message = F}
+#Lagos download script
+#lagosne_get(dest_folder = LAGOSNE:::lagos_path(),overwrite=T)
+
+#Load in lagos
+lagos <- lagosne_load()
+
+#Grab the lake centroid info
+lake_centers <- lagos$locus
+
+# Make an sf object 
+spatial_lakes <- st_as_sf(lake_centers,coords=c('nhd_long','nhd_lat'),
+                          crs=4326)
+#Grab the water quality data
+nutr <- lagos$epi_nutr
+
+#Look at column names
+#names(nutr)
+```
+
+#### Subset columns nutr to only keep key info that we want {-}  
+
+
+```{r}
+clarity_only <- nutr %>%
+  select(lagoslakeid,sampledate,chla,doc,secchi) %>%
+  mutate(sampledate = as.character(sampledate) %>% ymd(.))
+```
+
+
+#### Keep sites with at least 200 observations  {-}  
+
+```{r}
+#Look at the number of rows of dataset
+#nrow(clarity_only)
+
+chla_secchi <- clarity_only %>%
+  filter(!is.na(chla),
+         !is.na(secchi))
+
+# How many observatiosn did we lose?
+# nrow(clarity_only) - nrow(chla_secchi)
+
+# Keep only the lakes with at least 200 observations of secchi and chla
+chla_secchi_200 <- chla_secchi %>%
+  group_by(lagoslakeid) %>%
+  mutate(count = n()) %>%
+  filter(count > 200)
+```
+
+
+#### Join water quality data to spatial data {-}  
+
+```{r}
+spatial_200 <- inner_join(spatial_lakes,chla_secchi_200 %>%
+                            distinct(lagoslakeid,.keep_all=T),
+                          by='lagoslakeid')
+```
+
+#### Mean Chl_a map {-}  
+
+```{r}
+### Take the mean chl_a and secchi by lake
+
+mean_values_200 <- chla_secchi_200 %>%
+  # Take summary by lake id
+  group_by(lagoslakeid) %>%
+  # take mean chl_a per lake id
+  summarize(mean_chl = mean(chla,na.rm=T),
+            mean_secchi=mean(secchi,na.rm=T)) %>%
+  #Get rid of NAs
+  filter(!is.na(mean_chl),
+         !is.na(mean_secchi)) %>%
+  # Take the log base 10 of the mean_chl
+  mutate(log10_mean_chl = log10(mean_chl))
+
+#Join datasets
+mean_spatial <- inner_join(spatial_lakes,mean_values_200,
+                          by='lagoslakeid') 
+
+#Make a map
+mapview(mean_spatial,zcol='log10_mean_chl')
+```
+
+
+### Assignmnet 5: Lake Water Quality Analysis 
+
+#### Questions 1A: {-}  
+
+*What is the correlation between Secchi Disk Depth and Chlorophyll a for sites with at least 200 observations?*
+
+- *Here, I just want a plot of chla vs secchi for all sites* 
+
+```{r 5-3, fig.cap= 'Relationship between Secchi disk depth (m) and chlorophyll-a content (mg/L) in lakes with at least 200 observations.'}
+ggplot(mean_values_200,aes(x = mean_chl, y = mean_secchi)) +
+  geom_point() +
+  geom_smooth(method='lm', formula= y~x) +
+  ggthemes::theme_few() +
+  labs(x = "Mean Chlorophyll (mg/L)", y = "Mean Secchi Disk Depth (m)", title = "Correlation between Secchi Disk Depth and Chlorophyll")
+ 
+cor(mean_values_200$mean_chl,mean_values_200$mean_secchi)
+```
+For sites with over 200 observations, there is a slight negative correlation between secchi disk depth and chlorophyll content. The correlation value is `r cor(mean_values_200$mean_chl,mean_values_200$mean_secchi)` which is in agreement with the graph that shows a slight negative relationship between these values. As mean chlorophyll value increases, the mean secchi depth decreases. 
+
+#### Question 1B: {-}  
+
+*Why might this be the case?* 
+
+
+Secchi disk depth measures the clarity of the water. A greater secchi value indicates higher clarity of the water. Chlorophyll is a pigment found in plants, algae, and phytoplankton, so this measurement can approximate algae content in water. A higher chlorophyll content suggests reduced clarity. A high chlorophyll content would therefore correspond to lower secchi disk readings.
+
+#### Question 2A: {-}  
+
+*What states have the most data?*   
+
+*First you will need to make a lagos spatial dataset that has the total number of counts per site.*
+
+```{r}
+spatial_lakes <-lake_centers %>%
+  group_by(lagoslakeid,nhd_long,nhd_lat) %>%
+  count() %>%
+  st_as_sf(.,coords=c('nhd_long','nhd_lat'),
+                          crs=4326) 
+```
+
+
+#### Question 2B: {-}  
+
+*Second, you will need to join this point dataset to the us_boundaries data.* 
+
+```{r}
+spatial_statelakes<- st_join(spatial_lakes,us_states())
+```
+
+
+#### Question 2C: {-}  
+
+*Then you will want to group by state and sum all the observations in that state and arrange that data from most to least total observations per state.* 
+
+```{r}
+state_counts <- spatial_statelakes %>%
+  as.data.frame() %>% # (remove geospatial data)
+  select(-geometry) %>% #(removes geometry column)
+  group_by(name) %>%
+ summarize(statecount = sum(n)) %>%
+ arrange(desc(statecount))
+state_counts[1,1]
+```
+
+The state with the most data is `r state_counts[1,1]`.
+
+
+#### Question 3: {-}  
+
+*Is there a spatial pattern in Secchi disk depth for lakes with at least 200 observations?*
+
+```{r}
+secchi_200 <- clarity_only %>%
+  group_by(lagoslakeid) %>%
+  mutate(count = n()) %>%
+  filter(count > 200) 
+  
+mean_secchi_200 <- secchi_200 %>%
+  group_by(lagoslakeid) %>%
+  summarize(mean_secchi=mean(secchi,na.rm=T)) %>%
+  filter(!is.na(mean_secchi)) %>%
+  mutate(log10_mean_secchi = log10(mean_secchi)) 
+  
+spatial_secchi_200 <- inner_join(spatial_lakes,mean_secchi_200 %>%
+                            distinct(lagoslakeid,.keep_all=T),
+                          by='lagoslakeid')
+mapview(spatial_secchi_200, canvas = TRUE, zcol = 'mean_secchi', layer.name = 'Mean Secchi Depth')
+```
+
+There does seem to be a spatial pattern to the secchi disk depth. The New England states have higher secchi disk depth readings. Farther west, in states like Minnesota and Missouri, the secchi disk depth readings decrease. 
+

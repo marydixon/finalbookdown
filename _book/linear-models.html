@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Linear Models | Environmental Data Science Bookdown Portfolio</title>
+  <meta name="description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Linear Models | Environmental Data Science Bookdown Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Linear Models | Environmental Data Science Bookdown Portfolio" />
+  
+  <meta name="twitter:description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  
+
+<meta name="author" content="Mary Dixon" />
+
+
+<meta name="date" content="2022-03-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="geospatial-data-analysis.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="libs/moment-2.8.4/moment.js"></script>
+<script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.0/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Environmental Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i><b>1.1</b> Structure</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#weekly-topics"><i class="fa fa-check"></i><b>1.2</b> Weekly Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="workflow-tools.html"><a href="workflow-tools.html"><i class="fa fa-check"></i><b>2</b> Workflow Tools</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="workflow-tools.html"><a href="workflow-tools.html#instructor-created-content"><i class="fa fa-check"></i><b>2.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#sitedescription"><i class="fa fa-check"></i>SiteDescription</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#data-acquisition-and-plotting-tests"><i class="fa fa-check"></i>Data Acquisition and Plotting tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="workflow-tools.html"><a href="workflow-tools.html#assignment-1-discharge-data-github-website"><i class="fa fa-check"></i><b>2.2</b> Assignment 1: Discharge Data, GitHub Website</a>
+<ul>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#question-1"><i class="fa fa-check"></i>Question 1:</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#question-2"><i class="fa fa-check"></i>Question 2:</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#question-3"><i class="fa fa-check"></i>Question 3:</a></li>
+<li><a href="workflow-tools.html#make-a-version-of-the-dygraph-with-points-and-lines-by-using-rstudios-dygraph-guide">4) Make a version of the <code>dygraph</code> with points and lines by using rstudio’s dygraph <span>guide</span></a></li>
+<li><a href="workflow-tools.html#writing-a-paragraph-on-the-poudre-river-with-at-least-three-hyperlinks-two-bolded-sections-and-one-italicized-phrase.-the-content-of-this-paragraph-is-not-vital-but-try-to-at-least-make-it-true-and-interesting-and-of-course-dont-plagiarize.">5) Writing a paragraph on the Poudre river with at least three hyperlinks, <strong>two bolded sections</strong>, and one <em>italicized phrase</em>. The content of this paragraph is not vital, but try to at least make it true and interesting, and, of course, don’t plagiarize.</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#knit-that-document-and-then-git-commit-and-push-to-your-personal-github."><i class="fa fa-check"></i>6) Knit that document, and then git commit and push to your personal GitHub.</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#use-the-github---settings---pages-tab-to-create-a-website-of-your-report."><i class="fa fa-check"></i>7) Use the GitHub -&gt; Settings -&gt; Pages tab to create a website of your report.</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#bonus-make-the-timestamp-in-the-header-dynamic.-as-in-it-only-adds-todays-date-not-just-a-static-date-you-enter."><i class="fa fa-check"></i>8) Bonus, make the timestamp in the header dynamic. As in it only adds today’s date, not just a static date you enter.</a></li>
+<li><a href="workflow-tools.html#bonus-create-an-index_talk.rmd-version-of-your-document-using-the-revealjs-package.-add-link-to-your-original-report-style-document.">9) Bonus, create an “index_talk.Rmd” version of your document using the <code>revealjs</code> package. Add link to your original report-style document.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Data Wrangling and Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#instructor-created-content-1"><i class="fa fa-check"></i><b>3.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#reading-files"><i class="fa fa-check"></i>Reading Files</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#assignment-2-hayman-fire-recovery"><i class="fa fa-check"></i><b>3.2</b> Assignment 2: Hayman Fire Recovery</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#bonus-question-1"><i class="fa fa-check"></i>Bonus Question 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html"><i class="fa fa-check"></i><b>4</b> Functions and Iterations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#instructor-created-content-2"><i class="fa fa-check"></i><b>4.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#simple-web-scraping"><i class="fa fa-check"></i>Simple web scraping</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#reading-an-html"><i class="fa fa-check"></i>Reading an html</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#data-download-1"><i class="fa fa-check"></i>Data Download</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#data-read-in"><i class="fa fa-check"></i>Data read-in</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#assignment-3-snow-data"><i class="fa fa-check"></i><b>4.2</b> Assignment 3: Snow Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-1-2"><i class="fa fa-check"></i>Question 1:</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-2-2"><i class="fa fa-check"></i>Question 2:</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-3-2"><i class="fa fa-check"></i>Question 3:</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-4-1"><i class="fa fa-check"></i>Question 4:</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-5-1"><i class="fa fa-check"></i>Question 5:</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-6"><i class="fa fa-check"></i>Question 6:</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#bonus-question-1-1"><i class="fa fa-check"></i>Bonus Question 1:</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#bonus-question-2"><i class="fa fa-check"></i>Bonus Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Geospatial Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#part-1---lagos-spatial-analysis"><i class="fa fa-check"></i><b>5.1</b> Part 1 - LAGOS Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#instructor-created-content-3"><i class="fa fa-check"></i><b>5.1.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#lagos-analysis"><i class="fa fa-check"></i>LAGOS Analysis</a></li>
+<li class="chapter" data-level="5.1.2" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#assignment-4-lagos-spatial-analysis"><i class="fa fa-check"></i><b>5.1.2</b> Assignment 4: LAGOS Spatial Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#part-2---lake-water-quality-analysis"><i class="fa fa-check"></i><b>5.2</b> Part 2 - Lake Water Quality Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#instructor-created-content-4"><i class="fa fa-check"></i><b>5.2.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#lagos-analysis-1"><i class="fa fa-check"></i>LAGOS Analysis</a></li>
+<li class="chapter" data-level="5.2.2" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#assignmnet-5-lake-water-quality-analysis"><i class="fa fa-check"></i><b>5.2.2</b> Assignmnet 5: Lake Water Quality Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-models.html"><a href="linear-models.html#instructor-created-content-5"><i class="fa fa-check"></i><b>6.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#weather-data-analysis"><i class="fa fa-check"></i>Weather Data Analysis</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#load-the-prism-daily-maximum-temperatures"><i class="fa fa-check"></i>Load the PRISM daily maximum temperatures</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#temperature-trends"><i class="fa fa-check"></i>Temperature trends</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="linear-models.html"><a href="linear-models.html#assignment-6-weather-and-corn-yield-regressions"><i class="fa fa-check"></i><b>6.2</b> Assignment 6: Weather and Corn Yield Regressions</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1a"><i class="fa fa-check"></i>Question 1A:</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1b-1"><i class="fa fa-check"></i>Question 1B:</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-4"><i class="fa fa-check"></i>Question 2:</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-5"><i class="fa fa-check"></i>Question 3:</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-2"><i class="fa fa-check"></i>Question 4:</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Environmental Data Science Bookdown Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-models" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Linear Models</h1>
+<p>The focus of the seventh week was on linear models. Nathan showed us how to create a <a href="https://quickstats.nass.usda.gov/api">USDA NASS API key</a>. This key allows us to pull data from the USDA NASS into R using the function, <code>rnassqs</code>. We used this data on weather and corn yield to analyze relationships between sets of parameters. These parameters were used in linear models. We discussed what the different components of a linear model are how to add quadratic trends to linear models. We learned that the p-values for the specific parameters indicate the level of significance for that parameter and the R<sup>2</sup> value represents the percentage of variability explained by the model.</p>
+<p>The instructors wrote example code this week to pull in MATLAB files. The instructors also wrote code to pull in the USDA NASS data into R without having to navigate the <a href="https://quickstats.nass.usda.gov/">NASS QuickStats website</a> and download csv files. These data files of temperature and crop yield were combined and tidied. Nathan showed in his R code how to how to assign dimension names to a matrix and how to convert a matrix into a data frame.</p>
+<p>The packages used this week:</p>
+<ul>
+<li><p><code>tidyverse</code>, a collection of R packages (including <code>dplyr</code> and <code>ggplot2</code>) designed to wrangle and tidy data</p></li>
+<li><p><code>R.matlab</code>, read in MATLAB file</p></li>
+<li><p><code>rnassqs</code>, access to USDA NASS quick stats API to download data directly from USDA into R</p></li>
+<li><p><code>ggthemes</code>, change the look of ggplots</p></li>
+</ul>
+<div id="instructor-created-content-5" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Instructor-Created Content</h2>
+<div id="weather-data-analysis" class="section level3 unnumbered">
+<h3>Weather Data Analysis</h3>
+</div>
+<div id="load-the-prism-daily-maximum-temperatures" class="section level3 unnumbered">
+<h3>Load the PRISM daily maximum temperatures</h3>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="linear-models.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># daily max temperature</span></span>
+<span id="cb69-2"><a href="linear-models.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dimensions: counties x days x years</span></span>
+<span id="cb69-3"><a href="linear-models.html#cb69-3" aria-hidden="true" tabindex="-1"></a>prism <span class="ot">&lt;-</span> <span class="fu">readMat</span>(<span class="st">&quot;data/prismiowa.mat&quot;</span>)</span>
+<span id="cb69-4"><a href="linear-models.html#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="linear-models.html#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="co"># look at county #1</span></span>
+<span id="cb69-6"><a href="linear-models.html#cb69-6" aria-hidden="true" tabindex="-1"></a>t_1981_c1 <span class="ot">&lt;-</span> prism<span class="sc">$</span>tmaxdaily.iowa[<span class="dv">1</span>,,<span class="dv">1</span>]</span>
+<span id="cb69-7"><a href="linear-models.html#cb69-7" aria-hidden="true" tabindex="-1"></a>t_1981_c1[<span class="dv">366</span>]</span></code></pre></div>
+<pre><code>## [1] NaN</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="linear-models.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">366</span>, t_1981_c1, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tmax%20data-1.png" width="672" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="linear-models.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb72-2"><a href="linear-models.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">366</span>, <span class="at">y =</span> t_1981_c1)) <span class="sc">+</span></span>
+<span id="cb72-3"><a href="linear-models.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb72-4"><a href="linear-models.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;day of year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb72-5"><a href="linear-models.html#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;daily maximum temperature (°C)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb72-6"><a href="linear-models.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Daily Maximum Temperature, Iowa County #1&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="_main_files/figure-html/tmax%20data-2.png" width="672" /></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="linear-models.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign dimension names to tmax matrix</span></span>
+<span id="cb74-2"><a href="linear-models.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(prism<span class="sc">$</span>tmaxdaily.iowa) <span class="ot">&lt;-</span> <span class="fu">list</span>(prism<span class="sc">$</span>COUNTYFP, <span class="dv">1</span><span class="sc">:</span><span class="dv">366</span>, prism<span class="sc">$</span>years)</span>
+<span id="cb74-3"><a href="linear-models.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co">#wants a list corresponding to different dimensions - first dim is county code (FP code)</span></span>
+<span id="cb74-4"><a href="linear-models.html#cb74-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-5"><a href="linear-models.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="co"># converted 3d matrix into a data frame</span></span>
+<span id="cb74-6"><a href="linear-models.html#cb74-6" aria-hidden="true" tabindex="-1"></a>tmaxdf <span class="ot">&lt;-</span> <span class="fu">as.data.frame.table</span>(prism<span class="sc">$</span>tmaxdaily.iowa)</span>
+<span id="cb74-7"><a href="linear-models.html#cb74-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-8"><a href="linear-models.html#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="co"># relabel the columns</span></span>
+<span id="cb74-9"><a href="linear-models.html#cb74-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tmaxdf) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;countyfp&quot;</span>,<span class="st">&quot;doy&quot;</span>,<span class="st">&quot;year&quot;</span>,<span class="st">&quot;tmax&quot;</span>)</span>
+<span id="cb74-10"><a href="linear-models.html#cb74-10" aria-hidden="true" tabindex="-1"></a>tmaxdf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(tmaxdf)</span></code></pre></div>
+</div>
+<div id="temperature-trends" class="section level3 unnumbered">
+<h3>Temperature trends</h3>
+<div id="summer-temperature-trends-winneshiek-county" class="section level4 unnumbered">
+<h4>Summer temperature trends: Winneshiek County</h4>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="linear-models.html#cb75-1" aria-hidden="true" tabindex="-1"></a>tmaxdf<span class="sc">$</span>doy <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(tmaxdf<span class="sc">$</span>doy)</span>
+<span id="cb75-2"><a href="linear-models.html#cb75-2" aria-hidden="true" tabindex="-1"></a>tmaxdf<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(tmaxdf<span class="sc">$</span>year))</span>
+<span id="cb75-3"><a href="linear-models.html#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-4"><a href="linear-models.html#cb75-4" aria-hidden="true" tabindex="-1"></a>winnesummer <span class="ot">&lt;-</span> tmaxdf <span class="sc">%&gt;%</span></span>
+<span id="cb75-5"><a href="linear-models.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countyfp<span class="sc">==</span><span class="dv">191</span> <span class="sc">&amp;</span> doy <span class="sc">&gt;=</span> <span class="dv">152</span> <span class="sc">&amp;</span> doy <span class="sc">&lt;=</span> <span class="dv">243</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-6"><a href="linear-models.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb75-7"><a href="linear-models.html#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">meantmax =</span> <span class="fu">mean</span>(tmax))</span>
+<span id="cb75-8"><a href="linear-models.html#cb75-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-9"><a href="linear-models.html#cb75-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(winnesummer, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> meantmax)) <span class="sc">+</span></span>
+<span id="cb75-10"><a href="linear-models.html#cb75-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb75-11"><a href="linear-models.html#cb75-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb75-12"><a href="linear-models.html#cb75-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tmax (°C)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb75-13"><a href="linear-models.html#cb75-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/temp%20trends-1.png" width="672" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="linear-models.html#cb77-1" aria-hidden="true" tabindex="-1"></a>lm_summertmax <span class="ot">&lt;-</span> <span class="fu">lm</span>(meantmax <span class="sc">~</span> year, winnesummer)</span>
+<span id="cb77-2"><a href="linear-models.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summertmax)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = meantmax ~ year, data = winnesummer)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.5189 -0.7867 -0.0341  0.6859  3.7415 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 41.57670   36.44848   1.141    0.262
+## year        -0.00747    0.01823  -0.410    0.684
+## 
+## Residual standard error: 1.232 on 36 degrees of freedom
+## Multiple R-squared:  0.004644,   Adjusted R-squared:  -0.02301 
+## F-statistic: 0.168 on 1 and 36 DF,  p-value: 0.6844</code></pre>
+</div>
+<div id="winter-temperatures---winneshiek-county" class="section level4 unnumbered">
+<h4>Winter Temperatures - Winneshiek County</h4>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="linear-models.html#cb79-1" aria-hidden="true" tabindex="-1"></a>winnewinter <span class="ot">&lt;-</span> tmaxdf <span class="sc">%&gt;%</span></span>
+<span id="cb79-2"><a href="linear-models.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countyfp<span class="sc">==</span><span class="dv">191</span> <span class="sc">&amp;</span> doy <span class="sc">&lt;=</span> <span class="dv">59</span> <span class="sc">|</span> doy <span class="sc">&gt;=</span> <span class="dv">335</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(tmax)) <span class="sc">%&gt;%</span></span>
+<span id="cb79-3"><a href="linear-models.html#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb79-4"><a href="linear-models.html#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">meantmax =</span> <span class="fu">mean</span>(tmax))</span>
+<span id="cb79-5"><a href="linear-models.html#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="linear-models.html#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(winnewinter, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> meantmax)) <span class="sc">+</span></span>
+<span id="cb79-7"><a href="linear-models.html#cb79-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb79-8"><a href="linear-models.html#cb79-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb79-9"><a href="linear-models.html#cb79-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tmax (°C)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb79-10"><a href="linear-models.html#cb79-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code></pre></div>
+<p><img src="_main_files/figure-html/winter%20temps-1.png" width="672" /></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="linear-models.html#cb80-1" aria-hidden="true" tabindex="-1"></a>lm_wintertmax <span class="ot">&lt;-</span> <span class="fu">lm</span>(meantmax <span class="sc">~</span> year, winnewinter)</span>
+<span id="cb80-2"><a href="linear-models.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_wintertmax)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = meantmax ~ year, data = winnewinter)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.0748 -2.6494  0.7715  2.2172  4.1361 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) -119.10546   94.08124  -1.266    0.214
+## year           0.05960    0.04705   1.267    0.213
+## 
+## Residual standard error: 3.181 on 36 degrees of freedom
+## Multiple R-squared:  0.04267,    Adjusted R-squared:  0.01608 
+## F-statistic: 1.605 on 1 and 36 DF,  p-value: 0.2134</code></pre>
+</div>
+<div id="multiple-regression-quadratic-time-trend" class="section level4 unnumbered">
+<h4>Multiple regression – Quadratic time trend</h4>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="linear-models.html#cb82-1" aria-hidden="true" tabindex="-1"></a>winnewinter<span class="sc">$</span>yearsq <span class="ot">&lt;-</span> winnewinter<span class="sc">$</span>year<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb82-2"><a href="linear-models.html#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="linear-models.html#cb82-3" aria-hidden="true" tabindex="-1"></a>lm_wintertmaxquad <span class="ot">&lt;-</span> <span class="fu">lm</span>(meantmax <span class="sc">~</span> year <span class="sc">+</span> yearsq, winnewinter)</span>
+<span id="cb82-4"><a href="linear-models.html#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_wintertmaxquad)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = meantmax ~ year + yearsq, data = winnewinter)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -7.680 -2.813  0.640  2.264  4.072 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) -1.049e+04  1.939e+04  -0.541    0.592
+## year         1.043e+01  1.940e+01   0.538    0.594
+## yearsq      -2.594e-03  4.851e-03  -0.535    0.596
+## 
+## Residual standard error: 3.213 on 35 degrees of freedom
+## Multiple R-squared:  0.05043,    Adjusted R-squared:  -0.003832 
+## F-statistic: 0.9294 on 2 and 35 DF,  p-value: 0.4043</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="linear-models.html#cb84-1" aria-hidden="true" tabindex="-1"></a>winnewinter<span class="sc">$</span>fitted <span class="ot">&lt;-</span> lm_wintertmaxquad<span class="sc">$</span>fitted.values</span>
+<span id="cb84-2"><a href="linear-models.html#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="linear-models.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(winnewinter) <span class="sc">+</span></span>
+<span id="cb84-4"><a href="linear-models.html#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> meantmax)) <span class="sc">+</span></span>
+<span id="cb84-5"><a href="linear-models.html#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> fitted)) <span class="sc">+</span></span>
+<span id="cb84-6"><a href="linear-models.html#cb84-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb84-7"><a href="linear-models.html#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;tmax&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/quadratic%20temp%20trend-1.png" width="672" /></p>
+</div>
+<div id="download-nass-corn-yield-data" class="section level4 unnumbered">
+<h4>Download NASS corn yield data</h4>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="linear-models.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set our API key with NASS</span></span>
+<span id="cb85-2"><a href="linear-models.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nassqs_auth</span>(<span class="at">key =</span> <span class="st">&quot;08EB8353-3696-30D9-96D4-839C4DEA18B4&quot;</span>)</span>
+<span id="cb85-3"><a href="linear-models.html#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="linear-models.html#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters to query on </span></span>
+<span id="cb85-5"><a href="linear-models.html#cb85-5" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">commodity_desc =</span> <span class="st">&quot;CORN&quot;</span>, <span class="at">util_practice_desc =</span> <span class="st">&quot;GRAIN&quot;</span>, <span class="at">prodn_practice_desc =</span> <span class="st">&quot;ALL PRODUCTION PRACTICES&quot;</span>, <span class="at">year__GE =</span> <span class="dv">1981</span>, <span class="at">state_alpha =</span> <span class="st">&quot;IA&quot;</span>)</span>
+<span id="cb85-6"><a href="linear-models.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="linear-models.html#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="co"># download</span></span>
+<span id="cb85-8"><a href="linear-models.html#cb85-8" aria-hidden="true" tabindex="-1"></a>cornyieldsall <span class="ot">&lt;-</span> <span class="fu">nassqs_yields</span>(params)</span>
+<span id="cb85-9"><a href="linear-models.html#cb85-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-10"><a href="linear-models.html#cb85-10" aria-hidden="true" tabindex="-1"></a>cornyieldsall<span class="sc">$</span>county_ansi <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cornyieldsall<span class="sc">$</span>county_ansi)</span>
+<span id="cb85-11"><a href="linear-models.html#cb85-11" aria-hidden="true" tabindex="-1"></a>cornyieldsall<span class="sc">$</span>yield <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cornyieldsall<span class="sc">$</span>Value)</span>
+<span id="cb85-12"><a href="linear-models.html#cb85-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-13"><a href="linear-models.html#cb85-13" aria-hidden="true" tabindex="-1"></a><span class="co"># clean and filter this dataset</span></span>
+<span id="cb85-14"><a href="linear-models.html#cb85-14" aria-hidden="true" tabindex="-1"></a>cornyields <span class="ot">&lt;-</span> <span class="fu">select</span>(cornyieldsall, county_ansi, county_name, yield, year) <span class="sc">%&gt;%</span></span>
+<span id="cb85-15"><a href="linear-models.html#cb85-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(county_ansi) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(yield))</span>
+<span id="cb85-16"><a href="linear-models.html#cb85-16" aria-hidden="true" tabindex="-1"></a>cornyields <span class="ot">&lt;-</span> <span class="fu">tibble</span>(cornyields)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="assignment-6-weather-and-corn-yield-regressions" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Assignment 6: Weather and Corn Yield Regressions</h2>
+<div id="question-1a" class="section level3 unnumbered">
+<h3>Question 1A:</h3>
+<p><em>Extract Winneshiek County corn yields, fit a linear time trend, make a plot. Is there a significant time trend?</em></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="linear-models.html#cb86-1" aria-hidden="true" tabindex="-1"></a>winnecorn <span class="ot">&lt;-</span> cornyields <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="linear-models.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(county_ansi<span class="sc">==</span><span class="dv">191</span>)</span>
+<span id="cb86-3"><a href="linear-models.html#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="linear-models.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(winnecorn, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb86-5"><a href="linear-models.html#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb86-6"><a href="linear-models.html#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Winneshiek Corn Yield over Time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb86-7"><a href="linear-models.html#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb86-8"><a href="linear-models.html#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-1"></span>
+<img src="_main_files/figure-html/6-1-1.png" alt="Linear time trend of Winneshiek County corn yields (bu/acre)" width="672" />
+<p class="caption">
+Figure 6.1: Linear time trend of Winneshiek County corn yields (bu/acre)
+</p>
+</div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="linear-models.html#cb87-1" aria-hidden="true" tabindex="-1"></a>lm_winnecorn <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> year, winnecorn)</span>
+<span id="cb87-2"><a href="linear-models.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_winnecorn)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ year, data = winnecorn)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -51.163  -1.841   2.363   9.437  24.376 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4763.290    448.286  -10.63 4.46e-13 ***
+## year            2.457      0.224   10.96 1.77e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.97 on 39 degrees of freedom
+## Multiple R-squared:  0.7551, Adjusted R-squared:  0.7488 
+## F-statistic: 120.2 on 1 and 39 DF,  p-value: 1.767e-13</code></pre>
+<p>From our linear model (<a href="linear-models.html#fig:6-1">6.1</a>), we can see that there is a significant time trend. The p value for the year is less than alpha = 0.05. This agrees with the graph showing the yield data following the linear model line in a positive slope. With increasing years, there is a concomitant increase in yield.</p>
+</div>
+<div id="question-1b-1" class="section level3 unnumbered">
+<h3>Question 1B:</h3>
+<p><em>Fit a quadratic time trend (i.e., year + year^2) and make a plot. Is there evidence for slowing yield growth?</em></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="linear-models.html#cb89-1" aria-hidden="true" tabindex="-1"></a>winnecorn<span class="sc">$</span>yearsq <span class="ot">&lt;-</span> winnecorn<span class="sc">$</span>year<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb89-2"><a href="linear-models.html#cb89-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-3"><a href="linear-models.html#cb89-3" aria-hidden="true" tabindex="-1"></a>lm_winnecornquad <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> year <span class="sc">+</span> yearsq, winnecorn)</span>
+<span id="cb89-4"><a href="linear-models.html#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_winnecornquad)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ year + yearsq, data = winnecorn)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -51.384  -3.115   1.388   9.743  25.324 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  2.583e+04  8.580e+04   0.301    0.765
+## year        -2.812e+01  8.576e+01  -0.328    0.745
+## yearsq       7.641e-03  2.143e-02   0.357    0.723
+## 
+## Residual standard error: 17.17 on 38 degrees of freedom
+## Multiple R-squared:  0.7559, Adjusted R-squared:  0.7431 
+## F-statistic: 58.84 on 2 and 38 DF,  p-value: 2.311e-12</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="linear-models.html#cb91-1" aria-hidden="true" tabindex="-1"></a>winnecorn<span class="sc">$</span>fitted <span class="ot">&lt;-</span> lm_winnecornquad<span class="sc">$</span>fitted.values</span>
+<span id="cb91-2"><a href="linear-models.html#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="linear-models.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(winnecorn) <span class="sc">+</span></span>
+<span id="cb91-4"><a href="linear-models.html#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb91-5"><a href="linear-models.html#cb91-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> fitted)) <span class="sc">+</span></span>
+<span id="cb91-6"><a href="linear-models.html#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb91-7"><a href="linear-models.html#cb91-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Time Trend for Corn Yield&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-2"></span>
+<img src="_main_files/figure-html/6-2-1.png" alt="Line graph with points showing a quadratic time progression of corn yield in Winneshiek County." width="672" />
+<p class="caption">
+Figure 6.2: Line graph with points showing a quadratic time progression of corn yield in Winneshiek County.
+</p>
+</div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="linear-models.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(winnecorn) <span class="sc">+</span></span>
+<span id="cb92-2"><a href="linear-models.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb92-3"><a href="linear-models.html#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> fitted), <span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb92-4"><a href="linear-models.html#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb92-5"><a href="linear-models.html#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Time Trend for Corn Yield&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-3"></span>
+<img src="_main_files/figure-html/6-3-1.png" alt="Quadratic time trend with year and year^2^ as predictors for corn yield in Winneshiek County." width="672" />
+<p class="caption">
+Figure 6.3: Quadratic time trend with year and year<sup>2</sup> as predictors for corn yield in Winneshiek County.
+</p>
+</div>
+<p>There is not sufficient evidence for slowing yield growth. The year squared estimate is positive and the year is negative, indicating that yield growth is not slowing. The p values for the individual estimates are also greater than alpha = 0.05.</p>
+</div>
+<div id="question-2-4" class="section level3 unnumbered">
+<h3>Question 2:</h3>
+<p><em>Time Series: Let’s analyze the relationship between temperature and yields for the Winneshiek County time series. Use data on yield and summer avg Tmax. Is adding year or Tmax^2 to your model helpful? Make a plot and interpret the results.</em></p>
+<p><em>Combine data for yield and temperature in Winneshiek County:</em></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="linear-models.html#cb93-1" aria-hidden="true" tabindex="-1"></a>summercorn <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(winnecorn,winnesummer, <span class="at">by =</span> <span class="st">&#39;year&#39;</span>)</span>
+<span id="cb93-2"><a href="linear-models.html#cb93-2" aria-hidden="true" tabindex="-1"></a>summercorn<span class="sc">$</span>meantmaxsq <span class="ot">&lt;-</span> summercorn<span class="sc">$</span>meantmax<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<p><em>Make linear regression models with the different parameters of interest:</em></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="linear-models.html#cb94-1" aria-hidden="true" tabindex="-1"></a>lm_summercorn_single <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax, summercorn)</span>
+<span id="cb94-2"><a href="linear-models.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summercorn_single)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax, data = summercorn)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -71.96 -19.85  -3.19  24.64  61.72 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  275.876    118.335   2.331   0.0255 *
+## meantmax      -4.763      4.438  -1.073   0.2902  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 32.88 on 36 degrees of freedom
+## Multiple R-squared:  0.03101,    Adjusted R-squared:  0.004098 
+## F-statistic: 1.152 on 1 and 36 DF,  p-value: 0.2902</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="linear-models.html#cb96-1" aria-hidden="true" tabindex="-1"></a>summercorn<span class="sc">$</span>fittedsingle <span class="ot">&lt;-</span> lm_summercorn_single<span class="sc">$</span>fitted.values</span>
+<span id="cb96-2"><a href="linear-models.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="linear-models.html#cb96-3" aria-hidden="true" tabindex="-1"></a>lm_summercorn_quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax <span class="sc">+</span> meantmaxsq, summercorn)</span>
+<span id="cb96-4"><a href="linear-models.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summercorn_quad)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax + meantmaxsq, data = summercorn)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -56.587 -22.262  -0.982  22.409  52.798 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -4223.604   1446.639  -2.920  0.00609 **
+## meantmax      328.918    107.068   3.072  0.00410 **
+## meantmaxsq     -6.173      1.979  -3.119  0.00362 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 29.5 on 35 degrees of freedom
+## Multiple R-squared:  0.2417, Adjusted R-squared:  0.1984 
+## F-statistic: 5.579 on 2 and 35 DF,  p-value: 0.007887</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="linear-models.html#cb98-1" aria-hidden="true" tabindex="-1"></a>summercorn<span class="sc">$</span>fittedquad <span class="ot">&lt;-</span> lm_summercorn_quad<span class="sc">$</span>fitted.values</span>
+<span id="cb98-2"><a href="linear-models.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="linear-models.html#cb98-3" aria-hidden="true" tabindex="-1"></a>lm_summercorn_year <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax <span class="sc">+</span> year, summercorn)</span>
+<span id="cb98-4"><a href="linear-models.html#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summercorn_year)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax + year, data = summercorn)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -53.071  -7.269   2.271   9.935  27.505 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4791.774    513.812  -9.326 5.10e-11 ***
+## meantmax       -3.201      2.308  -1.387    0.174    
+## year            2.514      0.253   9.934 1.01e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17.06 on 35 degrees of freedom
+## Multiple R-squared:  0.7463, Adjusted R-squared:  0.7318 
+## F-statistic: 51.48 on 2 and 35 DF,  p-value: 3.761e-11</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="linear-models.html#cb100-1" aria-hidden="true" tabindex="-1"></a>summercorn<span class="sc">$</span>fittedyear <span class="ot">&lt;-</span> lm_summercorn_year<span class="sc">$</span>fitted.values</span>
+<span id="cb100-2"><a href="linear-models.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="linear-models.html#cb100-3" aria-hidden="true" tabindex="-1"></a>lm_summercorn <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax <span class="sc">+</span> year <span class="sc">+</span> meantmaxsq, summercorn)</span>
+<span id="cb100-4"><a href="linear-models.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summercorn)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax + year + meantmaxsq, data = summercorn)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -44.683  -5.427   1.214   8.943  25.127 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -7280.2956   755.2808  -9.639 2.96e-11 ***
+## meantmax      208.9004    52.9773   3.943 0.000381 ***
+## year            2.3286     0.2166  10.752 1.77e-12 ***
+## meantmaxsq     -3.9259     0.9799  -4.006 0.000318 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.27 on 34 degrees of freedom
+## Multiple R-squared:  0.8277, Adjusted R-squared:  0.8125 
+## F-statistic: 54.43 on 3 and 34 DF,  p-value: 4.538e-13</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="linear-models.html#cb102-1" aria-hidden="true" tabindex="-1"></a>summercorn<span class="sc">$</span>fitted <span class="ot">&lt;-</span> lm_summercorn<span class="sc">$</span>fitted.values</span></code></pre></div>
+<p><em>Plot the linear model results</em></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="linear-models.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summercorn) <span class="sc">+</span></span>
+<span id="cb103-2"><a href="linear-models.html#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb103-3"><a href="linear-models.html#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fittedsingle)) <span class="sc">+</span></span>
+<span id="cb103-4"><a href="linear-models.html#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb103-5"><a href="linear-models.html#cb103-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fittedsingle), <span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb103-6"><a href="linear-models.html#cb103-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Corn Yield and Mean Maximum Summer Temperature&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-4"></span>
+<img src="_main_files/figure-html/6-4-1.png" alt="Mean maximum summer temperature (°C) of Winneshiek County as a predictor of corn yield (bu/acre)" width="672" />
+<p class="caption">
+Figure 6.4: Mean maximum summer temperature (°C) of Winneshiek County as a predictor of corn yield (bu/acre)
+</p>
+</div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="linear-models.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summercorn) <span class="sc">+</span></span>
+<span id="cb104-2"><a href="linear-models.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb104-3"><a href="linear-models.html#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fittedquad)) <span class="sc">+</span></span>
+<span id="cb104-4"><a href="linear-models.html#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb104-5"><a href="linear-models.html#cb104-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Temperature Trend for Corn Yield&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-5"></span>
+<img src="_main_files/figure-html/6-5-1.png" alt="Quadratic time trend (year^2^ ) of Winneshiek County as a predictor of corn yield (bu/acre)" width="672" />
+<p class="caption">
+Figure 6.5: Quadratic time trend (year<sup>2</sup> ) of Winneshiek County as a predictor of corn yield (bu/acre)
+</p>
+</div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="linear-models.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summercorn) <span class="sc">+</span></span>
+<span id="cb105-2"><a href="linear-models.html#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb105-3"><a href="linear-models.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb105-4"><a href="linear-models.html#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fittedquad), <span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb105-5"><a href="linear-models.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Temperature Trend for Corn Yield&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-6"></span>
+<img src="_main_files/figure-html/6-6-1.png" alt="Quadratic temperature trend (mean maximum temperature (°C)^2^ ) of Winneshiek County as a predictor of corn yield (bu/acre)" width="672" />
+<p class="caption">
+Figure 6.6: Quadratic temperature trend (mean maximum temperature (°C)<sup>2</sup> ) of Winneshiek County as a predictor of corn yield (bu/acre)
+</p>
+</div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="linear-models.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summercorn) <span class="sc">+</span></span>
+<span id="cb106-2"><a href="linear-models.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb106-3"><a href="linear-models.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fittedyear),<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb106-4"><a href="linear-models.html#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb106-5"><a href="linear-models.html#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Years and Max Temperature as Corn Yield Predictors&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-7"></span>
+<img src="_main_files/figure-html/6-7-1.png" alt="Time in years and mean maximum temperature (°C) of Winneshiek County as a predictors of corn yield (bu/acre)" width="672" />
+<p class="caption">
+Figure 6.7: Time in years and mean maximum temperature (°C) of Winneshiek County as a predictors of corn yield (bu/acre)
+</p>
+</div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="linear-models.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summercorn) <span class="sc">+</span></span>
+<span id="cb107-2"><a href="linear-models.html#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb107-3"><a href="linear-models.html#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fitted),<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb107-4"><a href="linear-models.html#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb107-5"><a href="linear-models.html#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Years, Max Temperature, and Quadratic Temperature as Corn Yield Predictors&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-8"></span>
+<img src="_main_files/figure-html/6-8-1.png" alt="Time in years, mean maximum temperature (°C), and quadratic temperature of Winneshiek County as a predictors of corn yield (bu/acre)" width="672" />
+<p class="caption">
+Figure 6.8: Time in years, mean maximum temperature (°C), and quadratic temperature of Winneshiek County as a predictors of corn yield (bu/acre)
+</p>
+</div>
+<p>Adding tmax^2 and year is helpful to the model. From the simple linear regression, we saw that the R-squared value is 0.03101, indicating that the mean max temperature observation only explains 3.101% of the variability in yield. When tmax^2 was added, the R-squared value increased to 0.1984. When year was added, R-sqaured increased to 0.7318. When year and tmax^2 are added, the R-squared value changed to 0.8125, indicating that 81.25% of the variation within yield is explained by all predictors. These results suggest that adding year and tmax^2 make a stronger model.</p>
+<p>The estimate for mean max temperature squared is negative, indicating that temperature change is slowing. With increasing maximum temperature, there is a decrease in yield. With increasing years, there is an increase in corn yield.</p>
+</div>
+<div id="question-3-5" class="section level3 unnumbered">
+<h3>Question 3:</h3>
+<p><em>Cross-Section: Analyze the relationship between temperature and yield across all counties in 2018. Is there a relationship? Interpret the results.</em></p>
+<p><em>Select data from 2018 and combine yield and temperature data:</em></p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="linear-models.html#cb108-1" aria-hidden="true" tabindex="-1"></a>yield <span class="ot">&lt;-</span> cornyieldsall <span class="sc">%&gt;%</span> </span>
+<span id="cb108-2"><a href="linear-models.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-3"><a href="linear-models.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-4"><a href="linear-models.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb108-5"><a href="linear-models.html#cb108-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(county_ansi))</span>
+<span id="cb108-6"><a href="linear-models.html#cb108-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-7"><a href="linear-models.html#cb108-7" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> tmaxdf <span class="sc">%&gt;%</span></span>
+<span id="cb108-8"><a href="linear-models.html#cb108-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(countyfp) <span class="sc">%&gt;%</span></span>
+<span id="cb108-9"><a href="linear-models.html#cb108-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-10"><a href="linear-models.html#cb108-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doy <span class="sc">&gt;=</span> <span class="dv">152</span> <span class="sc">&amp;</span> doy <span class="sc">&lt;=</span> <span class="dv">243</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb108-11"><a href="linear-models.html#cb108-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">meantmax =</span> <span class="fu">mean</span>(tmax)) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-12"><a href="linear-models.html#cb108-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">county_ansi =</span> <span class="st">&quot;countyfp&quot;</span>)</span>
+<span id="cb108-13"><a href="linear-models.html#cb108-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-14"><a href="linear-models.html#cb108-14" aria-hidden="true" tabindex="-1"></a>temp<span class="sc">$</span>county_ansi <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(temp<span class="sc">$</span>county_ansi))</span>
+<span id="cb108-15"><a href="linear-models.html#cb108-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-16"><a href="linear-models.html#cb108-16" aria-hidden="true" tabindex="-1"></a>summeryield <span class="ot">&lt;-</span> <span class="fu">left_join</span>(yield, temp, <span class="at">by=</span><span class="st">&#39;county_ansi&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb108-17"><a href="linear-models.html#cb108-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., county_ansi, county_name, yield, meantmax)</span></code></pre></div>
+<p><em>Fit a simple and multiple regression model:</em></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="linear-models.html#cb109-1" aria-hidden="true" tabindex="-1"></a>lm_summeryield <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax, summeryield)</span>
+<span id="cb109-2"><a href="linear-models.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summeryield)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax, data = summeryield)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -42.983 -15.041   0.955  16.795  31.999 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  312.466     63.387   4.929 3.69e-06 ***
+## meantmax      -4.216      2.241  -1.882   0.0631 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 19.64 on 91 degrees of freedom
+## Multiple R-squared:  0.03745,    Adjusted R-squared:  0.02687 
+## F-statistic: 3.541 on 1 and 91 DF,  p-value: 0.06308</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="linear-models.html#cb111-1" aria-hidden="true" tabindex="-1"></a>summeryield<span class="sc">$</span>meantmaxsq <span class="ot">&lt;-</span> summeryield<span class="sc">$</span>meantmax<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb111-2"><a href="linear-models.html#cb111-2" aria-hidden="true" tabindex="-1"></a>lm_summeryield_quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax <span class="sc">+</span> meantmaxsq, summeryield)</span>
+<span id="cb111-3"><a href="linear-models.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summeryield_quad)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax + meantmaxsq, data = summeryield)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -44.221 -15.399   5.007  14.541  30.879 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -5501.602   1860.830  -2.957  0.00397 **
+## meantmax      406.789    131.493   3.094  0.00263 **
+## meantmaxsq     -7.256      2.321  -3.126  0.00239 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 18.75 on 90 degrees of freedom
+## Multiple R-squared:  0.1317, Adjusted R-squared:  0.1124 
+## F-statistic: 6.827 on 2 and 90 DF,  p-value: 0.001736</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="linear-models.html#cb113-1" aria-hidden="true" tabindex="-1"></a>summeryield<span class="sc">$</span>fitted <span class="ot">&lt;-</span> lm_summeryield_quad<span class="sc">$</span>fitted.values</span></code></pre></div>
+<p><em>Plot results of models:</em></p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="linear-models.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summeryield, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb114-2"><a href="linear-models.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb114-3"><a href="linear-models.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Corn Yield and Mean Maximum Summer Temperature in 2018&quot;</span>) <span class="sc">+</span></span>
+<span id="cb114-4"><a href="linear-models.html#cb114-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb114-5"><a href="linear-models.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-9"></span>
+<img src="_main_files/figure-html/6-9-1.png" alt="Mean Maximum Summer Temperature (°C) as a predictor of corn Yield (bu/acre) in all Iowa counties in 2018." width="672" />
+<p class="caption">
+Figure 6.9: Mean Maximum Summer Temperature (°C) as a predictor of corn Yield (bu/acre) in all Iowa counties in 2018.
+</p>
+</div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="linear-models.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summeryield) <span class="sc">+</span></span>
+<span id="cb115-2"><a href="linear-models.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb115-3"><a href="linear-models.html#cb115-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fitted)) <span class="sc">+</span></span>
+<span id="cb115-4"><a href="linear-models.html#cb115-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb115-5"><a href="linear-models.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Temperature Trend for Corn Yield in 2018&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-10"></span>
+<img src="_main_files/figure-html/6-10-1.png" alt="2018 corn yield (bu/acre) in all Iowa counties. The line shows temperature in a quadratic progression (mean maximum summer temperature (°C)^2^ ) and points show mean maximum summer temperature (°C)." width="672" />
+<p class="caption">
+Figure 6.10: 2018 corn yield (bu/acre) in all Iowa counties. The line shows temperature in a quadratic progression (mean maximum summer temperature (°C)<sup>2</sup> ) and points show mean maximum summer temperature (°C).
+</p>
+</div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="linear-models.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summeryield) <span class="sc">+</span></span>
+<span id="cb116-2"><a href="linear-models.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb116-3"><a href="linear-models.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fitted), <span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb116-4"><a href="linear-models.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb116-5"><a href="linear-models.html#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Temperature Trend for Corn Yield in 2018&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-11"></span>
+<img src="_main_files/figure-html/6-11-1.png" alt="Quadratic temperature trend (mean maximum summer temperature (°C)^2^ ) as a predictor of corn Yield (bu/acre) in all Iowa counties in 2018." width="672" />
+<p class="caption">
+Figure 6.11: Quadratic temperature trend (mean maximum summer temperature (°C)<sup>2</sup> ) as a predictor of corn Yield (bu/acre) in all Iowa counties in 2018.
+</p>
+</div>
+<p>From the graph of temperature and yield across all counties (<a href="linear-models.html#fig:6-11">6.11</a>), we can see that there is a slight negative progression among the data. As temperature increases, yield decreases.</p>
+<p>The estimate from the simple linear model is negative, which supports the illustration in the graph. However, the p value from the simple linear regression is greater than alpha = 0.05, so we do not have sufficient evidence to conclude that there is a relationship.</p>
+<p>When mean temp max squared was added as an estimate in the model, the significance of the temperature predictors changed to less than alpha = 0.05. We can conclude from this model with temp and temp^2 as predictors, that there is a relationship between temperature and yield.</p>
+</div>
+<div id="question-4-2" class="section level3 unnumbered">
+<h3>Question 4:</h3>
+<p><em>Panel: One way to leverage multiple time series is to group all data into what is called a “panel” regression. Convert the county ID code (“countyfp” or “county_ansi”) into factor using as.factor, then include this variable in a regression using all counties’ yield and summer temperature data. How does the significance of your temperature coefficients (Tmax, Tmax^2) change? Make a plot comparing actual and fitted yields and interpret the results of your model.</em></p>
+<p>Convert county ID into factor and join temperature and yield data:</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="linear-models.html#cb117-1" aria-hidden="true" tabindex="-1"></a>yieldall <span class="ot">&lt;-</span> cornyieldsall <span class="sc">%&gt;%</span> </span>
+<span id="cb117-2"><a href="linear-models.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb117-3"><a href="linear-models.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb117-4"><a href="linear-models.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(county_ansi))</span>
+<span id="cb117-5"><a href="linear-models.html#cb117-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-6"><a href="linear-models.html#cb117-6" aria-hidden="true" tabindex="-1"></a>tempall <span class="ot">&lt;-</span> tmaxdf <span class="sc">%&gt;%</span></span>
+<span id="cb117-7"><a href="linear-models.html#cb117-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(countyfp) <span class="sc">%&gt;%</span></span>
+<span id="cb117-8"><a href="linear-models.html#cb117-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doy <span class="sc">&gt;=</span> <span class="dv">152</span> <span class="sc">&amp;</span> doy <span class="sc">&lt;=</span> <span class="dv">243</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb117-9"><a href="linear-models.html#cb117-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">meantmax =</span> <span class="fu">mean</span>(tmax)) <span class="sc">%&gt;%</span> </span>
+<span id="cb117-10"><a href="linear-models.html#cb117-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">county_ansi =</span> <span class="st">&quot;countyfp&quot;</span>)</span>
+<span id="cb117-11"><a href="linear-models.html#cb117-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-12"><a href="linear-models.html#cb117-12" aria-hidden="true" tabindex="-1"></a>tempall<span class="sc">$</span>county_ansi <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(tempall<span class="sc">$</span>county_ansi))</span>
+<span id="cb117-13"><a href="linear-models.html#cb117-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-14"><a href="linear-models.html#cb117-14" aria-hidden="true" tabindex="-1"></a>summeryieldall <span class="ot">&lt;-</span> <span class="fu">left_join</span>(yieldall, tempall, <span class="at">by=</span><span class="st">&#39;county_ansi&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb117-15"><a href="linear-models.html#cb117-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., county_ansi, county_name, yield, meantmax, year)</span>
+<span id="cb117-16"><a href="linear-models.html#cb117-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-17"><a href="linear-models.html#cb117-17" aria-hidden="true" tabindex="-1"></a>summeryieldall<span class="sc">$</span>county_ansi <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(summeryieldall<span class="sc">$</span>county_ansi)</span></code></pre></div>
+<p><em>Run simple and multiple regression models:</em></p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="linear-models.html#cb118-1" aria-hidden="true" tabindex="-1"></a>summeryieldall<span class="sc">$</span>meantmaxsq <span class="ot">&lt;-</span> summeryieldall<span class="sc">$</span>meantmax<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb118-2"><a href="linear-models.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="linear-models.html#cb118-3" aria-hidden="true" tabindex="-1"></a>lm_summeryieldall <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax <span class="sc">+</span> meantmaxsq, summeryieldall)</span>
+<span id="cb118-4"><a href="linear-models.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summeryieldall)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax + meantmaxsq, data = summeryieldall)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -121.002  -22.522   -0.525   26.442   86.550 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -3680.191    844.714  -4.357 1.35e-05 ***
+## meantmax      285.830     60.642   4.713 2.52e-06 ***
+## meantmaxsq     -5.325      1.088  -4.894 1.02e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 35.29 on 4012 degrees of freedom
+## Multiple R-squared:  0.0491, Adjusted R-squared:  0.04862 
+## F-statistic: 103.6 on 2 and 4012 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="linear-models.html#cb120-1" aria-hidden="true" tabindex="-1"></a>lm_summeryield_panel <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax <span class="sc">+</span> meantmaxsq <span class="sc">+</span> county_ansi, summeryieldall)</span>
+<span id="cb120-2"><a href="linear-models.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_summeryield_panel)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax + meantmaxsq + county_ansi, data = summeryieldall)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -115.150  -22.076   -0.895   25.952   82.566 
+## 
+## Coefficients: (2 not defined because of singularities)
+##                  Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)    -8.131e+03  5.398e+03  -1.506  0.13206   
+## meantmax        6.110e+02  3.926e+02   1.556  0.11971   
+## meantmaxsq     -1.126e+01  7.133e+00  -1.578  0.11454   
+## county_ansi3   -5.811e+00  7.676e+00  -0.757  0.44905   
+## county_ansi5   -6.793e+00  6.844e+00  -0.992  0.32105   
+## county_ansi7   -1.623e+01  8.253e+00  -1.967  0.04930 * 
+## county_ansi9   -8.711e-01  7.185e+00  -0.121  0.90351   
+## county_ansi11  -3.433e+00  7.612e+00  -0.451  0.65202   
+## county_ansi13  -4.205e+00  7.649e+00  -0.550  0.58257   
+## county_ansi15   7.454e+00  7.158e+00   1.041  0.29774   
+## county_ansi17   1.167e-01  7.456e+00   0.016  0.98751   
+## county_ansi19  -2.918e+00  7.323e+00  -0.398  0.69028   
+## county_ansi21  -2.440e+00  7.683e+00  -0.318  0.75084   
+## county_ansi23  -1.161e+00  7.690e+00  -0.151  0.87995   
+## county_ansi25  -1.806e-02  7.650e+00  -0.002  0.99812   
+## county_ansi27   2.105e+00  7.317e+00   0.288  0.77361   
+## county_ansi29   7.371e+00  7.484e+00   0.985  0.32477   
+## county_ansi31   5.293e+00  7.495e+00   0.706  0.48010   
+## county_ansi33  -6.324e+00  7.010e+00  -0.902  0.36703   
+## county_ansi35   3.255e+00  7.632e+00   0.427  0.66975   
+## county_ansi37  -7.138e+00  6.879e+00  -1.038  0.29944   
+## county_ansi39  -2.494e+01  8.065e+00  -3.092  0.00200 **
+## county_ansi41  -5.117e+00  7.647e+00  -0.669  0.50343   
+## county_ansi43  -2.358e+00  7.095e+00  -0.332  0.73960   
+## county_ansi45   4.344e-01  7.583e+00   0.057  0.95432   
+## county_ansi47  -4.662e-01  7.433e+00  -0.063  0.94999   
+## county_ansi49   8.485e+00  7.137e+00   1.189  0.23453   
+## county_ansi51  -3.678e+00  1.234e+01  -0.298  0.76561   
+## county_ansi53  -1.479e+01  8.834e+00  -1.674  0.09413 . 
+## county_ansi55  -1.107e+00  7.030e+00  -0.158  0.87485   
+## county_ansi57   1.363e+01  8.795e+00   1.549  0.12139   
+## county_ansi59  -9.503e+00  7.165e+00  -1.326  0.18479   
+## county_ansi61  -3.571e-01  6.970e+00  -0.051  0.95914   
+## county_ansi63  -4.546e+00  6.945e+00  -0.655  0.51274   
+## county_ansi65  -2.783e+00  6.867e+00  -0.405  0.68530   
+## county_ansi67  -6.171e+00  7.338e+00  -0.841  0.40041   
+## county_ansi69  -3.550e-01  7.598e+00  -0.047  0.96274   
+## county_ansi71   4.210e+01  2.262e+01   1.862  0.06275 . 
+## county_ansi73   1.060e+01  6.991e+00   1.516  0.12966   
+## county_ansi75   7.736e-01  7.678e+00   0.101  0.91974   
+## county_ansi77   1.762e+00  7.078e+00   0.249  0.80347   
+## county_ansi79   2.387e+00  7.541e+00   0.317  0.75156   
+## county_ansi81  -1.474e+00  6.932e+00  -0.213  0.83160   
+## county_ansi83   2.638e+00  7.629e+00   0.346  0.72948   
+## county_ansi85   9.046e+00  8.676e+00   1.043  0.29715   
+## county_ansi87   1.063e+01  9.601e+00   1.107  0.26822   
+## county_ansi89  -2.675e+00  9.051e+00  -0.296  0.76757   
+## county_ansi91  -1.429e+00  7.322e+00  -0.195  0.84531   
+## county_ansi93   1.744e+00  7.641e+00   0.228  0.81945   
+## county_ansi95  -2.068e-02  7.073e+00  -0.003  0.99767   
+## county_ansi97  -1.294e+01  7.622e+00  -1.697  0.08976 . 
+## county_ansi99   9.297e+00  7.064e+00   1.316  0.18818   
+## county_ansi101  1.561e+01  1.485e+01   1.051  0.29331   
+## county_ansi103 -2.953e+00  7.084e+00  -0.417  0.67680   
+## county_ansi105 -5.033e+00  7.734e+00  -0.651  0.51521   
+## county_ansi107  2.862e+00  7.820e+00   0.366  0.71439   
+## county_ansi109  6.575e-01  7.222e+00   0.091  0.92746   
+## county_ansi111  1.749e+01  1.488e+01   1.175  0.23988   
+## county_ansi113 -5.180e+00  7.716e+00  -0.671  0.50201   
+## county_ansi115  1.442e+01  1.007e+01   1.432  0.15209   
+## county_ansi117 -2.228e+01  8.094e+00  -2.753  0.00593 **
+## county_ansi119  2.612e-01  7.526e+00   0.035  0.97231   
+## county_ansi121 -3.731e+00  7.171e+00  -0.520  0.60294   
+## county_ansi123  8.888e+00  7.583e+00   1.172  0.24125   
+## county_ansi125  1.991e+00  7.735e+00   0.257  0.79689   
+## county_ansi127  3.870e+00  7.700e+00   0.503  0.61528   
+## county_ansi129  2.855e+01  1.652e+01   1.728  0.08406 . 
+## county_ansi131 -5.815e-02  7.260e+00  -0.008  0.99361   
+## county_ansi133  8.667e+00  9.621e+00   0.901  0.36776   
+## county_ansi135 -1.747e+01  7.455e+00  -2.344  0.01915 * 
+## county_ansi137  1.680e+01  1.111e+01   1.512  0.13071   
+## county_ansi139  7.588e+00  7.370e+00   1.030  0.30325   
+## county_ansi141  3.578e+00  7.680e+00   0.466  0.64133   
+## county_ansi143 -2.783e+00  7.080e+00  -0.393  0.69430   
+## county_ansi145  1.119e+01  1.140e+01   0.982  0.32629   
+## county_ansi147 -4.178e+00  7.624e+00  -0.548  0.58377   
+## county_ansi149  1.951e+00  7.078e+00   0.276  0.78284   
+## county_ansi151  4.138e-01  7.721e+00   0.054  0.95726   
+## county_ansi153  1.348e+01  7.406e+00   1.820  0.06886 . 
+## county_ansi155  1.546e+01  8.682e+00   1.780  0.07508 . 
+## county_ansi157  5.593e+00  6.988e+00   0.800  0.42352   
+## county_ansi159 -1.981e+01  7.825e+00  -2.532  0.01137 * 
+## county_ansi161 -5.455e-01  7.676e+00  -0.071  0.94335   
+## county_ansi163  7.564e+00  7.326e+00   1.032  0.30190   
+## county_ansi165  3.609e-01  7.242e+00   0.050  0.96026   
+## county_ansi167  8.327e+00  7.282e+00   1.144  0.25287   
+## county_ansi169  1.817e-01  7.603e+00   0.024  0.98094   
+## county_ansi171 -9.328e-01  7.608e+00  -0.123  0.90243   
+## county_ansi173 -9.599e+00  8.955e+00  -1.072  0.28380   
+## county_ansi175 -1.234e+01  7.352e+00  -1.678  0.09336 . 
+## county_ansi177  2.064e+01  2.129e+01   0.969  0.33236   
+## county_ansi179  3.311e+00  1.016e+01   0.326  0.74458   
+## county_ansi181 -3.579e+00  7.771e+00  -0.461  0.64509   
+## county_ansi183  1.459e+01  9.259e+00   1.576  0.11510   
+## county_ansi185 -2.220e+01  7.476e+00  -2.970  0.00300 **
+## county_ansi187  3.868e+00  7.664e+00   0.505  0.61381   
+## county_ansi189 -1.066e+00  6.842e+00  -0.156  0.87621   
+## county_ansi191 -3.217e+00  7.150e+00  -0.450  0.65273   
+## county_ansi193  1.477e+00  7.009e+00   0.211  0.83310   
+## county_ansi195         NA         NA      NA       NA   
+## county_ansi197         NA         NA      NA       NA   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 34.65 on 3916 degrees of freedom
+## Multiple R-squared:  0.1048, Adjusted R-squared:  0.08245 
+## F-statistic:  4.68 on 98 and 3916 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="linear-models.html#cb122-1" aria-hidden="true" tabindex="-1"></a>summeryieldall<span class="sc">$</span>fitted <span class="ot">&lt;-</span> lm_summeryield_panel<span class="sc">$</span>fitted.values</span></code></pre></div>
+<p><em>Plot actual and fitted yields:</em></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="linear-models.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summeryieldall) <span class="sc">+</span></span>
+<span id="cb123-2"><a href="linear-models.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> yield, <span class="at">y =</span> fitted)) <span class="sc">+</span></span>
+<span id="cb123-3"><a href="linear-models.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> yield, <span class="at">y =</span> fitted),<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb123-4"><a href="linear-models.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span></span>
+<span id="cb123-5"><a href="linear-models.html#cb123-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Actual Yield&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Fitted Yield&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Fitted Versus Actual Corn Yields For Summer&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-12"></span>
+<img src="_main_files/figure-html/6-12-1.png" alt="Fitted and actual summer corn yields (bu/acre) for all Iowa counties." width="672" />
+<p class="caption">
+Figure 6.12: Fitted and actual summer corn yields (bu/acre) for all Iowa counties.
+</p>
+</div>
+<p>Our panel regression model has an adjusted R-squared value of 0.08245, so only 8.245% of the variation within yield is explained by predictors. The mean max temperature and mean max temperature squared have p values greater than alpha = 0.05, so we do not have sufficient evidence to conclude that there is a relationship between these temperature values and corresponding yield.</p>
+<p>The significance of the temperature coefficients changed when we added the county ansi to the model. When the linear model included mean max temperature and mean max temperature squared, the p values were less than alpha = 0.05, indicating statistical significance. When county ansi was added, the p values for the temperature coefficients increased to greater than alpha = 0.05, indicating a lack of statistical significance.</p>
+</div>
+<div id="question-5-3" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p><em>Soybeans: Download NASS data on soybean yields and explore either a time series relationship for a given county, the <strong>cross-sectional relationship for a given year</strong>, or a panel across all counties and years.</em></p>
+<p>Download soybean data:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="linear-models.html#cb124-1" aria-hidden="true" tabindex="-1"></a>soybeanparams <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">commodity_desc =</span> <span class="st">&quot;SOYBEANS&quot;</span>, <span class="at">statisticcat_desc=</span> <span class="st">&quot;YIELD&quot;</span>, <span class="at">prodn_practice_desc =</span> <span class="st">&quot;ALL PRODUCTION PRACTICES&quot;</span>, <span class="at">year__GE =</span> <span class="dv">1981</span>, <span class="at">state_alpha =</span> <span class="st">&quot;IA&quot;</span>)</span>
+<span id="cb124-2"><a href="linear-models.html#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="linear-models.html#cb124-3" aria-hidden="true" tabindex="-1"></a>soyall <span class="ot">&lt;-</span> <span class="fu">nassqs_yields</span>(soybeanparams)</span>
+<span id="cb124-4"><a href="linear-models.html#cb124-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-5"><a href="linear-models.html#cb124-5" aria-hidden="true" tabindex="-1"></a>soyall<span class="sc">$</span>county_ansi <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(soyall<span class="sc">$</span>county_ansi)</span>
+<span id="cb124-6"><a href="linear-models.html#cb124-6" aria-hidden="true" tabindex="-1"></a>soyall<span class="sc">$</span>yield <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(soyall<span class="sc">$</span>Value)</span>
+<span id="cb124-7"><a href="linear-models.html#cb124-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-8"><a href="linear-models.html#cb124-8" aria-hidden="true" tabindex="-1"></a>soyyield <span class="ot">&lt;-</span> <span class="fu">select</span>(soyall, county_ansi, county_name, yield, year) <span class="sc">%&gt;%</span></span>
+<span id="cb124-9"><a href="linear-models.html#cb124-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(county_ansi) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(yield))</span>
+<span id="cb124-10"><a href="linear-models.html#cb124-10" aria-hidden="true" tabindex="-1"></a>soyyield <span class="ot">&lt;-</span> <span class="fu">tibble</span>(soyyield)</span></code></pre></div>
+<p><em>Cross-sectional relationship of soybean yield and mean summer max temperature for the year 2015:</em></p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="linear-models.html#cb125-1" aria-hidden="true" tabindex="-1"></a>soyyield2015 <span class="ot">&lt;-</span> soyall <span class="sc">%&gt;%</span> </span>
+<span id="cb125-2"><a href="linear-models.html#cb125-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb125-3"><a href="linear-models.html#cb125-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb125-4"><a href="linear-models.html#cb125-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb125-5"><a href="linear-models.html#cb125-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(county_ansi))</span>
+<span id="cb125-6"><a href="linear-models.html#cb125-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-7"><a href="linear-models.html#cb125-7" aria-hidden="true" tabindex="-1"></a>soytemp2015 <span class="ot">&lt;-</span> tmaxdf <span class="sc">%&gt;%</span></span>
+<span id="cb125-8"><a href="linear-models.html#cb125-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(countyfp) <span class="sc">%&gt;%</span></span>
+<span id="cb125-9"><a href="linear-models.html#cb125-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb125-10"><a href="linear-models.html#cb125-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doy <span class="sc">&gt;=</span> <span class="dv">152</span> <span class="sc">&amp;</span> doy <span class="sc">&lt;=</span> <span class="dv">243</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb125-11"><a href="linear-models.html#cb125-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">meantmax =</span> <span class="fu">mean</span>(tmax)) <span class="sc">%&gt;%</span> </span>
+<span id="cb125-12"><a href="linear-models.html#cb125-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">county_ansi =</span> <span class="st">&quot;countyfp&quot;</span>)</span>
+<span id="cb125-13"><a href="linear-models.html#cb125-13" aria-hidden="true" tabindex="-1"></a>soytemp2015<span class="sc">$</span>county_ansi <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(soytemp2015<span class="sc">$</span>county_ansi))</span>
+<span id="cb125-14"><a href="linear-models.html#cb125-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-15"><a href="linear-models.html#cb125-15" aria-hidden="true" tabindex="-1"></a>soy2015 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(soyyield2015, soytemp2015, <span class="at">by=</span><span class="st">&#39;county_ansi&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb125-16"><a href="linear-models.html#cb125-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., county_ansi, county_name, yield, meantmax)</span>
+<span id="cb125-17"><a href="linear-models.html#cb125-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-18"><a href="linear-models.html#cb125-18" aria-hidden="true" tabindex="-1"></a>lm_soyyield <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax, soy2015)</span>
+<span id="cb125-19"><a href="linear-models.html#cb125-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_soyyield)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax, data = soy2015)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.0568  -2.4976   0.2312   1.9743   9.3812 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 166.5497    16.0416  10.382  &lt; 2e-16 ***
+## meantmax     -4.1582     0.6013  -6.915 5.38e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.657 on 95 degrees of freedom
+## Multiple R-squared:  0.3348, Adjusted R-squared:  0.3278 
+## F-statistic: 47.82 on 1 and 95 DF,  p-value: 5.384e-10</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="linear-models.html#cb127-1" aria-hidden="true" tabindex="-1"></a>soy2015<span class="sc">$</span>meantmaxsq <span class="ot">&lt;-</span> soy2015<span class="sc">$</span>meantmax<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb127-2"><a href="linear-models.html#cb127-2" aria-hidden="true" tabindex="-1"></a>lm_soy2015_quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> meantmax <span class="sc">+</span> meantmaxsq, soy2015)</span>
+<span id="cb127-3"><a href="linear-models.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_soy2015_quad)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ meantmax + meantmaxsq, data = soy2015)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.8646  -2.3046   0.4521   1.5551   8.7845 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) -995.3104   603.6188  -1.649   0.1025  
+## meantmax      82.7546    45.1420   1.833   0.0699 .
+## meantmaxsq    -1.6245     0.8437  -1.925   0.0572 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.606 on 94 degrees of freedom
+## Multiple R-squared:   0.36,  Adjusted R-squared:  0.3464 
+## F-statistic: 26.44 on 2 and 94 DF,  p-value: 7.744e-10</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="linear-models.html#cb129-1" aria-hidden="true" tabindex="-1"></a>soy2015<span class="sc">$</span>fitted <span class="ot">&lt;-</span> lm_soy2015_quad<span class="sc">$</span>fitted.values</span>
+<span id="cb129-2"><a href="linear-models.html#cb129-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-3"><a href="linear-models.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(soy2015, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb129-4"><a href="linear-models.html#cb129-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb129-5"><a href="linear-models.html#cb129-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Soybean Yield and Mean Maximum Summer Temperature&quot;</span>) <span class="sc">+</span></span>
+<span id="cb129-6"><a href="linear-models.html#cb129-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb129-7"><a href="linear-models.html#cb129-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-13"></span>
+<img src="_main_files/figure-html/6-13-1.png" alt="Mean maximum summer temperature (°C) in 2015 as a predictor for soybean yield (bu/acre) for all Iowa counties." width="672" />
+<p class="caption">
+Figure 6.13: Mean maximum summer temperature (°C) in 2015 as a predictor for soybean yield (bu/acre) for all Iowa counties.
+</p>
+</div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="linear-models.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(soy2015) <span class="sc">+</span></span>
+<span id="cb130-2"><a href="linear-models.html#cb130-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb130-3"><a href="linear-models.html#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fitted)) <span class="sc">+</span></span>
+<span id="cb130-4"><a href="linear-models.html#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb130-5"><a href="linear-models.html#cb130-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Soybean Yield and Quadratic Trend of Mean Maximum Summer Temperature&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-14"></span>
+<img src="_main_files/figure-html/6-14-1.png" alt="Quadratric temperature trend (mean maximum summer temperature (°C)^2^ ) in 2015 and soybean yield (bu/acre) for all Iowa counties." width="672" />
+<p class="caption">
+Figure 6.14: Quadratric temperature trend (mean maximum summer temperature (°C)<sup>2</sup> ) in 2015 and soybean yield (bu/acre) for all Iowa counties.
+</p>
+</div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="linear-models.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(soy2015) <span class="sc">+</span></span>
+<span id="cb131-2"><a href="linear-models.html#cb131-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> yield)) <span class="sc">+</span></span>
+<span id="cb131-3"><a href="linear-models.html#cb131-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> meantmax, <span class="at">y =</span> fitted), <span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb131-4"><a href="linear-models.html#cb131-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb131-5"><a href="linear-models.html#cb131-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Max Temperature (°C)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Yield (bu/acre)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Soybean Yield and Quadratic Trend of Mean Maximum Summer Temperature&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:6-15"></span>
+<img src="_main_files/figure-html/6-15-1.png" alt="Quadratric temperature trend (mean maximum summer temperature (°C)^2^ ) in 2015 as a predictor for soybean yield (bu/acre) for all Iowa counties." width="672" />
+<p class="caption">
+Figure 6.15: Quadratric temperature trend (mean maximum summer temperature (°C)<sup>2</sup> ) in 2015 as a predictor for soybean yield (bu/acre) for all Iowa counties.
+</p>
+</div>
+<p>A simple linear regression of mean summer temperature and yield gives an R-squared value of 0.3348. We get a negative estimate of mean max summer temperature, indicating that as mean temperature decreases, yield increases. This finding is supported by the graph showing the relationship between yield and mean max temperature. This graph shows the data moving along a negative slope. The p value for the mean max temperature estimate is less than alpha = 0.05, suggesting we have enough evidence to claim a relationship between the predictor and yield.</p>
+<p>However, when we add mean max summer temperature squared to the model, the p value changes for each predictor to be greater than alpha = 0.05, so we cannot claim to have sufficient evidence to reject the null hypothesis using this model.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="geospatial-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-Linear-Models.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

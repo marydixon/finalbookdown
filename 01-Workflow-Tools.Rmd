@@ -1,0 +1,145 @@
+# Workflow Tools
+
+
+For the first week, we covered the basics of environmental data science. Nathan posted a video on an introduction to data science and data structures. We were introduced to the R Studio primers to reinforce topics covered in other statistics courses.  
+
+The second week was when we had our first assignment. Matt posted a video on installing and using R and R Studio. This content covered the different components of what is found in the R Studio interface (environment, console, viewer...). This week, we learned how to navigate GitHub including how to fork into a personal repository, clone to start a new R project, and push the R work to to Git. 
+
+The instructors, Drs. Matt Ross and Nathan Mueller, wrote an Rmd script outlining the Poudre River, how to download data using the `readNWISdv` function, and how to make interactive graphs.
+
+The packages used this week:  
+ - `tidyverse`, a collection of R packages (including `dplyr` and `ggplot2`) designed to wrangle and tidy data  
+ 
+ - `dataRetrieval`, retrieves hydraulic and water quality data from USGS and EPA  
+ 
+ - `dygraphs`, make interactive (zoom/pan/mouseover) plots of large datasets  
+ 
+ - `xts`, creates and extensible time-series (xts) object from raw data inputs  
+ 
+ - `revealjs`, composes Rmds into html presentations  
+
+## Instructor-Created Content 
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(dataRetrieval)
+library(dygraphs)
+library(xts)
+```
+
+### Methods {-}
+
+The Poudre River at Lincoln Bridge is:
+
+  - Downstream of only a little bit of urban stormwater
+
+  - Near Odell Brewing CO
+  
+  - Near an open space area and the Poudre River Trail
+  
+  - **Downstream of many agricultural diversions**
+
+### SiteDescription {-}
+
+![](https://waterdata.usgs.gov/nwisweb/local/state/co/text/pics/06752260big.jpg)
+
+### Data Acquisition and Plotting tests {-}
+
+#### Data Download {-}
+
+```{r downloader}
+q <- readNWISdv(siteNumbers = '06752260',
+                parameterCd = '00060',
+                startDate = '2017-01-01',
+                endDate = '2022-01-01') %>%
+  rename(q = 'X_00060_00003')
+```
+
+
+#### Static Data Plotter {-}
+
+```{r, warning = FALSE, fig.width = 8, fig.height = 5}
+
+ggplot(q, aes(x = Date, y = q)) + 
+  geom_line() + 
+  ylab('Q (cfs)') + 
+  ggtitle('Discharge in the Poudre River, Fort Collins')
+
+```
+
+
+#### Interactive Data Plotter {-}
+
+```{r}
+
+q_xts <- xts(q$q, order.by = q$Date)
+
+dygraph(q_xts) %>%
+  dyAxis("y", label = "Discharge (cfs)") 
+```
+
+
+
+## Assignment 1: Discharge Data, GitHub Website
+
+
+*This assignment will be primarily about demonstrating some expertise in using RMarkdown, since we will be using Rmds as the primary form of homework and assignments.*
+
+
+### Question 1: {-}  
+
+*Fork the example repository into your personal GitHub*  
+
+The example is forked into my repository, [marydixon](https://github.com/marydixon/1_rmarkdown_examples).
+
+### Question 2:  {-}   
+
+*Create an RStudio project from your Personal clone of the Repo.*
+
+It has been cloned by copying the code in GitHub then opening RStudio and following the path of  
+*File* > *New Project* > *Version Control* > *Git*
+
+### Question 3:   {-}  
+
+*Create a table of contents that is floating, but displays three levels of headers instead of two.*
+
+The table of contents was adjusted to have three levels by defining `toc_depth` as 3 under the output section in the header. The third level subheadings are "Data Download", "Static Data Plotter", and "Dynamic Data Plotter".
+
+### 4) Make a version of the `dygraph` with points and lines by using rstudio's dygraph [guide](https://rstudio.github.io/dygraphs/)  {-}
+```{r 2-1, fig.cap='Point graph showing discharge rate of the Poudre River in cfs from 2017 to 2021.'}
+q_xts <- xts(q$q, order.by = q$Date)
+
+dygraph(q_xts, main = "Discharge DyGraph with Points") %>%
+  dyAxis("y", label = "Discharge (cfs)") %>% 
+  dyAxis("x", label = "Date") %>%
+  dyOptions(drawPoints = TRUE, pointSize=3)
+```
+
+```{r 2-2, fig.cap='Line graph showing discharge rate of the Poudre River in cfs from 2017 to 2021.'}
+q_xts <- xts(q$q, order.by = q$Date)
+
+dygraph(q_xts, main = "Discharge DyGraph with Lines") %>%
+  dyAxis("y", label = "Discharge (cfs)") %>% 
+  dyAxis("x", label = "Date")%>% 
+  dySeries("V1", strokeWidth = 2, strokePattern = "dashed")
+```
+
+### 5) Writing a paragraph on the Poudre river with at least three hyperlinks, **two bolded sections**, and one *italicized phrase*. The content of this paragraph is not vital, but try to at least make it true and interesting, and, of course, don't plagiarize.  {-}  
+
+**The Cache la Poudre River** begins in the Rocky Mountain National Park. [Recreational activities](https://www.fs.usda.gov/recarea/arp/recarea/?recid=81605) along the Poudre River include camping, fishing, hiking, and scenic driving. To measure the amount of water flowing in this river, [discharge data](https://www.usgs.gov/special-topics/water-science-school/science/how-streamflow-measured) is collected. Discharge is measured by the equation, **$discharge = A × v$**. [Current discharge data](https://waterdata.usgs.gov/usa/nwis/uv?06752260) is being impacted by ice at measurement sites. Discharge data is important because the Poudre River has flooded before. In 1864, a Poudre River flood destroyed Camp Collins, a military post. *When the military relocated after this event, the camp was called Fort Collins.* **This camp became the city of Fort Collins we know today**.
+
+### 6) Knit that document, and then git commit and push to your personal GitHub. {-} 
+This document was saved, knitted, and then committed to GitHub by using the Git button in RStudio. 
+
+### 7) Use the GitHub -> Settings -> Pages tab to create a website of your report. {-}
+The pages tab now shows [my assignment](https://marydixon.github.io/1_rmarkdown_examples/) published.
+
+### 8) Bonus, make the timestamp in the header dynamic. As in it only adds today's date, not just a static date you enter. {-}
+The time stamp was changed to reflect today's date by adding `format(Sys.time(), '%B %d, %Y')` to the date section at the top of the markdown document.
+
+### 9) Bonus, create an "index_talk.Rmd" version of your document using the `revealjs` package. Add link to your original report-style document. {-}  
+The talk can be found [here](https://marydixon.github.io/1_rmarkdown_examples/index_talk#/)
+
+
