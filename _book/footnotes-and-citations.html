@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Footnotes and citations | SOCR 580A7 Bookdown Portfolio</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Footnotes and citations | SOCR 580A7 Bookdown Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Footnotes and citations | SOCR 580A7 Bookdown Portfolio" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Mary Dixon" />
+
+
+<meta name="date" content="2022-03-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="assignment.html"/>
+<link rel="next" href="lagos-analysis.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="libs/moment-2.8.4/moment.js"></script>
+<script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.0/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hello-bookdown.html"><a href="hello-bookdown.html"><i class="fa fa-check"></i><b>2</b> Hello bookdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="hello-bookdown.html"><a href="hello-bookdown.html#a-section"><i class="fa fa-check"></i><b>2.1</b> A section</a>
+<ul>
+<li class="chapter" data-level="" data-path="hello-bookdown.html"><a href="hello-bookdown.html#an-unnumbered-section"><i class="fa fa-check"></i>An unnumbered section</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#sitedescription"><i class="fa fa-check"></i><b>3.1</b> SiteDescription</a></li>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#data-acquisition-and-plotting-tests"><i class="fa fa-check"></i><b>3.2</b> Data Acquisition and Plotting tests</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="methods.html"><a href="methods.html#data-download"><i class="fa fa-check"></i><b>3.2.1</b> Data Download</a></li>
+<li class="chapter" data-level="3.2.2" data-path="methods.html"><a href="methods.html#static-data-plotter"><i class="fa fa-check"></i><b>3.2.2</b> Static Data Plotter</a></li>
+<li class="chapter" data-level="3.2.3" data-path="methods.html"><a href="methods.html#interactive-data-plotter"><i class="fa fa-check"></i><b>3.2.3</b> Interactive Data Plotter</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="assignment..html"><a href="assignment..html"><i class="fa fa-check"></i><b>4</b> Assignment.</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="assignment..html"><a href="assignment..html#fork-the-example-repository-into-your-personal-github"><i class="fa fa-check"></i><b>4.1</b> 1) Fork the example repository into your personal GitHub</a></li>
+<li class="chapter" data-level="4.2" data-path="assignment..html"><a href="assignment..html#create-an-rstudio-project-from-your-personal-clone-of-the-repo."><i class="fa fa-check"></i><b>4.2</b> 2) Create an RStudio project from your Personal clone of the Repo.</a></li>
+<li class="chapter" data-level="4.3" data-path="assignment..html"><a href="assignment..html#create-a-table-of-contents-that-is-floating-but-displays-three-levels-of-headers-instead-of-two-by-editing-the-content-at-the-beginning-of-the-document"><i class="fa fa-check"></i><b>4.3</b> 3) Create a table of contents that is floating, but displays three levels of headers instead of two (by editing the content at the beginning of the document)</a></li>
+<li class="chapter" data-level="4.4" data-path="assignment..html"><a href="assignment..html#make-a-version-of-the-dygraph-with-points-and-lines-by-using-rstudios-dygraph-guide"><i class="fa fa-check"></i><b>4.4</b> 4) Make a version of the <code>dygraph</code> with points and lines by using rstudio’s dygraph <span>guide</span></a></li>
+<li class="chapter" data-level="4.5" data-path="assignment..html"><a href="assignment..html#writing-a-paragraph-on-the-poudre-river-with-at-least-three-hyperlinks-two-bolded-sections-and-one-italicized-phrase.-the-content-of-this-paragraph-is-not-vital-but-try-to-at-least-make-it-true-and-interesting-and-of-course-dont-plagiarize."><i class="fa fa-check"></i><b>4.5</b> 5) Writing a paragraph on the Poudre river with at least three hyperlinks, <strong>two bolded sections</strong>, and one <em>italicized phrase</em>. The content of this paragraph is not vital, but try to at least make it true and interesting, and, of course, don’t plagiarize.</a></li>
+<li class="chapter" data-level="4.6" data-path="assignment..html"><a href="assignment..html#knit-that-document-and-then-git-commit-and-push-to-your-personal-github."><i class="fa fa-check"></i><b>4.6</b> 6) Knit that document, and then git commit and push to your personal GitHub.</a></li>
+<li class="chapter" data-level="4.7" data-path="assignment..html"><a href="assignment..html#use-the-github---settings---pages-tab-to-create-a-website-of-your-report."><i class="fa fa-check"></i><b>4.7</b> 7) Use the GitHub -&gt; Settings -&gt; Pages tab to create a website of your report.</a></li>
+<li class="chapter" data-level="4.8" data-path="assignment..html"><a href="assignment..html#bonus-make-the-timestamp-in-the-header-dynamic.-as-in-it-only-adds-todays-date-not-just-a-static-date-you-enter."><i class="fa fa-check"></i><b>4.8</b> 8) Bonus, make the timestamp in the header dynamic. As in it only adds today’s date, not just a static date you enter.</a></li>
+<li class="chapter" data-level="4.9" data-path="assignment..html"><a href="assignment..html#bonus-create-an-index_talk.rmd-version-of-your-document-using-the-revealjs-package.-add-link-to-your-original-report-style-document."><i class="fa fa-check"></i><b>4.9</b> 9) Bonus, create an “index_talk.Rmd” version of your document using the <code>revealjs</code> package. Add link to your original report-style document.</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>5</b> Cross-references</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>5.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="5.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>5.2</b> Captioned figures and tables</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="initial-setup.html"><a href="initial-setup.html"><i class="fa fa-check"></i><b>6</b> Initial Setup</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="initial-setup.html"><a href="initial-setup.html#loading-packages"><i class="fa fa-check"></i><b>6.1</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="now-that-we-have-learned-how-to-munge-manipulate-data-and-plot-it-we-will-work-on-using-these-skills-in-new-ways.html"><a href="now-that-we-have-learned-how-to-munge-manipulate-data-and-plot-it-we-will-work-on-using-these-skills-in-new-ways.html"><i class="fa fa-check"></i><b>7</b> Now that we have learned how to munge (manipulate) data and plot it, we will work on using these skills in new ways</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="now-that-we-have-learned-how-to-munge-manipulate-data-and-plot-it-we-will-work-on-using-these-skills-in-new-ways.html"><a href="now-that-we-have-learned-how-to-munge-manipulate-data-and-plot-it-we-will-work-on-using-these-skills-in-new-ways.html#reading-files"><i class="fa fa-check"></i><b>7.1</b> Reading Files</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="assignment-2.html"><a href="assignment-2.html"><i class="fa fa-check"></i><b>8</b> Assignment 2</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="assignment-2.html"><a href="assignment-2.html#question-1"><i class="fa fa-check"></i><b>8.1</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="assignment-2.html"><a href="assignment-2.html#what-is-the-correlation-between-ndvi-and-ndmi---here-i-want-you-to-convert-the-full_long-dataset-in-to-a-wide-dataset-using-the-function-spread-and-then-make-a-plot-that-shows-the-correlations-a-function-of-if-the-site-was-burned-or-not-x-axis-should-be-ndmi-you-should-exclude-winter-months-and-focus-on-summer-months"><i class="fa fa-check"></i><b>8.1.1</b> What is the correlation between NDVI and NDMI? - here I want you to convert the full_long dataset in to a wide dataset using the function “spread” and then make a plot that shows the correlations a function of if the site was burned or not (x axis should be ndmi) You should exclude winter months and focus on summer months</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="assignment-2.html"><a href="assignment-2.html#question-2"><i class="fa fa-check"></i><b>8.2</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="assignment-2.html"><a href="assignment-2.html#what-is-the-correlation-between-average-ndsi-normalized-snow-index-for-january---april-and-average-ndvi-for-june-august-in-other-words-does-the-previous-years-snow-cover-influence-vegetation-growth-for-the-following-summer"><i class="fa fa-check"></i><b>8.2.1</b> What is the correlation between average NDSI (normalized snow index) for January - April and average NDVI for June-August? In other words, does the previous year’s snow cover influence vegetation growth for the following summer?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="assignment-2.html"><a href="assignment-2.html#question-3"><i class="fa fa-check"></i><b>8.3</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="assignment-2.html"><a href="assignment-2.html#how-is-the-snow-effect-from-question-2-different-between-pre--and-post-burn-and-burned-and-unburned"><i class="fa fa-check"></i><b>8.3.1</b> How is the snow effect from question 2 different between pre- and post-burn and burned and unburned?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="assignment-2.html"><a href="assignment-2.html#question-4"><i class="fa fa-check"></i><b>8.4</b> Question 4</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="assignment-2.html"><a href="assignment-2.html#what-month-is-the-greenest-month-on-average"><i class="fa fa-check"></i><b>8.4.1</b> What month is the greenest month on average?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="assignment-2.html"><a href="assignment-2.html#question-5"><i class="fa fa-check"></i><b>8.5</b> Question 5</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="assignment-2.html"><a href="assignment-2.html#what-month-is-the-snowiest-on-average"><i class="fa fa-check"></i><b>8.5.1</b> What month is the snowiest on average?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="assignment-2.html"><a href="assignment-2.html#bonus-question-1"><i class="fa fa-check"></i><b>8.6</b> Bonus Question 1</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="assignment-2.html"><a href="assignment-2.html#redo-all-problems-with-spread-and-gather-using-modern-tidyverse-syntax."><i class="fa fa-check"></i><b>8.6.1</b> Redo all problems with <code>spread</code> and <code>gather</code> using modern tidyverse syntax.</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="assignment-2.html"><a href="assignment-2.html#bonus-question-2"><i class="fa fa-check"></i><b>8.7</b> Bonus Question 2</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="assignment-2.html"><a href="assignment-2.html#use-climate-engine-to-pull-the-same-data-for-the-assignment-but-updated-with-20202021-data."><i class="fa fa-check"></i><b>8.7.1</b> Use Climate Engine to pull the same data for the assignment, but updated with 2020/2021 data.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>9</b> Parts</a></li>
+<li class="chapter" data-level="10" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html"><i class="fa fa-check"></i><b>10</b> Simple web scraping</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#reading-an-html"><i class="fa fa-check"></i><b>10.1</b> Reading an html</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#extract-csv-links-from-webpage"><i class="fa fa-check"></i><b>10.1.1</b> Extract CSV links from webpage</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#data-download-1"><i class="fa fa-check"></i><b>10.2</b> Data Download</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#download-data-in-a-for-loop"><i class="fa fa-check"></i><b>10.2.1</b> Download data in a for loop</a></li>
+<li class="chapter" data-level="10.2.2" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#download-data-in-a-map"><i class="fa fa-check"></i><b>10.2.2</b> Download data in a map</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#data-read-in"><i class="fa fa-check"></i><b>10.3</b> Data read-in</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#read-in-just-the-snow-data-as-a-loop"><i class="fa fa-check"></i><b>10.3.1</b> Read in just the snow data as a loop</a></li>
+<li class="chapter" data-level="10.3.2" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#read-in-the-data-as-a-map-function"><i class="fa fa-check"></i><b>10.3.2</b> Read in the data as a map function</a></li>
+<li class="chapter" data-level="10.3.3" data-path="simple-web-scraping.html"><a href="simple-web-scraping.html#plot-snow-data"><i class="fa fa-check"></i><b>10.3.3</b> Plot snow data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="assignment.html"><a href="assignment.html"><i class="fa fa-check"></i><b>11</b> Assignment:</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="assignment.html"><a href="assignment.html#question-1."><i class="fa fa-check"></i><b>11.1</b> Question 1.</a></li>
+<li class="chapter" data-level="11.2" data-path="assignment.html"><a href="assignment.html#question-2."><i class="fa fa-check"></i><b>11.2</b> Question 2.</a></li>
+<li class="chapter" data-level="11.3" data-path="assignment.html"><a href="assignment.html#question-3."><i class="fa fa-check"></i><b>11.3</b> Question 3.</a></li>
+<li class="chapter" data-level="11.4" data-path="assignment.html"><a href="assignment.html#question-4."><i class="fa fa-check"></i><b>11.4</b> Question 4.</a></li>
+<li class="chapter" data-level="11.5" data-path="assignment.html"><a href="assignment.html#question-5."><i class="fa fa-check"></i><b>11.5</b> Question 5.</a></li>
+<li class="chapter" data-level="11.6" data-path="assignment.html"><a href="assignment.html#question-6."><i class="fa fa-check"></i><b>11.6</b> Question 6.</a></li>
+<li class="chapter" data-level="11.7" data-path="assignment.html"><a href="assignment.html#bonus-question-1."><i class="fa fa-check"></i><b>11.7</b> Bonus Question 1.</a></li>
+<li class="chapter" data-level="11.8" data-path="assignment.html"><a href="assignment.html#bonus-question-2."><i class="fa fa-check"></i><b>11.8</b> Bonus Question 2.</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>12</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>12.1</b> Footnotes</a></li>
+<li class="chapter" data-level="12.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>12.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="lagos-analysis.html"><a href="lagos-analysis.html"><i class="fa fa-check"></i><b>13</b> LAGOS Analysis</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="lagos-analysis.html"><a href="lagos-analysis.html#loading-in-data"><i class="fa fa-check"></i><b>13.1</b> Loading in data</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="lagos-analysis.html"><a href="lagos-analysis.html#first-download-and-then-specifically-grab-the-locus-or-site-lat-longs"><i class="fa fa-check"></i><b>13.1.1</b> First download and then specifically grab the locus (or site lat longs)</a></li>
+<li class="chapter" data-level="13.1.2" data-path="lagos-analysis.html"><a href="lagos-analysis.html#convert-to-spatial-data"><i class="fa fa-check"></i><b>13.1.2</b> Convert to spatial data</a></li>
+<li class="chapter" data-level="13.1.3" data-path="lagos-analysis.html"><a href="lagos-analysis.html#subset-to-only-minnesota"><i class="fa fa-check"></i><b>13.1.3</b> Subset to only Minnesota</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="in-class-work.html"><a href="in-class-work.html"><i class="fa fa-check"></i><b>14</b> In-Class work</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="in-class-work.html"><a href="in-class-work.html#show-a-map-outline-of-iowa-and-illinois-similar-to-minnesota-map-upstream"><i class="fa fa-check"></i><b>14.1</b> 1) Show a map outline of Iowa and Illinois (similar to Minnesota map upstream)</a></li>
+<li class="chapter" data-level="14.2" data-path="in-class-work.html"><a href="in-class-work.html#subset-lagos-data-to-these-sites-how-many-sites-are-in-illinois-and-iowa-combined-how-does-this-compare-to-minnesota"><i class="fa fa-check"></i><b>14.2</b> 2) Subset LAGOS data to these sites, how many sites are in Illinois and Iowa combined? How does this compare to Minnesota?</a></li>
+<li class="chapter" data-level="14.3" data-path="in-class-work.html"><a href="in-class-work.html#what-is-the-distribution-of-lake-size-in-iowa-vs.-minnesota"><i class="fa fa-check"></i><b>14.3</b> 3) What is the distribution of lake size in Iowa vs. Minnesota?</a></li>
+<li class="chapter" data-level="14.4" data-path="in-class-work.html"><a href="in-class-work.html#make-an-interactive-plot-of-lakes-in-iowa-and-illinois-and-color-them-by-lake-area-in-hectares"><i class="fa fa-check"></i><b>14.4</b> 4) Make an interactive plot of lakes in Iowa and Illinois and color them by lake area in hectares</a></li>
+<li class="chapter" data-level="14.5" data-path="in-class-work.html"><a href="in-class-work.html#what-other-data-sources-might-we-use-to-understand-how-reservoirs-and-natural-lakes-vary-in-size-in-these-three-states"><i class="fa fa-check"></i><b>14.5</b> 5) What other data sources might we use to understand how reservoirs and natural lakes vary in size in these three states?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="lagos-analysis-1.html"><a href="lagos-analysis-1.html"><i class="fa fa-check"></i><b>15</b> LAGOS Analysis</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="lagos-analysis-1.html"><a href="lagos-analysis-1.html#loading-in-data-1"><i class="fa fa-check"></i><b>15.1</b> Loading in data</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="lagos-analysis-1.html"><a href="lagos-analysis-1.html#first-download-and-then-specifically-grab-the-locus-or-site-lat-longs-1"><i class="fa fa-check"></i><b>15.1.1</b> First download and then specifically grab the locus (or site lat longs)</a></li>
+<li class="chapter" data-level="15.1.2" data-path="lagos-analysis-1.html"><a href="lagos-analysis-1.html#subset-columns-nutr-to-only-keep-key-info-that-we-want"><i class="fa fa-check"></i><b>15.1.2</b> Subset columns nutr to only keep key info that we want</a></li>
+<li class="chapter" data-level="15.1.3" data-path="lagos-analysis-1.html"><a href="lagos-analysis-1.html#keep-sites-with-at-least-200-observations"><i class="fa fa-check"></i><b>15.1.3</b> Keep sites with at least 200 observations</a></li>
+<li class="chapter" data-level="15.1.4" data-path="lagos-analysis-1.html"><a href="lagos-analysis-1.html#join-water-quality-data-to-spatial-data"><i class="fa fa-check"></i><b>15.1.4</b> Join water quality data to spatial data</a></li>
+<li class="chapter" data-level="15.1.5" data-path="lagos-analysis-1.html"><a href="lagos-analysis-1.html#mean-chl_a-map"><i class="fa fa-check"></i><b>15.1.5</b> Mean Chl_a map</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="class-work.html"><a href="class-work.html"><i class="fa fa-check"></i><b>16</b> Class work</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="class-work.html"><a href="class-work.html#what-is-the-correlation-between-secchi-disk-depth-and-chlorophyll-a-for-sites-with-at-least-200-observations"><i class="fa fa-check"></i><b>16.1</b> 1) What is the correlation between Secchi Disk Depth and Chlorophyll a for sites with at least 200 observations?</a></li>
+<li class="chapter" data-level="16.2" data-path="class-work.html"><a href="class-work.html#why-might-this-be-the-case"><i class="fa fa-check"></i><b>16.2</b> Why might this be the case?</a></li>
+<li class="chapter" data-level="16.3" data-path="class-work.html"><a href="class-work.html#what-states-have-the-most-data"><i class="fa fa-check"></i><b>16.3</b> 2) What states have the most data?</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="class-work.html"><a href="class-work.html#a-first-you-will-need-to-make-a-lagos-spatial-dataset-that-has-the-total-number-of-counts-per-site."><i class="fa fa-check"></i><b>16.3.1</b> 2a) First you will need to make a lagos spatial dataset that has the total number of counts per site.</a></li>
+<li class="chapter" data-level="16.3.2" data-path="class-work.html"><a href="class-work.html#b-second-you-will-need-to-join-this-point-dataset-to-the-us_boundaries-data."><i class="fa fa-check"></i><b>16.3.2</b> 2b) Second, you will need to join this point dataset to the us_boundaries data.</a></li>
+<li class="chapter" data-level="16.3.3" data-path="class-work.html"><a href="class-work.html#c-then-you-will-want-to-group-by-state-and-sum-all-the-observations-in-that-state-and-arrange-that-data-from-most-to-least-total-observations-per-state."><i class="fa fa-check"></i><b>16.3.3</b> 2c) Then you will want to group by state and sum all the observations in that state and arrange that data from most to least total observations per state.</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="class-work.html"><a href="class-work.html#is-there-a-spatial-pattern-in-secchi-disk-depth-for-lakes-with-at-least-200-observations"><i class="fa fa-check"></i><b>16.4</b> 3 Is there a spatial pattern in Secchi disk depth for lakes with at least 200 observations?</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>17</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>17.1</b> Equations</a></li>
+<li class="chapter" data-level="17.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>17.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="17.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>17.3</b> Callout blocks</a></li>
+<li class="chapter" data-level="17.4" data-path="blocks.html"><a href="blocks.html#weather-data-analysis"><i class="fa fa-check"></i><b>17.4</b> Weather Data Analysis</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="blocks.html"><a href="blocks.html#load-the-prism-daily-maximum-temperatures"><i class="fa fa-check"></i><b>17.4.1</b> Load the PRISM daily maximum temperatures</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="blocks.html"><a href="blocks.html#temperature-trends"><i class="fa fa-check"></i><b>17.5</b> Temperature trends</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="blocks.html"><a href="blocks.html#summer-temperature-trends-winneshiek-county"><i class="fa fa-check"></i><b>17.5.1</b> Summer temperature trends: Winneshiek County</a></li>
+<li class="chapter" data-level="17.5.2" data-path="blocks.html"><a href="blocks.html#winter-temperatures---winneshiek-county"><i class="fa fa-check"></i><b>17.5.2</b> Winter Temperatures - Winneshiek County</a></li>
+<li class="chapter" data-level="17.5.3" data-path="blocks.html"><a href="blocks.html#multiple-regression-quadratic-time-trend"><i class="fa fa-check"></i><b>17.5.3</b> Multiple regression – Quadratic time trend</a></li>
+<li class="chapter" data-level="17.5.4" data-path="blocks.html"><a href="blocks.html#download-nass-corn-yield-data"><i class="fa fa-check"></i><b>17.5.4</b> Download NASS corn yield data</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="blocks.html"><a href="blocks.html#assignment-1"><i class="fa fa-check"></i><b>17.6</b> Assignment</a>
+<ul>
+<li class="chapter" data-level="17.6.1" data-path="blocks.html"><a href="blocks.html#question-1a-extract-winneshiek-county-corn-yields-fit-a-linear-time-trend-make-a-plot.-is-there-a-significant-time-trend"><i class="fa fa-check"></i><b>17.6.1</b> Question 1a: Extract Winneshiek County corn yields, fit a linear time trend, make a plot. Is there a significant time trend?</a></li>
+<li class="chapter" data-level="17.6.2" data-path="blocks.html"><a href="blocks.html#question-1b-fit-a-quadratic-time-trend-i.e.-year-year2-and-make-a-plot.-is-there-evidence-for-slowing-yield-growth"><i class="fa fa-check"></i><b>17.6.2</b> Question 1b: Fit a quadratic time trend (i.e., year + year^2) and make a plot. Is there evidence for slowing yield growth?</a></li>
+<li class="chapter" data-level="17.6.3" data-path="blocks.html"><a href="blocks.html#question-2-time-series-lets-analyze-the-relationship-between-temperature-and-yields-for-the-winneshiek-county-time-series.-use-data-on-yield-and-summer-avg-tmax.-is-adding-year-or-tmax2-to-your-model-helpful-make-a-plot-and-interpret-the-results."><i class="fa fa-check"></i><b>17.6.3</b> Question 2 – Time Series: Let’s analyze the relationship between temperature and yields for the Winneshiek County time series. Use data on yield and summer avg Tmax. Is adding year or Tmax^2 to your model helpful? Make a plot and interpret the results.</a></li>
+<li class="chapter" data-level="17.6.4" data-path="blocks.html"><a href="blocks.html#question-3-cross-section-analyze-the-relationship-between-temperature-and-yield-across-all-counties-in-2018.-is-there-a-relationship-interpret-the-results."><i class="fa fa-check"></i><b>17.6.4</b> Question 3 – Cross-Section: Analyze the relationship between temperature and yield across all counties in 2018. Is there a relationship? Interpret the results.</a></li>
+<li class="chapter" data-level="17.6.5" data-path="blocks.html"><a href="blocks.html#question-4-panel-one-way-to-leverage-multiple-time-series-is-to-group-all-data-into-what-is-called-a-panel-regression.-convert-the-county-id-code-countyfp-or-county_ansi-into-factor-using-as.factor-then-include-this-variable-in-a-regression-using-all-counties-yield-and-summer-temperature-data.-how-does-the-significance-of-your-temperature-coefficients-tmax-tmax2-change-make-a-plot-comparing-actual-and-fitted-yields-and-interpret-the-results-of-your-model."><i class="fa fa-check"></i><b>17.6.5</b> Question 4 – Panel: One way to leverage multiple time series is to group all data into what is called a “panel” regression. Convert the county ID code (“countyfp” or “county_ansi”) into factor using as.factor, then include this variable in a regression using all counties’ yield and summer temperature data. How does the significance of your temperature coefficients (Tmax, Tmax^2) change? Make a plot comparing actual and fitted yields and interpret the results of your model.</a></li>
+<li class="chapter" data-level="17.6.6" data-path="blocks.html"><a href="blocks.html#question-5-soybeans-download-nass-data-on-soybean-yields-and-explore-either-a-time-series-relationship-for-a-given-county-the-cross-sectional-relationship-for-a-given-year-or-a-panel-across-all-counties-and-years."><i class="fa fa-check"></i><b>17.6.6</b> Question 5 – Soybeans: Download NASS data on soybean yields and explore either a time series relationship for a given county, the <strong>cross-sectional relationship for a given year</strong>, or a panel across all counties and years.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>18</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>18.1</b> Publishing</a></li>
+<li class="chapter" data-level="18.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>18.2</b> 404 pages</a></li>
+<li class="chapter" data-level="18.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>18.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>19</b> Intro</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="intro.html"><a href="intro.html#data-read"><i class="fa fa-check"></i><b>19.1</b> Data read</a></li>
+<li class="chapter" data-level="19.2" data-path="intro.html"><a href="intro.html#model-development"><i class="fa fa-check"></i><b>19.2</b> Model development</a></li>
+<li class="chapter" data-level="19.3" data-path="intro.html"><a href="intro.html#chl-a-model"><i class="fa fa-check"></i><b>19.3</b> Chl-a model</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="intro.html"><a href="intro.html#chl-a-model-measuredpredicted-plot"><i class="fa fa-check"></i><b>19.3.1</b> Chl-a Model Measured/Predicted Plot</a></li>
+<li class="chapter" data-level="19.3.2" data-path="intro.html"><a href="intro.html#chl-a-error-metrics"><i class="fa fa-check"></i><b>19.3.2</b> Chl-a Error Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="intro.html"><a href="intro.html#tss-model"><i class="fa fa-check"></i><b>19.4</b> TSS Model</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="intro.html"><a href="intro.html#tss-plot"><i class="fa fa-check"></i><b>19.4.1</b> TSS plot</a></li>
+<li class="chapter" data-level="19.4.2" data-path="intro.html"><a href="intro.html#tss-evaluation"><i class="fa fa-check"></i><b>19.4.2</b> TSS Evaluation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="q1-what-is-the-best-chla-rmse-you-could-get-after-50-minutes-of-fiddling.html"><a href="q1-what-is-the-best-chla-rmse-you-could-get-after-50-minutes-of-fiddling.html"><i class="fa fa-check"></i><b>20</b> Q1) What is the best CHLA RMSE you could get after 50 minutes of fiddling?</a></li>
+<li class="chapter" data-level="21" data-path="q2-what-is-the-best-tss-rmse-you-could-get-after-50-minutes-of-fiddling.html"><a href="q2-what-is-the-best-tss-rmse-you-could-get-after-50-minutes-of-fiddling.html"><i class="fa fa-check"></i><b>21</b> Q2) What is the best TSS RMSE you could get after 50 minutes of fiddling?</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SOCR 580A7 Bookdown Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="footnotes-and-citations" class="section level1" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Footnotes and citations</h1>
+<div id="footnotes" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Footnotes</h2>
+<p>Footnotes are put inside the square brackets after a caret <code>^[]</code>. Like this one.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+</div>
+<div id="citations" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> Citations</h2>
+<p>Reference items in your bibliography file(s) using <code>@key</code>.</p>
+<p>For example, we are using the <strong>bookdown</strong> package <span class="citation">(<a href="#ref-R-bookdown" role="doc-biblioref">Xie 2021</a>)</span> (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span> (this citation was added manually in an external file book.bib).
+Note that the <code>.bib</code> files need to be listed in the index.Rmd with the YAML <code>bibliography</code> key.</p>
+<p>The RStudio Visual Markdown Editor can also make it easier to insert citations: <a href="https://rstudio.github.io/visual-markdown-editing/#/citations" class="uri">https://rstudio.github.io/visual-markdown-editing/#/citations</a></p>
+<p>title: “LAGOS Spatial Analysis”</p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-xie2015" class="csl-entry">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
+</div>
+<div id="ref-R-bookdown" class="csl-entry">
+———. 2021. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>This is a footnote.<a href="footnotes-and-citations.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="assignment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lagos-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-citations.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

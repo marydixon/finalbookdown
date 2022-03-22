@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Week Two - Data Wrangling and Key Programming Concepts Cross-references | Environmental Data Science Bookdown Portfolio</title>
+  <meta name="description" content="<p>This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Week Two - Data Wrangling and Key Programming Concepts Cross-references | Environmental Data Science Bookdown Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Week Two - Data Wrangling and Key Programming Concepts Cross-references | Environmental Data Science Bookdown Portfolio" />
+  
+  <meta name="twitter:description" content="<p>This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Mary Dixon" />
+
+
+<meta name="date" content="2022-03-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week-one---discharge-data-example.html"/>
+<link rel="next" href="week-three---functions-and-iterations.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="libs/moment-2.8.4/moment.js"></script>
+<script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.0/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Environmental Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i><b>1.1</b> Structure</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html"><i class="fa fa-check"></i><b>2</b> Week One - Discharge Data Example</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#instructor-created-content"><i class="fa fa-check"></i><b>2.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#sitedescription"><i class="fa fa-check"></i>SiteDescription</a></li>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#data-acquisition-and-plotting-tests"><i class="fa fa-check"></i>Data Acquisition and Plotting tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#discharge-data-example-github-website-assignment"><i class="fa fa-check"></i><b>2.2</b> Discharge Data Example, GitHub Website Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#fork-the-example-repository-into-your-personal-github"><i class="fa fa-check"></i>1) Fork the example repository into your personal GitHub</a></li>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#create-an-rstudio-project-from-your-personal-clone-of-the-repo."><i class="fa fa-check"></i>2) Create an RStudio project from your Personal clone of the Repo.</a></li>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#create-a-table-of-contents-that-is-floating-but-displays-three-levels-of-headers-instead-of-two-by-editing-the-content-at-the-beginning-of-the-document"><i class="fa fa-check"></i>3) Create a table of contents that is floating, but displays three levels of headers instead of two (by editing the content at the beginning of the document)</a></li>
+<li><a href="week-one---discharge-data-example.html#make-a-version-of-the-dygraph-with-points-and-lines-by-using-rstudios-dygraph-guide">4) Make a version of the <code>dygraph</code> with points and lines by using rstudio’s dygraph <span>guide</span></a></li>
+<li><a href="week-one---discharge-data-example.html#writing-a-paragraph-on-the-poudre-river-with-at-least-three-hyperlinks-two-bolded-sections-and-one-italicized-phrase.-the-content-of-this-paragraph-is-not-vital-but-try-to-at-least-make-it-true-and-interesting-and-of-course-dont-plagiarize.">5) Writing a paragraph on the Poudre river with at least three hyperlinks, <strong>two bolded sections</strong>, and one <em>italicized phrase</em>. The content of this paragraph is not vital, but try to at least make it true and interesting, and, of course, don’t plagiarize.</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#knit-that-document-and-then-git-commit-and-push-to-your-personal-github."><i class="fa fa-check"></i>6) Knit that document, and then git commit and push to your personal GitHub.</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#use-the-github---settings---pages-tab-to-create-a-website-of-your-report."><i class="fa fa-check"></i>7) Use the GitHub -&gt; Settings -&gt; Pages tab to create a website of your report.</a></li>
+<li class="chapter" data-level="" data-path="week-one---discharge-data-example.html"><a href="week-one---discharge-data-example.html#bonus-make-the-timestamp-in-the-header-dynamic.-as-in-it-only-adds-todays-date-not-just-a-static-date-you-enter."><i class="fa fa-check"></i>8) Bonus, make the timestamp in the header dynamic. As in it only adds today’s date, not just a static date you enter.</a></li>
+<li><a href="week-one---discharge-data-example.html#bonus-create-an-index_talk.rmd-version-of-your-document-using-the-revealjs-package.-add-link-to-your-original-report-style-document.">9) Bonus, create an “index_talk.Rmd” version of your document using the <code>revealjs</code> package. Add link to your original report-style document.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>3</b> Week Two - Data Wrangling and Key Programming Concepts Cross-references</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>3.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="3.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>3.2</b> Captioned figures and tables</a></li>
+<li class="chapter" data-level="3.3" data-path="cross.html"><a href="cross.html#instructor-created-content-1"><i class="fa fa-check"></i><b>3.3</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#now-that-we-have-learned-how-to-munge-manipulate-data-and-plot-it-we-will-work-on-using-these-skills-in-new-ways"><i class="fa fa-check"></i>Now that we have learned how to munge (manipulate) data and plot it, we will work on using these skills in new ways</a></li>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#reading-files"><i class="fa fa-check"></i>Reading Files</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="cross.html"><a href="cross.html#hayman-fire-recovery-assignment"><i class="fa fa-check"></i><b>3.4</b> Hayman Fire Recovery Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#question-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#question-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="cross.html"><a href="cross.html#bonus-question-1"><i class="fa fa-check"></i>Bonus Question 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html"><i class="fa fa-check"></i><b>4</b> Week Three - Functions and Iterations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#instructor-created-content-2"><i class="fa fa-check"></i><b>4.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#simple-web-scraping"><i class="fa fa-check"></i>Simple web scraping</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#reading-an-html"><i class="fa fa-check"></i>Reading an html</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#data-download-1"><i class="fa fa-check"></i>Data Download</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#data-read-in"><i class="fa fa-check"></i>Data read-in</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#snow-data-assignment"><i class="fa fa-check"></i><b>4.2</b> Snow Data Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-4-1"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-5-1"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#question-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#bonus-question-1-1"><i class="fa fa-check"></i>Bonus Question 1</a></li>
+<li class="chapter" data-level="" data-path="week-three---functions-and-iterations.html"><a href="week-three---functions-and-iterations.html#bonus-question-2"><i class="fa fa-check"></i>Bonus Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Week Four - Geospatial Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#part-1---lagos-spatial-analysis"><i class="fa fa-check"></i><b>5.1</b> Part 1 - LAGOS Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#instructor-created-content-3"><i class="fa fa-check"></i><b>5.1.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lagos-analysis"><i class="fa fa-check"></i>LAGOS Analysis</a></li>
+<li class="chapter" data-level="5.1.2" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lagos-spatial-analysis-assignment"><i class="fa fa-check"></i><b>5.1.2</b> LAGOS Spatial Analysis Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#part-2---lake-water-quality-analysis"><i class="fa fa-check"></i><b>5.2</b> Part 2 - Lake Water Quality Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#instructor-created-content-4"><i class="fa fa-check"></i><b>5.2.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lagos-analysis-1"><i class="fa fa-check"></i>LAGOS Analysis</a></li>
+<li class="chapter" data-level="5.2.2" data-path="week-four---geospatial-data-analysis.html"><a href="week-four---geospatial-data-analysis.html#lake-water-quality-analysis-assignment"><i class="fa fa-check"></i><b>5.2.2</b> Lake Water Quality Analysis Assignment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-models.html"><a href="linear-models.html#instructor-created-content-5"><i class="fa fa-check"></i><b>6.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#weather-data-analysis"><i class="fa fa-check"></i>Weather Data Analysis</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#load-the-prism-daily-maximum-temperatures"><i class="fa fa-check"></i>Load the PRISM daily maximum temperatures</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#temperature-trends"><i class="fa fa-check"></i>Temperature trends</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="linear-models.html"><a href="linear-models.html#weather-and-corn-yield-regressions-assignment"><i class="fa fa-check"></i><b>6.2</b> Weather and Corn Yield Regressions Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1a"><i class="fa fa-check"></i>Question 1A</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1b-1"><i class="fa fa-check"></i>Question 1B</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-2"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html"><i class="fa fa-check"></i><b>7</b> Week 8 - Machine Learning</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#instructor-created-content-6"><i class="fa fa-check"></i><b>7.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#intro"><i class="fa fa-check"></i>Intro</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#data-read"><i class="fa fa-check"></i>Data read</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#model-development"><i class="fa fa-check"></i>Model development</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#chl-a-model"><i class="fa fa-check"></i>Chl-a model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#loire-river-graduate-student-descent-assignment"><i class="fa fa-check"></i><b>7.2</b> Loire River Graduate Student Descent Assignment</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#tss-model"><i class="fa fa-check"></i>TSS model</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#tss-evaluation"><i class="fa fa-check"></i>TSS Evaluation</a></li>
+<li class="chapter" data-level="" data-path="week-8---machine-learning.html"><a href="week-8---machine-learning.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="question-2-4.html"><a href="question-2-4.html"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Environmental Data Science Bookdown Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cross" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Week Two - Data Wrangling and Key Programming Concepts Cross-references</h1>
+<p>Cross-references make it easier for your readers to find and link to elements in your book.</p>
+<div id="chapters-and-sub-chapters" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Chapters and sub-chapters</h2>
+<p>There are two steps to cross-reference any heading:</p>
+<ol style="list-style-type: decimal">
+<li>Label the heading: <code># Hello world {#nice-label}</code>.
+<ul>
+<li>Leave the label off if you like the automated heading generated based on your heading title: for example, <code># Hello world</code> = <code># Hello world {#hello-world}</code>.</li>
+<li>To label an un-numbered heading, use: <code># Hello world {-#nice-label}</code> or <code>{# Hello world .unnumbered}</code>.</li>
+</ul></li>
+<li>Next, reference the labeled heading anywhere in the text using <code>\@ref(nice-label)</code>; for example, please see Chapter <a href="cross.html#cross">3</a>.
+<ul>
+<li>If you prefer text as the link instead of a numbered reference use: <a href="cross.html#cross">any text you want can go here</a>.</li>
+</ul></li>
+</ol>
+</div>
+<div id="captioned-figures-and-tables" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Captioned figures and tables</h2>
+<p>Figures and tables <em>with captions</em> can also be cross-referenced from elsewhere in your book using <code>\@ref(fig:chunk-label)</code> and <code>\@ref(tab:chunk-label)</code>, respectively.</p>
+<p>See Figure <a href="cross.html#fig:nice-fig">3.1</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="cross.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
+<span id="cb6-2"><a href="cross.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure, <span class="at">type =</span> <span class="st">&#39;b&#39;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:nice-fig"></span>
+<img src="_main_files/figure-html/nice-fig-1.png" alt="Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases." width="80%" />
+<p class="caption">
+Figure 3.1: Here is a nice figure!
+</p>
+</div>
+<p>Don’t miss Table <a href="cross.html#tab:nice-tab">3.1</a>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cross.html#cb7-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb7-2"><a href="cross.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(pressure, <span class="dv">10</span>), <span class="at">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
+<span id="cb7-3"><a href="cross.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb7-4"><a href="cross.html#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:nice-tab">Table 3.1: </span>Here is a nice table!</caption>
+<thead>
+<tr class="header">
+<th align="right">temperature</th>
+<th align="right">pressure</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0.0002</td>
+</tr>
+<tr class="even">
+<td align="right">20</td>
+<td align="right">0.0012</td>
+</tr>
+<tr class="odd">
+<td align="right">40</td>
+<td align="right">0.0060</td>
+</tr>
+<tr class="even">
+<td align="right">60</td>
+<td align="right">0.0300</td>
+</tr>
+<tr class="odd">
+<td align="right">80</td>
+<td align="right">0.0900</td>
+</tr>
+<tr class="even">
+<td align="right">100</td>
+<td align="right">0.2700</td>
+</tr>
+<tr class="odd">
+<td align="right">120</td>
+<td align="right">0.7500</td>
+</tr>
+<tr class="even">
+<td align="right">140</td>
+<td align="right">1.8500</td>
+</tr>
+<tr class="odd">
+<td align="right">160</td>
+<td align="right">4.2000</td>
+</tr>
+<tr class="even">
+<td align="right">180</td>
+<td align="right">8.8000</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="cross.html#cb8-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_knit<span class="sc">$</span><span class="fu">set</span>(<span class="at">root.dir=</span><span class="st">&#39;..&#39;</span>)</span></code></pre></div>
+</div>
+<div id="instructor-created-content-1" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Instructor-Created Content</h2>
+<div id="loading-packages" class="section level3 unnumbered">
+<h3>Loading Packages</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cross.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="cross.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb9-3"><a href="cross.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb9-4"><a href="cross.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb9-5"><a href="cross.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code></pre></div>
+</div>
+<div id="now-that-we-have-learned-how-to-munge-manipulate-data-and-plot-it-we-will-work-on-using-these-skills-in-new-ways" class="section level3 unnumbered">
+<h3>Now that we have learned how to munge (manipulate) data and plot it, we will work on using these skills in new ways</h3>
+</div>
+<div id="reading-files" class="section level3 unnumbered">
+<h3>Reading Files</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cross.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">####-----Reading in Data and Stacking it ----- ####</span></span>
+<span id="cb10-2"><a href="cross.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Reading in files</span></span>
+<span id="cb10-3"><a href="cross.html#cb10-3" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;data/&#39;</span>,<span class="at">full.names=</span>T)</span>
+<span id="cb10-4"><a href="cross.html#cb10-4" aria-hidden="true" tabindex="-1"></a>files</span></code></pre></div>
+<pre><code>##  [1] &quot;data/hayman_ndmi.csv&quot;           &quot;data/hayman_ndsi.csv&quot;          
+##  [3] &quot;data/hayman_ndvi.csv&quot;           &quot;data/prismiowa.mat&quot;            
+##  [5] &quot;data/PTSP_24hr.csv&quot;             &quot;data/SASP_24hr.csv&quot;            
+##  [7] &quot;data/SBB_SASP_Forcing_Data.txt&quot; &quot;data/SBB_SBSP_Forcing_Data.txt&quot;
+##  [9] &quot;data/SBSP_24hr.csv&quot;             &quot;data/wq_sr.csv&quot;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="cross.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read in individual data files</span></span>
+<span id="cb12-2"><a href="cross.html#cb12-2" aria-hidden="true" tabindex="-1"></a>ndmi <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[<span class="dv">1</span>]) <span class="sc">%&gt;%</span>  </span>
+<span id="cb12-3"><a href="cross.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">burned=</span><span class="dv">2</span>,<span class="at">unburned=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="cross.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data=</span><span class="st">&#39;ndmi&#39;</span>)</span>
+<span id="cb12-5"><a href="cross.html#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="cross.html#cb12-6" aria-hidden="true" tabindex="-1"></a>ndsi <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[<span class="dv">2</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href="cross.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">burned=</span><span class="dv">2</span>,<span class="at">unburned=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="cross.html#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data=</span><span class="st">&#39;ndsi&#39;</span>)</span>
+<span id="cb12-9"><a href="cross.html#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="cross.html#cb12-10" aria-hidden="true" tabindex="-1"></a>ndvi <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[<span class="dv">3</span>])<span class="sc">%&gt;%</span> </span>
+<span id="cb12-11"><a href="cross.html#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">burned=</span><span class="dv">2</span>,<span class="at">unburned=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="cross.html#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data=</span><span class="st">&#39;ndvi&#39;</span>)</span>
+<span id="cb12-13"><a href="cross.html#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="cross.html#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack as a tidy dataset</span></span>
+<span id="cb12-15"><a href="cross.html#cb12-15" aria-hidden="true" tabindex="-1"></a>full_long <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ndvi,ndmi,ndsi) <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="cross.html#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key=</span><span class="st">&#39;site&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>,<span class="sc">-</span>DateTime,<span class="sc">-</span>data) <span class="sc">%&gt;%</span></span>
+<span id="cb12-17"><a href="cross.html#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value))</span></code></pre></div>
+</div>
+</div>
+<div id="hayman-fire-recovery-assignment" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Hayman Fire Recovery Assignment</h2>
+<div id="question-1" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>What is the correlation between NDVI and NDMI? - here I want you to convert the full_long dataset in to a wide dataset using the function “spread” and then make a plot that shows the correlations a function of if the site was burned or not (x axis should be ndmi) You should exclude winter months and focus on summer months</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cross.html#cb13-1" aria-hidden="true" tabindex="-1"></a>full_wide <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data=</span>full_long,<span class="at">key=</span><span class="st">&#39;data&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="cross.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="cross.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb13-4"><a href="cross.html#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime))</span>
+<span id="cb13-5"><a href="cross.html#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="cross.html#cb13-6" aria-hidden="true" tabindex="-1"></a>summer_only <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_wide,month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>))</span>
+<span id="cb13-7"><a href="cross.html#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="cross.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summer_only,<span class="fu">aes</span>(<span class="at">x=</span>ndmi,<span class="at">y=</span>ndvi,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb13-9"><a href="cross.html#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb13-10"><a href="cross.html#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb13-11"><a href="cross.html#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>() <span class="sc">+</span> </span>
+<span id="cb13-12"><a href="cross.html#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="cross.html#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;NDMI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;NDVI&quot;</span>,</span>
+<span id="cb13-14"><a href="cross.html#cb13-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Summertime NDMI and NDVI&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="cross.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(summer_only<span class="sc">$</span>ndvi,summer_only<span class="sc">$</span>ndmi)</span></code></pre></div>
+<pre><code>## [1] 0.6919666</code></pre>
+<p>The graph of NDVI to NDMI indicates a positive correlation in which an increase in NDMI corresponds to an increase in NDVI. This conclusion is supported by the calculated correlation coefficient of NDVI to NDMI, R= 0.6919666. This strong positive correlation suggests that a rising moisture index corresponds to a rising vegetation index.</p>
+</div>
+<div id="question-2" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>What is the correlation between average NDSI (normalized snow index) for January - April and average NDVI for June-August? In other words, does the previous year’s snow cover influence vegetation growth for the following summer?</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="cross.html#cb16-1" aria-hidden="true" tabindex="-1"></a>annual_long_ndvi<span class="ot">&lt;-</span><span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndvi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="cross.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb16-3"><a href="cross.html#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="cross.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="cross.html#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,year)  <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="cross.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDVI=</span><span class="fu">mean</span>(value))</span>
+<span id="cb16-7"><a href="cross.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-8"><a href="cross.html#cb16-8" aria-hidden="true" tabindex="-1"></a>annual_long_ndsi<span class="ot">&lt;-</span><span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndsi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="cross.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb16-10"><a href="cross.html#cb16-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="cross.html#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="cross.html#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,year)  <span class="sc">%&gt;%</span></span>
+<span id="cb16-13"><a href="cross.html#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDSI=</span><span class="fu">mean</span>(value))</span>
+<span id="cb16-14"><a href="cross.html#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="cross.html#cb16-15" aria-hidden="true" tabindex="-1"></a>ndsi_ndvi_annual <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(annual_long_ndsi,annual_long_ndvi,<span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;site&quot;</span>))</span>
+<span id="cb16-16"><a href="cross.html#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="cross.html#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ndsi_ndvi_annual,<span class="fu">aes</span>(<span class="at">x=</span>mean_NDSI,<span class="at">y=</span>mean_NDVI,<span class="at">col=</span>site)) <span class="sc">+</span> </span>
+<span id="cb16-18"><a href="cross.html#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb16-19"><a href="cross.html#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb16-20"><a href="cross.html#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>() <span class="sc">+</span> </span>
+<span id="cb16-21"><a href="cross.html#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.85</span>,<span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb16-22"><a href="cross.html#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Winter NDSI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean Summer NDVI&quot;</span>,</span>
+<span id="cb16-23"><a href="cross.html#cb16-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Previous Year&#39;s Snow Index in Relation to Summer Vegetation Growth&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="cross.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(ndsi_ndvi_annual<span class="sc">$</span>mean_NDSI,ndsi_ndvi_annual<span class="sc">$</span>mean_NDVI)</span></code></pre></div>
+<pre><code>## [1] 0.1813135</code></pre>
+<p>Unlike the strong positive correlation we saw in the NDMI x NDVI graph and calculated value (R=0.6919666), there is no strong effect for NDSI x NDVI. The spread of the data in the graph does not indicate a correlated direction. This conclusion is supported by the calculated correlation coefficient, R= 0.1813135. The correlation between these two values is slightly positive, but very weak. From the graph and calculated correlation coefficient, we can conclude that there is no strong relationship between mean winter NDSI and mean summer NDVI. Instead, the relationship is weak, and an increase in mean winter NDSI may correspond to a slight-to-no increase in mean summer NDVI.</p>
+</div>
+<div id="question-3" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>How is the snow effect from question 2 different between pre- and post-burn and burned and unburned?</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cross.html#cb19-1" aria-hidden="true" tabindex="-1"></a>ndvi_prepost <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndvi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="cross.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(DateTime),</span>
+<span id="cb19-3"><a href="cross.html#cb19-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb19-4"><a href="cross.html#cb19-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">treatment =</span> <span class="fu">cut</span>(year,<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2003</span>,<span class="dv">2020</span>),</span>
+<span id="cb19-5"><a href="cross.html#cb19-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;pre-burn&#39;</span>,<span class="st">&#39;post-burn&#39;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="cross.html#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="cross.html#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year,site,treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="cross.html#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_ndvi =</span> <span class="fu">mean</span>(value))</span>
+<span id="cb19-9"><a href="cross.html#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="cross.html#cb19-10" aria-hidden="true" tabindex="-1"></a>ndsi_prepost <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndsi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-11"><a href="cross.html#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(DateTime),</span>
+<span id="cb19-12"><a href="cross.html#cb19-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb19-13"><a href="cross.html#cb19-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">treatment =</span> <span class="fu">cut</span>(year,<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2003</span>,<span class="dv">2020</span>),</span>
+<span id="cb19-14"><a href="cross.html#cb19-14" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;pre-burn&#39;</span>,<span class="st">&#39;post-burn&#39;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb19-15"><a href="cross.html#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-16"><a href="cross.html#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year,site,treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb19-17"><a href="cross.html#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_ndsi =</span> <span class="fu">mean</span>(value))</span>
+<span id="cb19-18"><a href="cross.html#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="cross.html#cb19-19" aria-hidden="true" tabindex="-1"></a>ndsi_ndvi<span class="ot">&lt;-</span><span class="fu">inner_join</span>(ndsi_prepost,ndvi_prepost,<span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>,<span class="st">&quot;year&quot;</span>,<span class="st">&quot;site&quot;</span>))</span>
+<span id="cb19-20"><a href="cross.html#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="cross.html#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ndsi_ndvi,<span class="fu">aes</span>(<span class="at">x=</span>mean_ndsi,<span class="at">y=</span>mean_ndvi,<span class="at">color=</span>treatment)) <span class="sc">+</span></span>
+<span id="cb19-22"><a href="cross.html#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb19-23"><a href="cross.html#cb19-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb19-24"><a href="cross.html#cb19-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb19-25"><a href="cross.html#cb19-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>() <span class="sc">+</span> </span>
+<span id="cb19-26"><a href="cross.html#cb19-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.6</span>,<span class="fl">0.2</span>)) <span class="sc">+</span> </span>
+<span id="cb19-27"><a href="cross.html#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Winter NDSI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean Summer NDVI&quot;</span>,) <span class="sc">+</span></span>
+<span id="cb19-28"><a href="cross.html#cb19-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>site)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="cross.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ndsi_ndvi,<span class="fu">aes</span>(<span class="at">x=</span>mean_ndsi,<span class="at">y=</span>mean_ndvi,<span class="at">color=</span>site)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="cross.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb20-3"><a href="cross.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="cross.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb20-5"><a href="cross.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>() <span class="sc">+</span> </span>
+<span id="cb20-6"><a href="cross.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.37</span>,<span class="fl">0.2</span>)) <span class="sc">+</span> </span>
+<span id="cb20-7"><a href="cross.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Winter NDSI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean Summer NDVI&quot;</span>,) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="cross.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>treatment)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<p>We saw a very weak but positive correlation between mean winter NDSI and mean summer NDVI in Q2. We can see similar results from graphs illustrating the relationship between the burned/unburned and pre/post-burn mean winter NDSI and mean summer NDVI.</p>
+<p>The burned sites may have a slight positive correlation, but any correlation if present is very weak. The unburned sites appear to exhibit a slightly negative correlation, but still this correlation is very weak.</p>
+<p>The pre-burned sites do not appear correlated. The visualized data progress horizontally without an indication of either a positive or negative relationship. Similarly, the post-burned site do not have a strong correlation, but may have a slight positive correlation because the data seem to be slightly progressing in a positive direction.</p>
+<p>Ultimately, the correlations are weak between winter NDSI and summer NDVi regardless of site or treatment.None of the graphs showcase strong positive or negative correlations.</p>
+</div>
+<div id="question-4" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>What month is the greenest month on average?</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="cross.html#cb21-1" aria-hidden="true" tabindex="-1"></a>month_ndvi <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data=</span>full_long,<span class="at">key=</span><span class="st">&#39;data&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="cross.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="cross.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb21-4"><a href="cross.html#cb21-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="cross.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,month)  <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="cross.html#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDVI=</span><span class="fu">mean</span>(ndvi)) </span>
+<span id="cb21-7"><a href="cross.html#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="cross.html#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="cross.html#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(month_ndvi,<span class="fu">aes</span>(<span class="at">x=</span>month,<span class="at">y=</span>mean_NDVI,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb21-10"><a href="cross.html#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb21-11"><a href="cross.html#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb21-12"><a href="cross.html#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>() <span class="sc">+</span> </span>
+<span id="cb21-13"><a href="cross.html#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.15</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="cross.html#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean NDVI&quot;</span>,</span>
+<span id="cb21-15"><a href="cross.html#cb21-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Average NDVI by Month&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>A high NDVI value corresponds to more greenness because it is a vegetation index. September has the greatest mean NDVI value for the unburned site, closely followed by August. August had the greatest mean NDVI value for the burned site, closely followed by September.</p>
+<p>However, the decrease from August to September in the burned site is greater than the increase in greenness from August to September in the burned site. Therefore, August is the greenest month on average.</p>
+</div>
+<div id="question-5" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p>What month is the snowiest on average?</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cross.html#cb22-1" aria-hidden="true" tabindex="-1"></a>month_ndsi <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data=</span>full_long,<span class="at">key=</span><span class="st">&#39;data&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="cross.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="cross.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb22-4"><a href="cross.html#cb22-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="cross.html#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,month)  <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="cross.html#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDSI=</span><span class="fu">mean</span>(ndsi))</span>
+<span id="cb22-7"><a href="cross.html#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="cross.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="cross.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(month_ndsi,<span class="fu">aes</span>(<span class="at">x=</span>month,<span class="at">y=</span>mean_NDSI,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb22-10"><a href="cross.html#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb22-11"><a href="cross.html#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb22-12"><a href="cross.html#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>() <span class="sc">+</span> </span>
+<span id="cb22-13"><a href="cross.html#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.6</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="cross.html#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean NDSI&quot;</span>,</span>
+<span id="cb22-15"><a href="cross.html#cb22-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Average NDSI by Month&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>For the unburned site, February is the snowiest month, closely followed by January. For the burned site, January is the snowiest month, closely followed by February.</p>
+<p>The decrease in NDSI from January to February in the burned site is greater than the increase from January to February in the unburned site, so January is the snowiest month.</p>
+</div>
+<div id="bonus-question-1" class="section level3 unnumbered">
+<h3>Bonus Question 1</h3>
+<p>Redo all problems with <code>spread</code> and <code>gather</code> using modern tidyverse syntax.</p>
+<ol style="list-style-type: decimal">
+<li><code>gather</code> was used to stack as a tidy dataset in the first section titled, “Reading files”</li>
+</ol>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="cross.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack as a tidy dataset **using tidyverse**.</span></span>
+<span id="cb23-2"><a href="cross.html#cb23-2" aria-hidden="true" tabindex="-1"></a>full_long_bonus <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ndvi,ndmi,ndsi) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="cross.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(.,</span>
+<span id="cb23-4"><a href="cross.html#cb23-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">cols=</span><span class="fu">c</span>(<span class="st">&quot;burned&quot;</span>,<span class="st">&quot;unburned&quot;</span>),</span>
+<span id="cb23-5"><a href="cross.html#cb23-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to=</span><span class="st">&quot;site&quot;</span>,</span>
+<span id="cb23-6"><a href="cross.html#cb23-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-7"><a href="cross.html#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value))</span></code></pre></div>
+<p><code>gather</code> was replaced by the <strong><code>pivot_longer()</code></strong> function</p>
+<ol start="2" style="list-style-type: decimal">
+<li><code>spread</code> was used to make a full wide dataset in Question 1</li>
+</ol>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="cross.html#cb24-1" aria-hidden="true" tabindex="-1"></a>full_wide_bonus <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(full_long,<span class="at">names_from =</span> <span class="st">&quot;data&quot;</span>,<span class="at">values_from =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="cross.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="cross.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb24-4"><a href="cross.html#cb24-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime))</span>
+<span id="cb24-5"><a href="cross.html#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="cross.html#cb24-6" aria-hidden="true" tabindex="-1"></a>summer_only_bonus <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_wide,month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>))</span>
+<span id="cb24-7"><a href="cross.html#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="cross.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summer_only_bonus,<span class="fu">aes</span>(<span class="at">x=</span>ndmi,<span class="at">y=</span>ndvi,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb24-9"><a href="cross.html#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb24-10"><a href="cross.html#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb24-11"><a href="cross.html#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>() <span class="sc">+</span> </span>
+<span id="cb24-12"><a href="cross.html#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="cross.html#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;NDMI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;NDVI&quot;</span>,</span>
+<span id="cb24-14"><a href="cross.html#cb24-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Relationship of NDMI to NDVI During Summer Months&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="cross.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(summer_only_bonus<span class="sc">$</span>ndvi,summer_only_bonus<span class="sc">$</span>ndmi)</span></code></pre></div>
+<pre><code>## [1] 0.6919666</code></pre>
+<p>As we saw in Q1, there is a positive correlation between these tested values. When there is an increase in NDMI, there is a concomitant increase in NDVI.</p>
+<p><code>spread</code> was replaced by the <strong><code>pivot_wider()</code></strong> function</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week-one---discharge-data-example.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-three---functions-and-iterations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-Data-Wrangling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

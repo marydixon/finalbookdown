@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Data Wrangling and Key Programming Concepts | Environmental Data Science Bookdown Portfolio</title>
+  <meta name="description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Data Wrangling and Key Programming Concepts | Environmental Data Science Bookdown Portfolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Data Wrangling and Key Programming Concepts | Environmental Data Science Bookdown Portfolio" />
+  
+  <meta name="twitter:description" content="This is a rundown of the material covered in SOCR580A7 Intro to Envrionmental Data Science." />
+  
+
+<meta name="author" content="Mary Dixon" />
+
+
+<meta name="date" content="2022-03-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="workflow-tools.html"/>
+<link rel="next" href="functions-and-iterations.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="libs/moment-2.8.4/moment.js"></script>
+<script src="libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.0/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Environmental Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#structure"><i class="fa fa-check"></i><b>1.1</b> Structure</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#weekly-topics"><i class="fa fa-check"></i><b>1.2</b> Weekly Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="workflow-tools.html"><a href="workflow-tools.html"><i class="fa fa-check"></i><b>2</b> Workflow Tools</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="workflow-tools.html"><a href="workflow-tools.html#instructor-created-content"><i class="fa fa-check"></i><b>2.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#sitedescription"><i class="fa fa-check"></i>SiteDescription</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#data-acquisition-and-plotting-tests"><i class="fa fa-check"></i>Data Acquisition and Plotting tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="workflow-tools.html"><a href="workflow-tools.html#assignment-1-discharge-data-github-website"><i class="fa fa-check"></i><b>2.2</b> Assignment 1: Discharge Data, GitHub Website</a>
+<ul>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="workflow-tools.html"><a href="workflow-tools.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="2.2.1" data-path="workflow-tools.html"><a href="workflow-tools.html#question-4"><i class="fa fa-check"></i><b>2.2.1</b> Question 4</a></li>
+<li class="chapter" data-level="2.2.2" data-path="workflow-tools.html"><a href="workflow-tools.html#question-5"><i class="fa fa-check"></i><b>2.2.2</b> Question 5</a></li>
+<li class="chapter" data-level="2.2.3" data-path="workflow-tools.html"><a href="workflow-tools.html#question-6"><i class="fa fa-check"></i><b>2.2.3</b> Question 6</a></li>
+<li class="chapter" data-level="2.2.4" data-path="workflow-tools.html"><a href="workflow-tools.html#question-7"><i class="fa fa-check"></i><b>2.2.4</b> Question 7</a></li>
+<li class="chapter" data-level="2.2.5" data-path="workflow-tools.html"><a href="workflow-tools.html#bonus-question-1"><i class="fa fa-check"></i><b>2.2.5</b> Bonus Question 1</a></li>
+<li class="chapter" data-level="2.2.6" data-path="workflow-tools.html"><a href="workflow-tools.html#bonus-question-2"><i class="fa fa-check"></i><b>2.2.6</b> Bonus Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Data Wrangling and Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#instructor-created-content-1"><i class="fa fa-check"></i><b>3.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#reading-files"><i class="fa fa-check"></i>Reading Files</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#assignment-2-hayman-fire-recovery"><i class="fa fa-check"></i><b>3.2</b> Assignment 2: Hayman Fire Recovery</a>
+<ul>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-4-1"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#question-5-1"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="data-wrangling-and-key-programming-concepts.html"><a href="data-wrangling-and-key-programming-concepts.html#bonus-question-1-1"><i class="fa fa-check"></i>Bonus Question 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html"><i class="fa fa-check"></i><b>4</b> Functions and Iterations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#instructor-created-content-2"><i class="fa fa-check"></i><b>4.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#simple-web-scraping"><i class="fa fa-check"></i>Simple web scraping</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#reading-an-html"><i class="fa fa-check"></i>Reading an html</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#data-download-1"><i class="fa fa-check"></i>Data Download</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#data-read-in"><i class="fa fa-check"></i>Data read-in</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#assignment-3-snow-data"><i class="fa fa-check"></i><b>4.2</b> Assignment 3: Snow Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-1-2"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-2-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-3-2"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-4-2"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-5-2"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#question-6-1"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#bonus-question-1-2"><i class="fa fa-check"></i>Bonus Question 1</a></li>
+<li class="chapter" data-level="" data-path="functions-and-iterations.html"><a href="functions-and-iterations.html#bonus-question-2-1"><i class="fa fa-check"></i>Bonus Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Geospatial Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#part-1---lagos-spatial-analysis"><i class="fa fa-check"></i><b>5.1</b> Part 1 - LAGOS Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#instructor-created-content-3"><i class="fa fa-check"></i><b>5.1.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="5.1.2" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#assignment-4-lagos-spatial-analysis"><i class="fa fa-check"></i><b>5.1.2</b> Assignment 4: LAGOS Spatial Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#part-2---lake-water-quality-analysis"><i class="fa fa-check"></i><b>5.2</b> Part 2 - Lake Water Quality Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#instructor-created-content-4"><i class="fa fa-check"></i><b>5.2.1</b> Instructor-Created Content</a></li>
+<li class="chapter" data-level="5.2.2" data-path="geospatial-data-analysis.html"><a href="geospatial-data-analysis.html#assignmnet-5-lake-water-quality-analysis"><i class="fa fa-check"></i><b>5.2.2</b> Assignmnet 5: Lake Water Quality Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-models.html"><a href="linear-models.html#instructor-created-content-5"><i class="fa fa-check"></i><b>6.1</b> Instructor-Created Content</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#weather-data-analysis"><i class="fa fa-check"></i>Weather Data Analysis</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#load-the-prism-daily-maximum-temperatures"><i class="fa fa-check"></i>Load the PRISM daily maximum temperatures</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#temperature-trends"><i class="fa fa-check"></i>Temperature trends</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="linear-models.html"><a href="linear-models.html#assignment-6-weather-and-corn-yield-regressions"><i class="fa fa-check"></i><b>6.2</b> Assignment 6: Weather and Corn Yield Regressions</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1a"><i class="fa fa-check"></i>Question 1A</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1b-1"><i class="fa fa-check"></i>Question 1B</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-5"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-3"><i class="fa fa-check"></i>Question 4:</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Environmental Data Science Bookdown Portfolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-wrangling-and-key-programming-concepts" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Data Wrangling and Key Programming Concepts</h1>
+<p>The emphasis of week three was data manipulation, starting with spatial data. Matt posted videos on the subject of the effects of the 2002 Hayman Fire at the Chessman Lake area. He showed students how to navigate <a href="https://earthengine.google.com/timelapse/">Earth Engine Timelapse</a> to look at changes from satellite images that have been recording data since 1984. From there, we navigated to <a href="https://app.climateengine.com/climateengine">Climate Engine</a>, a tool to measure environmental data using satellite imagery. Through this website, we drew polygons to get normalized difference vegetation index (NDVI) data in areas that were burned and unburned.</p>
+<p>The instructors wrote an R script for this week outlining the basics of data munging. The instructor-created content includes downloaded and tidied environmental data (NDVI, NDSI, NDMI). The instructors visualized data through <code>ggplot()</code> functions. The <code>mutate()</code>, <code>filter()</code>, <code>summarize()</code>, and <code>group_by()</code> functions were some of the tools introduced this week to show how to manipulate and visualize data.</p>
+<p>The packages used this week:<br />
+- <code>tidyverse</code>, a collection of R packages (<code>dplyr</code>, <code>ggplot2</code>, etc.) designed to wrangle and tidy data</p>
+<ul>
+<li><p><code>tidyr</code>, part of tidyverse to organize data so that every column is variable, every row is an observation, and every cell is a single value</p></li>
+<li><p><code>ggthemes</code>, change the appearance of ggplots</p></li>
+<li><p><code>lubridate</code>, part of tidyverse, makes it easier to work with date-time data</p></li>
+<li><p><code>readr</code>, part of tidyverse, reads in rectangular data</p></li>
+</ul>
+<div id="instructor-created-content-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Instructor-Created Content</h2>
+<div id="loading-packages" class="section level3 unnumbered">
+<h3>Loading Packages</h3>
+<p>Now that we have learned how to munge (manipulate) data and plot it, we will work on using these skills in new ways {-}</p>
+</div>
+<div id="reading-files" class="section level3 unnumbered">
+<h3>Reading Files</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-wrangling-and-key-programming-concepts.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">####-----Reading in Data and Stacking it ----- ####</span></span>
+<span id="cb6-2"><a href="data-wrangling-and-key-programming-concepts.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Reading in files</span></span>
+<span id="cb6-3"><a href="data-wrangling-and-key-programming-concepts.html#cb6-3" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;data/&#39;</span>,<span class="at">full.names=</span>T)</span>
+<span id="cb6-4"><a href="data-wrangling-and-key-programming-concepts.html#cb6-4" aria-hidden="true" tabindex="-1"></a>files</span></code></pre></div>
+<pre><code>##  [1] &quot;data/hayman_ndmi.csv&quot;           &quot;data/hayman_ndsi.csv&quot;          
+##  [3] &quot;data/hayman_ndvi.csv&quot;           &quot;data/prismiowa.mat&quot;            
+##  [5] &quot;data/PTSP_24hr.csv&quot;             &quot;data/SASP_24hr.csv&quot;            
+##  [7] &quot;data/SBB_SASP_Forcing_Data.txt&quot; &quot;data/SBB_SBSP_Forcing_Data.txt&quot;
+##  [9] &quot;data/SBSP_24hr.csv&quot;             &quot;data/wq_sr.csv&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-wrangling-and-key-programming-concepts.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read in individual data files</span></span>
+<span id="cb8-2"><a href="data-wrangling-and-key-programming-concepts.html#cb8-2" aria-hidden="true" tabindex="-1"></a>ndmi <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[<span class="dv">1</span>]) <span class="sc">%&gt;%</span>  </span>
+<span id="cb8-3"><a href="data-wrangling-and-key-programming-concepts.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">burned=</span><span class="dv">2</span>,<span class="at">unburned=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="data-wrangling-and-key-programming-concepts.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data=</span><span class="st">&#39;ndmi&#39;</span>)</span>
+<span id="cb8-5"><a href="data-wrangling-and-key-programming-concepts.html#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="data-wrangling-and-key-programming-concepts.html#cb8-6" aria-hidden="true" tabindex="-1"></a>ndsi <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[<span class="dv">2</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="data-wrangling-and-key-programming-concepts.html#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">burned=</span><span class="dv">2</span>,<span class="at">unburned=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="data-wrangling-and-key-programming-concepts.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data=</span><span class="st">&#39;ndsi&#39;</span>)</span>
+<span id="cb8-9"><a href="data-wrangling-and-key-programming-concepts.html#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="data-wrangling-and-key-programming-concepts.html#cb8-10" aria-hidden="true" tabindex="-1"></a>ndvi <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[<span class="dv">3</span>])<span class="sc">%&gt;%</span> </span>
+<span id="cb8-11"><a href="data-wrangling-and-key-programming-concepts.html#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">burned=</span><span class="dv">2</span>,<span class="at">unburned=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="data-wrangling-and-key-programming-concepts.html#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data=</span><span class="st">&#39;ndvi&#39;</span>)</span>
+<span id="cb8-13"><a href="data-wrangling-and-key-programming-concepts.html#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="data-wrangling-and-key-programming-concepts.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack as a tidy dataset</span></span>
+<span id="cb8-15"><a href="data-wrangling-and-key-programming-concepts.html#cb8-15" aria-hidden="true" tabindex="-1"></a>full_long <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ndvi,ndmi,ndsi) <span class="sc">%&gt;%</span></span>
+<span id="cb8-16"><a href="data-wrangling-and-key-programming-concepts.html#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key=</span><span class="st">&#39;site&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>,<span class="sc">-</span>DateTime,<span class="sc">-</span>data) <span class="sc">%&gt;%</span></span>
+<span id="cb8-17"><a href="data-wrangling-and-key-programming-concepts.html#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value))</span></code></pre></div>
+</div>
+</div>
+<div id="assignment-2-hayman-fire-recovery" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Assignment 2: Hayman Fire Recovery</h2>
+<div id="question-1-1" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p><em>What is the correlation between NDVI and NDMI? You should exclude winter months and focus on summer months.</em></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data-wrangling-and-key-programming-concepts.html#cb9-1" aria-hidden="true" tabindex="-1"></a>full_wide <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data=</span>full_long,<span class="at">key=</span><span class="st">&#39;data&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="data-wrangling-and-key-programming-concepts.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="data-wrangling-and-key-programming-concepts.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb9-4"><a href="data-wrangling-and-key-programming-concepts.html#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime))</span>
+<span id="cb9-5"><a href="data-wrangling-and-key-programming-concepts.html#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="data-wrangling-and-key-programming-concepts.html#cb9-6" aria-hidden="true" tabindex="-1"></a>summer_only <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_wide,month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>))</span>
+<span id="cb9-7"><a href="data-wrangling-and-key-programming-concepts.html#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="data-wrangling-and-key-programming-concepts.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summer_only,<span class="fu">aes</span>(<span class="at">x=</span>ndmi,<span class="at">y=</span>ndvi,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb9-9"><a href="data-wrangling-and-key-programming-concepts.html#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb9-10"><a href="data-wrangling-and-key-programming-concepts.html#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb9-11"><a href="data-wrangling-and-key-programming-concepts.html#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Burned&quot;</span>, <span class="st">&quot;Unburned&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb9-12"><a href="data-wrangling-and-key-programming-concepts.html#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb9-13"><a href="data-wrangling-and-key-programming-concepts.html#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="data-wrangling-and-key-programming-concepts.html#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;NDMI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;NDVI&quot;</span>,</span>
+<span id="cb9-15"><a href="data-wrangling-and-key-programming-concepts.html#cb9-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Relationship between summertime normalized difference moisture index (NDMI) and normalized difference vegetation index (NDVI)&quot;</span>) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:3-1"></span>
+<img src="_main_files/figure-html/3-1-1.png" alt="Relationship between summertime normalized difference vegetation index (NDVI) and normalized difference moisture index (NDMI) at the Cheesman Lake area in Colorado" width="672" />
+<p class="caption">
+Figure 3.1: Relationship between summertime normalized difference vegetation index (NDVI) and normalized difference moisture index (NDMI) at the Cheesman Lake area in Colorado
+</p>
+</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-wrangling-and-key-programming-concepts.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(summer_only<span class="sc">$</span>ndvi,summer_only<span class="sc">$</span>ndmi)</span></code></pre></div>
+<pre><code>## [1] 0.6919666</code></pre>
+<p>The graph of NDVI to NDMI (<a href="data-wrangling-and-key-programming-concepts.html#fig:3-1">3.1</a>) indicates a positive correlation in which an increase in NDMI corresponds to an increase in NDVI. This conclusion is supported by the calculated correlation coefficient of NDVI to NDMI, R= 0.6919666. This strong positive correlation suggests that a rising moisture index corresponds to a rising vegetation index.</p>
+</div>
+<div id="question-2-1" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p><em>What is the correlation between average NDSI for January - April and average NDVI for June-August? Does the previous year’s snow cover influence vegetation growth for the following summer?</em></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data-wrangling-and-key-programming-concepts.html#cb12-1" aria-hidden="true" tabindex="-1"></a>annual_long_ndvi<span class="ot">&lt;-</span><span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndvi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="data-wrangling-and-key-programming-concepts.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb12-3"><a href="data-wrangling-and-key-programming-concepts.html#cb12-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="data-wrangling-and-key-programming-concepts.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="data-wrangling-and-key-programming-concepts.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,year)  <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="data-wrangling-and-key-programming-concepts.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDVI=</span><span class="fu">mean</span>(value))</span>
+<span id="cb12-7"><a href="data-wrangling-and-key-programming-concepts.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-8"><a href="data-wrangling-and-key-programming-concepts.html#cb12-8" aria-hidden="true" tabindex="-1"></a>annual_long_ndsi<span class="ot">&lt;-</span><span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndsi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="data-wrangling-and-key-programming-concepts.html#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb12-10"><a href="data-wrangling-and-key-programming-concepts.html#cb12-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="data-wrangling-and-key-programming-concepts.html#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="data-wrangling-and-key-programming-concepts.html#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,year)  <span class="sc">%&gt;%</span></span>
+<span id="cb12-13"><a href="data-wrangling-and-key-programming-concepts.html#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDSI=</span><span class="fu">mean</span>(value))</span>
+<span id="cb12-14"><a href="data-wrangling-and-key-programming-concepts.html#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="data-wrangling-and-key-programming-concepts.html#cb12-15" aria-hidden="true" tabindex="-1"></a>ndsi_ndvi_annual <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(annual_long_ndsi,annual_long_ndvi,<span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;site&quot;</span>))</span>
+<span id="cb12-16"><a href="data-wrangling-and-key-programming-concepts.html#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="data-wrangling-and-key-programming-concepts.html#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ndsi_ndvi_annual,<span class="fu">aes</span>(<span class="at">x=</span>mean_NDSI,<span class="at">y=</span>mean_NDVI,<span class="at">col=</span>site)) <span class="sc">+</span> </span>
+<span id="cb12-18"><a href="data-wrangling-and-key-programming-concepts.html#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb12-19"><a href="data-wrangling-and-key-programming-concepts.html#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb12-20"><a href="data-wrangling-and-key-programming-concepts.html#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.85</span>,<span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb12-21"><a href="data-wrangling-and-key-programming-concepts.html#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb12-22"><a href="data-wrangling-and-key-programming-concepts.html#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Winter NDSI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean Summer NDVI&quot;</span>,</span>
+<span id="cb12-23"><a href="data-wrangling-and-key-programming-concepts.html#cb12-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Previous Year&#39;s Snow Index in Relation to Summer Vegetation Growth&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-24"><a href="data-wrangling-and-key-programming-concepts.html#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Burned&quot;</span>, <span class="st">&quot;Unburned&quot;</span>)) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:3-2"></span>
+<img src="_main_files/figure-html/3-2-1.png" alt="Correlation between average winter (January-April) normalized difference snow index (NDSI) and average summer (June-August) normalized difference vegetation index (NDVI) for the Cheesman Lake area in Colorado" width="672" />
+<p class="caption">
+Figure 3.2: Correlation between average winter (January-April) normalized difference snow index (NDSI) and average summer (June-August) normalized difference vegetation index (NDVI) for the Cheesman Lake area in Colorado
+</p>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data-wrangling-and-key-programming-concepts.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(ndsi_ndvi_annual<span class="sc">$</span>mean_NDSI,ndsi_ndvi_annual<span class="sc">$</span>mean_NDVI)</span></code></pre></div>
+<pre><code>## [1] 0.1813135</code></pre>
+<p>Unlike the strong positive correlation we saw in the NDMI x NDVI graph (<a href="data-wrangling-and-key-programming-concepts.html#fig:3-1">3.1</a>) and calculated value (R=0.6919666), there is no strong effect for NDSI x NDVI (<a href="data-wrangling-and-key-programming-concepts.html#fig:3-2">3.2</a>). The spread of the data in the graph does not indicate a correlated direction. This conclusion is supported by the calculated correlation coefficient, R= 0.1813135. The correlation between these two values is slightly positive, but very weak. From the graph and calculated correlation coefficient, we can conclude that there is no strong relationship between mean winter NDSI and mean summer NDVI. Instead, the relationship is weak, and an increase in mean winter NDSI may correspond to a slight-to-no increase in mean summer NDVI.</p>
+</div>
+<div id="question-3-1" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p><em>How is the snow effect from question 2 different between pre- and post-burn and burned and unburned?</em></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data-wrangling-and-key-programming-concepts.html#cb15-1" aria-hidden="true" tabindex="-1"></a>ndvi_prepost <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndvi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="data-wrangling-and-key-programming-concepts.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(DateTime),</span>
+<span id="cb15-3"><a href="data-wrangling-and-key-programming-concepts.html#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb15-4"><a href="data-wrangling-and-key-programming-concepts.html#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">treatment =</span> <span class="fu">cut</span>(year,<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2003</span>,<span class="dv">2020</span>),</span>
+<span id="cb15-5"><a href="data-wrangling-and-key-programming-concepts.html#cb15-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;pre-burn&#39;</span>,<span class="st">&#39;post-burn&#39;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="data-wrangling-and-key-programming-concepts.html#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-7"><a href="data-wrangling-and-key-programming-concepts.html#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year,site,treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="data-wrangling-and-key-programming-concepts.html#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_ndvi =</span> <span class="fu">mean</span>(value))</span>
+<span id="cb15-9"><a href="data-wrangling-and-key-programming-concepts.html#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="data-wrangling-and-key-programming-concepts.html#cb15-10" aria-hidden="true" tabindex="-1"></a>ndsi_prepost <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_long,data<span class="sc">==</span><span class="st">&quot;ndsi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-11"><a href="data-wrangling-and-key-programming-concepts.html#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(DateTime),</span>
+<span id="cb15-12"><a href="data-wrangling-and-key-programming-concepts.html#cb15-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb15-13"><a href="data-wrangling-and-key-programming-concepts.html#cb15-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">treatment =</span> <span class="fu">cut</span>(year,<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2003</span>,<span class="dv">2020</span>),</span>
+<span id="cb15-14"><a href="data-wrangling-and-key-programming-concepts.html#cb15-14" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;pre-burn&#39;</span>,<span class="st">&#39;post-burn&#39;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb15-15"><a href="data-wrangling-and-key-programming-concepts.html#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-16"><a href="data-wrangling-and-key-programming-concepts.html#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year,site,treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb15-17"><a href="data-wrangling-and-key-programming-concepts.html#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_ndsi =</span> <span class="fu">mean</span>(value))</span>
+<span id="cb15-18"><a href="data-wrangling-and-key-programming-concepts.html#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="data-wrangling-and-key-programming-concepts.html#cb15-19" aria-hidden="true" tabindex="-1"></a>ndsi_ndvi<span class="ot">&lt;-</span><span class="fu">inner_join</span>(ndsi_prepost,ndvi_prepost,<span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>,<span class="st">&quot;year&quot;</span>,<span class="st">&quot;site&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-wrangling-and-key-programming-concepts.html#cb16-1" aria-hidden="true" tabindex="-1"></a>ndsi_ndvi_mod <span class="ot">&lt;-</span> ndsi_ndvi <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="data-wrangling-and-key-programming-concepts.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> <span class="fu">recode</span>(site, <span class="st">&#39;burned&#39;</span> <span class="ot">=</span> <span class="st">&#39;Burned&#39;</span>, <span class="st">&#39;unburned&#39;</span> <span class="ot">=</span> <span class="st">&#39;Unburned&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="data-wrangling-and-key-programming-concepts.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">treatment =</span> <span class="fu">recode</span>(treatment, <span class="st">&#39;pre-burn&#39;</span> <span class="ot">=</span> <span class="st">&#39;Pre-Burn&#39;</span>, <span class="st">&#39;post-burn&#39;</span><span class="ot">=</span><span class="st">&#39;Post-Burn&#39;</span>))</span>
+<span id="cb16-4"><a href="data-wrangling-and-key-programming-concepts.html#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="data-wrangling-and-key-programming-concepts.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ndsi_ndvi_mod,<span class="fu">aes</span>(<span class="at">x=</span>mean_ndsi,<span class="at">y=</span>mean_ndvi,<span class="at">color=</span>treatment)) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="data-wrangling-and-key-programming-concepts.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb16-7"><a href="data-wrangling-and-key-programming-concepts.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb16-8"><a href="data-wrangling-and-key-programming-concepts.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb16-9"><a href="data-wrangling-and-key-programming-concepts.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Winter NDSI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean Summer NDVI&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Relationship between winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) in burned and unburned sites&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="data-wrangling-and-key-programming-concepts.html#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="data-wrangling-and-key-programming-concepts.html#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Before the Hayman Fire&quot;</span>, <span class="st">&quot;After the Hayman Fire&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="data-wrangling-and-key-programming-concepts.html#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="data-wrangling-and-key-programming-concepts.html#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>site) </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:3-3"></span>
+<img src="_main_files/figure-html/3-3-1.png" alt="Influence of winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) at the Cheesman Lake area of Colorado before the Hayman fire (blue) and after the Hayman fire (orange)." width="672" />
+<p class="caption">
+Figure 3.3: Influence of winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) at the Cheesman Lake area of Colorado before the Hayman fire (blue) and after the Hayman fire (orange).
+</p>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-wrangling-and-key-programming-concepts.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ndsi_ndvi_mod,<span class="fu">aes</span>(<span class="at">x=</span>mean_ndsi,<span class="at">y=</span>mean_ndvi,<span class="at">color=</span>site)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="data-wrangling-and-key-programming-concepts.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="data-wrangling-and-key-programming-concepts.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb17-4"><a href="data-wrangling-and-key-programming-concepts.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb17-5"><a href="data-wrangling-and-key-programming-concepts.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;Burned&#39;</span>,<span class="st">&#39;Unburned&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb17-6"><a href="data-wrangling-and-key-programming-concepts.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="data-wrangling-and-key-programming-concepts.html#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.37</span>,<span class="fl">0.2</span>)) <span class="sc">+</span> </span>
+<span id="cb17-8"><a href="data-wrangling-and-key-programming-concepts.html#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Winter NDSI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean Summer NDVI&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Relationship between winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) before and after the Hayman fire&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="data-wrangling-and-key-programming-concepts.html#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>treatment)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:3-4"></span>
+<img src="_main_files/figure-html/3-4-1.png" alt="Influence of winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) in the burned sites (blue) and unburned sites (orange) at the Cheesman Lake area of Colorado." width="672" />
+<p class="caption">
+Figure 3.4: Influence of winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) in the burned sites (blue) and unburned sites (orange) at the Cheesman Lake area of Colorado.
+</p>
+</div>
+<p>We saw a very weak but positive correlation between mean winter NDSI and mean summer NDVI in Q2 (<a href="data-wrangling-and-key-programming-concepts.html#fig:3-2">3.2</a>). We can see similar results from graphs illustrating the relationship between the burned/unburned (<a href="data-wrangling-and-key-programming-concepts.html#fig:3-3">3.3</a>) and pre/post-burn (<a href="data-wrangling-and-key-programming-concepts.html#fig:3-4">3.4</a>) mean winter NDSI and mean summer NDVI.</p>
+<p>The burned sites may have a slight positive correlation, but any correlation if present is very weak. The unburned sites appear to exhibit a slightly negative correlation, but still this correlation is very weak.</p>
+<p>The pre-burned sites do not appear correlated. The visualized data progress horizontally without an indication of either a positive or negative relationship. Similarly, the post-burned site do not have a strong correlation, but may have a slight positive correlation because the data seem to be slightly progressing in a positive direction.</p>
+<p>Ultimately, the correlations are weak between winter NDSI and summer NDVi regardless of site or treatment.None of the graphs showcase strong positive or negative correlations.</p>
+</div>
+<div id="question-4-1" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p><em>What month is the greenest month on average?</em></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="data-wrangling-and-key-programming-concepts.html#cb18-1" aria-hidden="true" tabindex="-1"></a>month_ndvi <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data=</span>full_long,<span class="at">key=</span><span class="st">&#39;data&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="data-wrangling-and-key-programming-concepts.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="data-wrangling-and-key-programming-concepts.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb18-4"><a href="data-wrangling-and-key-programming-concepts.html#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="data-wrangling-and-key-programming-concepts.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,month)  <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="data-wrangling-and-key-programming-concepts.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDVI=</span><span class="fu">mean</span>(ndvi)) </span>
+<span id="cb18-7"><a href="data-wrangling-and-key-programming-concepts.html#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="data-wrangling-and-key-programming-concepts.html#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="data-wrangling-and-key-programming-concepts.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(month_ndvi,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(month),<span class="at">y=</span>mean_NDVI,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb18-10"><a href="data-wrangling-and-key-programming-concepts.html#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb18-11"><a href="data-wrangling-and-key-programming-concepts.html#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb18-12"><a href="data-wrangling-and-key-programming-concepts.html#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;Burned&#39;</span>,<span class="st">&#39;Unburned&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb18-13"><a href="data-wrangling-and-key-programming-concepts.html#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb18-14"><a href="data-wrangling-and-key-programming-concepts.html#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.15</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb18-15"><a href="data-wrangling-and-key-programming-concepts.html#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean NDVI&quot;</span>,</span>
+<span id="cb18-16"><a href="data-wrangling-and-key-programming-concepts.html#cb18-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Average Normalized Difference Vegetation Index (NDVI) by Month&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-17"><a href="data-wrangling-and-key-programming-concepts.html#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;January&#39;</span>,<span class="st">&#39;February&#39;</span>,<span class="st">&#39;March&#39;</span>,<span class="st">&#39;April&#39;</span>,<span class="st">&#39;May&#39;</span>,<span class="st">&#39;June&#39;</span>,<span class="st">&#39;July&#39;</span>,<span class="st">&#39;August&#39;</span>,<span class="st">&#39;September&#39;</span>,<span class="st">&#39;October&#39;</span>,<span class="st">&#39;November&#39;</span>,<span class="st">&#39;December&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb18-18"><a href="data-wrangling-and-key-programming-concepts.html#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:3-5"></span>
+<img src="_main_files/figure-html/3-5-1.png" alt="Average NDVI by month for the burned (blue) and unburned (orange) sites." width="672" />
+<p class="caption">
+Figure 3.5: Average NDVI by month for the burned (blue) and unburned (orange) sites.
+</p>
+</div>
+<p>A high NDVI value corresponds to more greenness because it is a vegetation index. As seen in <a href="data-wrangling-and-key-programming-concepts.html#fig:3-5">3.5</a> September has the greatest mean NDVI value for the unburned site, closely followed by August. August had the greatest mean NDVI value for the burned site, closely followed by September.</p>
+<p>However, the decrease from August to September in the burned site is greater than the increase in greenness from August to September in the burned site. Therefore, August is the greenest month on average.</p>
+</div>
+<div id="question-5-1" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p><em>What month is the snowiest on average?</em></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="data-wrangling-and-key-programming-concepts.html#cb19-1" aria-hidden="true" tabindex="-1"></a>month_ndsi <span class="ot">&lt;-</span> <span class="fu">spread</span>(<span class="at">data=</span>full_long,<span class="at">key=</span><span class="st">&#39;data&#39;</span>,<span class="at">value=</span><span class="st">&#39;value&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="data-wrangling-and-key-programming-concepts.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="data-wrangling-and-key-programming-concepts.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb19-4"><a href="data-wrangling-and-key-programming-concepts.html#cb19-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="data-wrangling-and-key-programming-concepts.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site,month)  <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="data-wrangling-and-key-programming-concepts.html#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_NDSI=</span><span class="fu">mean</span>(ndsi))</span>
+<span id="cb19-7"><a href="data-wrangling-and-key-programming-concepts.html#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="data-wrangling-and-key-programming-concepts.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(month_ndsi,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(month),<span class="at">y=</span>mean_NDSI,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb19-9"><a href="data-wrangling-and-key-programming-concepts.html#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb19-10"><a href="data-wrangling-and-key-programming-concepts.html#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb19-11"><a href="data-wrangling-and-key-programming-concepts.html#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;Burned&#39;</span>,<span class="st">&#39;Unburned&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb19-12"><a href="data-wrangling-and-key-programming-concepts.html#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="data-wrangling-and-key-programming-concepts.html#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.6</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="data-wrangling-and-key-programming-concepts.html#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mean NDSI&quot;</span>,</span>
+<span id="cb19-15"><a href="data-wrangling-and-key-programming-concepts.html#cb19-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Average Normalized Difference Snow Index (NDSI) by Month&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-16"><a href="data-wrangling-and-key-programming-concepts.html#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;January&#39;</span>,<span class="st">&#39;February&#39;</span>,<span class="st">&#39;March&#39;</span>,<span class="st">&#39;April&#39;</span>,<span class="st">&#39;May&#39;</span>,<span class="st">&#39;June&#39;</span>,<span class="st">&#39;July&#39;</span>,<span class="st">&#39;August&#39;</span>,<span class="st">&#39;September&#39;</span>,<span class="st">&#39;October&#39;</span>,<span class="st">&#39;November&#39;</span>,<span class="st">&#39;December&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb19-17"><a href="data-wrangling-and-key-programming-concepts.html#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:3-6"></span>
+<img src="_main_files/figure-html/3-6-1.png" alt="Average NDSI by month for the burned (blue) and unburned (orange) sites." width="672" />
+<p class="caption">
+Figure 3.6: Average NDSI by month for the burned (blue) and unburned (orange) sites.
+</p>
+</div>
+<p>As seen in <a href="data-wrangling-and-key-programming-concepts.html#fig:3-6">3.6</a>, for the unburned site, February is the snowiest month, closely followed by January. For the burned site, January is the snowiest month, closely followed by February.</p>
+<p>The decrease in NDSI from January to February in the burned site is greater than the increase from January to February in the unburned site, so January is the snowiest month.</p>
+</div>
+<div id="bonus-question-1-1" class="section level3 unnumbered">
+<h3>Bonus Question 1</h3>
+<p><em>Redo all problems with <code>spread</code> and <code>gather</code> using modern tidyverse syntax.</em></p>
+<ol style="list-style-type: decimal">
+<li><code>gather()</code> was used to stack as a tidy dataset in the first section titled, “Reading files”</li>
+</ol>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="data-wrangling-and-key-programming-concepts.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack as a tidy dataset **using tidyverse**.</span></span>
+<span id="cb20-2"><a href="data-wrangling-and-key-programming-concepts.html#cb20-2" aria-hidden="true" tabindex="-1"></a>full_long_bonus <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ndvi,ndmi,ndsi) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="data-wrangling-and-key-programming-concepts.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(.,</span>
+<span id="cb20-4"><a href="data-wrangling-and-key-programming-concepts.html#cb20-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">cols=</span><span class="fu">c</span>(<span class="st">&quot;burned&quot;</span>,<span class="st">&quot;unburned&quot;</span>),</span>
+<span id="cb20-5"><a href="data-wrangling-and-key-programming-concepts.html#cb20-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to=</span><span class="st">&quot;site&quot;</span>,</span>
+<span id="cb20-6"><a href="data-wrangling-and-key-programming-concepts.html#cb20-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="data-wrangling-and-key-programming-concepts.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value))</span></code></pre></div>
+<p><code>gather()</code> was replaced by the <strong><code>pivot_longer()</code></strong> function</p>
+<ol start="2" style="list-style-type: decimal">
+<li><code>spread()</code> was used to make a full wide dataset in Question 1</li>
+</ol>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="data-wrangling-and-key-programming-concepts.html#cb21-1" aria-hidden="true" tabindex="-1"></a>full_wide_bonus <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(full_long,<span class="at">names_from =</span> <span class="st">&quot;data&quot;</span>,<span class="at">values_from =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="data-wrangling-and-key-programming-concepts.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_if</span>(is.numeric,<span class="fu">all_vars</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="data-wrangling-and-key-programming-concepts.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(DateTime),</span>
+<span id="cb21-4"><a href="data-wrangling-and-key-programming-concepts.html#cb21-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(DateTime))</span>
+<span id="cb21-5"><a href="data-wrangling-and-key-programming-concepts.html#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="data-wrangling-and-key-programming-concepts.html#cb21-6" aria-hidden="true" tabindex="-1"></a>summer_only_bonus <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_wide,month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>))</span>
+<span id="cb21-7"><a href="data-wrangling-and-key-programming-concepts.html#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="data-wrangling-and-key-programming-concepts.html#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summer_only_bonus,<span class="fu">aes</span>(<span class="at">x=</span>ndmi,<span class="at">y=</span>ndvi,<span class="at">color=</span>site)) <span class="sc">+</span> </span>
+<span id="cb21-9"><a href="data-wrangling-and-key-programming-concepts.html#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb21-10"><a href="data-wrangling-and-key-programming-concepts.html#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>() <span class="sc">+</span> </span>
+<span id="cb21-11"><a href="data-wrangling-and-key-programming-concepts.html#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_few</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&#39;Burned&#39;</span>,<span class="st">&#39;Unburned&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb21-12"><a href="data-wrangling-and-key-programming-concepts.html#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb21-13"><a href="data-wrangling-and-key-programming-concepts.html#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="data-wrangling-and-key-programming-concepts.html#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;NDMI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;NDVI&quot;</span>,</span>
+<span id="cb21-15"><a href="data-wrangling-and-key-programming-concepts.html#cb21-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span><span class="st">&quot;Relationship of normalized difference moisture index (NDMI) to normalized difference vegetation index (NDVI) During Summer Months&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:3-7"></span>
+<img src="_main_files/figure-html/3-7-1.png" alt="Relationship between summertime NDVI and NDMI at the Cheesman Lake area in Colorado" width="672" />
+<p class="caption">
+Figure 3.7: Relationship between summertime NDVI and NDMI at the Cheesman Lake area in Colorado
+</p>
+</div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="data-wrangling-and-key-programming-concepts.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(summer_only_bonus<span class="sc">$</span>ndvi,summer_only_bonus<span class="sc">$</span>ndmi)</span></code></pre></div>
+<pre><code>## [1] 0.6919666</code></pre>
+<p>As we saw in Q1 (<a href="data-wrangling-and-key-programming-concepts.html#fig:3-1">3.1</a>), there is a positive correlation between these tested values. When there is an increase in NDMI, there is a concomitant increase in NDVI.</p>
+<p><code>spread()</code> was replaced by the <strong><code>pivot_wider()</code></strong> function</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="workflow-tools.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functions-and-iterations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-Data-Wrangling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
