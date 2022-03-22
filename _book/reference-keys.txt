@@ -68,3 +68,4 @@ assignmnet-5-lake-water-quality-analysis
 linear-models
 instructor-created-content-5
 assignment-6-weather-and-corn-yield-regressions
+url-your-book-url-like-httpsbookdown.orgyihuibookdown

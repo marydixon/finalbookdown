@@ -1,0 +1,284 @@
+# Data Wrangling and Key Programming Concepts 
+
+The emphasis of week three was data manipulation, starting with spatial data. Matt posted videos on the subject of the effects of the 2002 Hayman Fire at the Chessman Lake area. He showed students how to navigate [Earth Engine Timelapse](https://earthengine.google.com/timelapse/) to look at changes from satellite images that have been recording data since 1984. From there, we navigated to [Climate Engine](https://app.climateengine.com/climateengine), a tool to measure environmental data using satellite imagery. Through this website, we drew polygons to get normalized difference vegetation index (NDVI) data in areas that were burned and unburned.  
+
+The instructors wrote an R script for this week outlining the basics of data munging. The instructor-created content includes downloaded and tidied environmental data (NDVI, NDSI, NDMI). The instructors visualized data through `ggplot()` functions. The `mutate()`, `filter()`, `summarize()`, and `group_by()` functions were some of the tools introduced this week to show how to manipulate and visualize data.  
+
+The packages used this week:   
+
+ - `tidyverse`, a collection of R packages (`dplyr`, `ggplot2`, etc.) designed to wrangle and tidy data  
+ 
+ - `tidyr`, part of tidyverse to organize data so that every column is variable, every row is an observation, and every cell is a single value  
+ 
+ - `ggthemes`, change the appearance of ggplots  
+ 
+ - `lubridate`, part of tidyverse, makes it easier to work with date-time data  
+ 
+ - `readr`, part of tidyverse, reads in rectangular data  
+
+
+## Instructor-Created Content 
+
+
+### Loading Packages {-}
+```{r, include=F, echo=F}
+library(tidyverse)
+library(tidyr)
+library(ggthemes)
+library(lubridate)
+library(readr)
+```
+
+Now that we have learned how to munge (manipulate) data and plot it, we will work on using these skills in new ways {-}
+
+### Reading Files {-}
+```{r dataread, warning=F,message=F}
+####-----Reading in Data and Stacking it ----- ####
+#Reading in files
+files <- list.files('data/',full.names=T)
+files
+#Read in individual data files
+ndmi <- read_csv(files[1]) %>%  
+  rename(burned=2,unburned=3) %>%
+  mutate(data='ndmi')
+
+ndsi <- read_csv(files[2]) %>% 
+  rename(burned=2,unburned=3) %>%
+  mutate(data='ndsi')
+
+ndvi <- read_csv(files[3])%>% 
+  rename(burned=2,unburned=3) %>%
+  mutate(data='ndvi')
+
+# Stack as a tidy dataset
+full_long <- rbind(ndvi,ndmi,ndsi) %>%
+  gather(key='site',value='value',-DateTime,-data) %>%
+  filter(!is.na(value))
+```
+
+## Assignment 2: Hayman Fire Recovery   
+
+### Question 1 {-}
+
+*What is the correlation between NDVI and NDMI? You should exclude winter months and focus on summer months.*
+
+```{r 3-1, fig.cap='Relationship between summertime normalized difference vegetation index (NDVI) and normalized difference moisture index (NDMI) at the Cheesman Lake area in Colorado'}
+full_wide <- spread(data=full_long,key='data',value='value') %>%
+  filter_if(is.numeric,all_vars(!is.na(.))) %>%
+  mutate(month = month(DateTime),
+         year = year(DateTime))
+
+summer_only <- filter(full_wide,month %in% c(6,7,8,9))
+
+ggplot(summer_only,aes(x=ndmi,y=ndvi,color=site)) + 
+  geom_point(shape=1) + 
+  theme_few() + 
+  scale_color_few(labels = c("Burned", "Unburned")) + 
+  theme(legend.position=c(0.8,0.8)) +
+  theme(legend.title = element_blank()) +
+  labs(x = "Normalized Difference Moisture Index (NDMI)", y = "Normalized Difference Vegetation Index (NDVI)",
+       title ="Relationship between summertime NDMI and NDVI") 
+  
+cor(summer_only$ndvi,summer_only$ndmi)
+```
+The graph of NDVI to NDMI (\@ref(fig:3-1)) indicates a positive correlation in which an increase in NDMI corresponds to an increase in NDVI. This conclusion is supported by the calculated correlation coefficient of NDVI to NDMI, R= `r cor(summer_only$ndvi,summer_only$ndmi)`. This strong positive correlation suggests that a rising moisture index corresponds to a rising vegetation index.
+
+### Question 2 {-}
+
+*What is the correlation between average NDSI for January - April and average NDVI for June-August? Does the previous year's snow cover influence vegetation growth for the following summer?*
+
+```{r 3-2, fig.cap='Correlation between average winter (January-April) normalized difference snow index (NDSI) and average summer (June-August) normalized difference vegetation index (NDVI) for the Cheesman Lake area in Colorado', message=FALSE}
+annual_long_ndvi<-filter(full_long,data=="ndvi") %>%
+  mutate(month = month(DateTime),
+         year = year(DateTime)) %>%
+  filter(month %in% c(6,7,8)) %>%
+  group_by(site,year)  %>%
+  summarize(mean_NDVI=mean(value))
+  
+annual_long_ndsi<-filter(full_long,data=="ndsi") %>%
+  mutate(month = month(DateTime),
+         year = year(DateTime)) %>%
+  filter(month %in% c(1,2,3,4)) %>%
+  group_by(site,year)  %>%
+  summarize(mean_NDSI=mean(value))
+
+ndsi_ndvi_annual <- inner_join(annual_long_ndsi,annual_long_ndvi,by=c("year","site"))
+
+ggplot(ndsi_ndvi_annual,aes(x=mean_NDSI,y=mean_NDVI,col=site)) + 
+  geom_point() + 
+  theme_few() + 
+    theme(legend.position=c(0.85,0.3)) +
+  theme(legend.title = element_blank()) +
+  labs(x = "Mean Winter NDSI", y = "Mean Summer NDVI",
+       title ="Previous Year's Snow Index in Relation to Summer Vegetation Growth") +
+  scale_color_few(labels = c("Burned", "Unburned")) 
+
+cor(ndsi_ndvi_annual$mean_NDSI,ndsi_ndvi_annual$mean_NDVI)
+```
+
+Unlike the strong positive correlation we saw in the NDMI x NDVI graph (\@ref(fig:3-1)) and calculated value (R=`r cor(summer_only$ndvi,summer_only$ndmi)`), there is no strong effect for NDSI x NDVI (\@ref(fig:3-2)). The spread of the data in the graph does not indicate a correlated direction. This conclusion is supported by the calculated correlation coefficient, R= `r cor(ndsi_ndvi_annual$mean_NDSI,ndsi_ndvi_annual$mean_NDVI)`. The correlation between these two values is slightly positive, but very weak. From the graph and calculated correlation coefficient, we can conclude that there is no strong relationship between mean winter NDSI and mean summer NDVI. Instead, the relationship is weak, and an increase in mean winter NDSI may correspond to a slight-to-no increase in mean summer NDVI. 
+
+
+### Question 3 {-}
+
+*How is the snow effect from question 2 different between pre- and post-burn and burned and unburned?*  
+
+```{r message=FALSE}
+ndvi_prepost <- filter(full_long,data=="ndvi") %>%
+  mutate(year = year(DateTime),
+         month = month(DateTime),
+         treatment = cut(year,breaks=c(0,2003,2020),
+                         labels=c('pre-burn','post-burn'))) %>%
+  filter(month %in% c(6,7,8)) %>%
+  group_by(year,site,treatment) %>%
+  summarize(mean_ndvi = mean(value))
+
+ndsi_prepost <- filter(full_long,data=="ndsi") %>%
+  mutate(year = year(DateTime),
+         month = month(DateTime),
+         treatment = cut(year,breaks=c(0,2003,2020),
+                         labels=c('pre-burn','post-burn'))) %>%
+  filter(month %in% c(1,2,3,4)) %>%
+  group_by(year,site,treatment) %>%
+  summarize(mean_ndsi = mean(value))
+
+ndsi_ndvi<-inner_join(ndsi_prepost,ndvi_prepost,by=c("treatment","year","site"))
+```
+
+
+```{r 3-3, fig.cap = 'Influence of winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) at the Cheesman Lake area of Colorado before the Hayman fire (blue) and after the Hayman fire (orange).'}
+ndsi_ndvi_mod <- ndsi_ndvi %>%
+  mutate(site = recode(site, 'burned' = 'Burned', 'unburned' = 'Unburned')) %>%
+  mutate(treatment = recode(treatment, 'pre-burn' = 'Pre-Burn', 'post-burn'='Post-Burn'))
+
+ggplot(ndsi_ndvi_mod,aes(x=mean_ndsi,y=mean_ndvi,color=treatment)) +
+  geom_point(shape=1) + 
+  geom_line() +
+  theme_few() + 
+  labs(x = " Winter Normalized Difference Snow Index", y = "Summer Normalized Differrence Vegetation Index", title = "Relationship between winter NDSI on summer NDVI in burned and unburned sites") +
+  theme(plot.title = element_text(size=12)) +
+  theme(legend.title = element_blank()) +
+  scale_color_few(labels = c("Before the Hayman Fire", "After the Hayman Fire")) +
+  theme(legend.position=c(0.8,0.2)) +
+  facet_wrap(~site) 
+```
+
+
+```{r 3-4, fig.cap = 'Influence of winter normalized difference snow index (NDSI) on summer normalized difference vegetation index (NDVI) in the burned sites (blue) and unburned sites (orange) at the Cheesman Lake area of Colorado.'}
+ggplot(ndsi_ndvi_mod,aes(x=mean_ndsi,y=mean_ndvi,color=site)) +
+  geom_point(shape=1) + 
+  geom_line() +
+  theme_few() + 
+  scale_color_few(labels = c('Burned','Unburned')) + 
+  theme(legend.title = element_blank()) +
+  theme(legend.position=c(0.37,0.2)) + 
+  labs(x = "Mean Winter NDSI", y = "Mean Summer NDVI", title = "Relationship between winter NDSI on summer NDVI before and after the Hayman fire") +
+  theme(plot.title = element_text(size=12)) +
+  facet_wrap(~treatment)
+```
+
+We saw a very weak but positive correlation between mean winter NDSI and mean summer NDVI in Q2 (\@ref(fig:3-2)). We can see similar results from graphs illustrating the relationship between the burned/unburned (\@ref(fig:3-3)) and pre/post-burn (\@ref(fig:3-4)) mean winter NDSI and mean summer NDVI.  
+
+The burned sites may have a slight positive correlation, but any correlation if present is very weak. The unburned sites appear to exhibit a slightly negative correlation, but still this correlation is very weak.  
+
+The pre-burned sites do not appear correlated. The visualized data progress horizontally without an indication of either a positive or negative relationship. Similarly, the post-burned site do not have a strong correlation, but may have a slight positive correlation because the data seem to be slightly progressing in a positive direction.    
+
+Ultimately, the correlations are weak between winter NDSI and summer NDVi regardless of site or treatment.None of the graphs showcase strong positive or negative correlations.
+
+
+### Question 4 {-}
+
+*What month is the greenest month on average?* 
+
+```{r 3-5, fig.cap = 'Average NDVI by month for the burned (blue) and unburned (orange) sites.', message=FALSE}
+month_ndvi <- spread(data=full_long,key='data',value='value') %>%
+  filter_if(is.numeric,all_vars(!is.na(.))) %>%
+  mutate(month = month(DateTime),
+         year = year(DateTime)) %>%
+  group_by(site,month)  %>%
+  summarize(mean_NDVI=mean(ndvi)) 
+
+
+ggplot(month_ndvi,aes(x=factor(month),y=mean_NDVI,color=site)) + 
+  geom_point() + 
+  theme_few() + 
+  scale_color_few(labels = c('Burned','Unburned')) + 
+  theme(legend.title = element_blank()) +
+  theme(legend.position=c(0.15,0.8)) +
+  labs(x = "Month", y = "Mean NDVI",
+       title ="Average Normalized Difference Vegetation Index (NDVI) by Month")+
+  scale_x_discrete(labels=c('January','February','March','April','May','June','July','August','September','October','November','December')) +
+  theme(axis.text.x = element_text(angle = 45,hjust=1))
+```
+  
+A high NDVI value corresponds to more greenness because it is a vegetation index. As seen in \@ref(fig:3-5) September has the greatest mean NDVI value for the unburned site, closely followed by August. August had the greatest mean NDVI value for the burned site, closely followed by September.  
+  
+However, the decrease from August to September in the burned site is greater than the increase in greenness from August to September in the burned site. Therefore, August is the greenest month on average. 
+
+### Question 5  {-}
+
+*What month is the snowiest on average?*
+
+```{r 3-6, fig.cap = 'Average NDSI by month for the burned (blue) and unburned (orange) sites.', message=FALSE}
+month_ndsi <- spread(data=full_long,key='data',value='value') %>%
+  filter_if(is.numeric,all_vars(!is.na(.))) %>%
+  mutate(month = month(DateTime),
+         year = year(DateTime)) %>%
+  group_by(site,month)  %>%
+  summarize(mean_NDSI=mean(ndsi))
+
+ggplot(month_ndsi,aes(x=factor(month),y=mean_NDSI,color=site)) + 
+  geom_point() + 
+  theme_few() + 
+  scale_color_few(labels=c('Burned','Unburned')) + 
+  theme(legend.title = element_blank()) +
+  theme(legend.position=c(0.6,0.8)) +
+  labs(x = "Month", y = "Mean NDSI",
+       title ="Average Normalized Difference Snow Index (NDSI) by Month") +
+  scale_x_discrete(labels=c('January','February','March','April','May','June','July','August','September','October','November','December')) +
+  theme(axis.text.x = element_text(angle = 45,hjust=1))
+```
+
+As seen in \@ref(fig:3-6), for the unburned site, February is the snowiest month, closely followed by January. For the burned site, January is the snowiest month, closely followed by February. 
+
+The decrease in NDSI from January to February in the burned site is greater than the increase from January to February in the unburned site, so January is the snowiest month.
+
+### Bonus Question 1  {-}
+
+*Redo all problems with *`spread` *and *`gather` *using modern tidyverse syntax.* 
+
+1) `gather()` was used to stack as a tidy dataset in the first section titled, "Reading files"
+```{r message=FALSE, warning=FALSE}
+# Stack as a tidy dataset **using tidyverse**.
+full_long_bonus <- rbind(ndvi,ndmi,ndsi) %>%
+  pivot_longer(.,
+               cols=c("burned","unburned"),
+               names_to="site",
+               values_to = "value") %>%
+  filter(!is.na(value))
+```
+`gather()` was replaced by the **`pivot_longer()`** function 
+
+2) `spread()` was used to make a full wide dataset in Question 1
+```{r 3-7, fig.cap='Relationship between summertime NDVI and NDMI at the Cheesman Lake area in Colorado', message=FALSE, warning=FALSE}
+full_wide_bonus <- pivot_wider(full_long,names_from = "data",values_from = "value") %>%
+  filter_if(is.numeric,all_vars(!is.na(.))) %>%
+  mutate(month = month(DateTime),
+         year = year(DateTime))
+
+summer_only_bonus <- filter(full_wide,month %in% c(6,7,8,9))
+
+ggplot(summer_only_bonus,aes(x=ndmi,y=ndvi,color=site)) + 
+  geom_point(shape=1) + 
+  theme_few() + 
+  scale_color_few(labels=c('Burned','Unburned')) + 
+  theme(legend.position=c(0.8,0.8)) +
+  theme(legend.title = element_blank()) +
+  labs(x = "Normalized Difference Moisture Index (NDMI)", y = "Normalized Difference Vegetation Index (NDVI)",
+       title ="Relationship between summertime NDMI and NDVI")
+
+cor(summer_only_bonus$ndvi,summer_only_bonus$ndmi)
+```
+  As we saw in Q1 (\@ref(fig:3-1)), there is a positive correlation between these tested values. When there is an increase in NDMI, there is a concomitant increase in NDVI.
+
+`spread()` was replaced by the **`pivot_wider()`** function.
